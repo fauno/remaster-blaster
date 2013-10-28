@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Programas necesarios
+needed="rsync mkisofs mksquashfs"
+
+for need in ${needed}; do
+    if ! which ${need} ; then
+        echo "Se necesita el programa ${need}"
+        exit 1
+    fi
+done
+
+if [ ! -w / ]; then
+    echo "Correr como root"
+    exit 1
+fi
+
+iso="${1}"
+
+if [ -z "${iso}" ]; then 
+    echo "Pasar una ISO como argumento"
+    exit 1
+fi
+
+umount tmp
+mkdir -p tmp filesystem jail iso
+mount -o loop "${iso}" tmp/
+
+mount -o loop tmp/casper/filesystem.squashfs filesystem/ || {
+    echo "No se pudo montar el sistema de archivos squashfs"
+    exit 1
+}
+
+echo "Sincronizando filesystem/ => jail/"
+cp -a filesystem/* jail/
+rsync -av --delete-after --exclude="*.squashfs" tmp/ iso/
+
+umount filesystem tmp
+
+echo "Ahora puede hacer los cambios necesarios en el chroot, cuando salga se creará la ISO"
+
+cp /etc/resolv.conf jail/etc/
+chroot jail mount -t proc none /proc
+chroot jail/
