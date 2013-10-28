@@ -1,0 +1,27 @@
+#!/bin/bash
+umount jail/proc
+rm -v iso/casper/filesystem.squashfs jail/etc/mtab
+
+mksquashfs jail iso/casper/filesystem.squashfs || {
+    echo "No se pudo crear filesystem.squashfs"
+    exit 1
+}
+
+pushd iso
+
+chroot ../jail dpkg-query -W --showformat='${Package} ${Version}\n'a > casper/filesystem.manifest
+cp casper/filesystem.manifest{,-desktop}
+sed -i -e '/ubiquity/d' -e '/casper/d' casper/filesystem.manifest-desktop
+
+md5sum casper/* > md5sum.txt
+
+printf $(du -sx --block-size=1 ../jail | cut -f1) > casper/filesystem.size
+
+mkisofs -D -r -V "GNU Radio" -cache-inodes \
+        -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat \
+        -no-emul-boot -boot-load-size 4 -boot-info-table \
+        -o ../gnu-radio-$(date +%Y.%m.%d).iso .
+
+popd
+
+exit $?
