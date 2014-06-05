@@ -23,7 +23,7 @@ if [ -z "${iso}" ]; then
 fi
 
 umount tmp
-mkdir -p tmp filesystem jail iso
+mkdir -p tmp filesystem jail iso archives
 mount -o loop "${iso}" tmp/
 
 mount -o loop tmp/casper/filesystem.squashfs filesystem/ || {
@@ -32,13 +32,26 @@ mount -o loop tmp/casper/filesystem.squashfs filesystem/ || {
 }
 
 echo "Sincronizando filesystem/ => jail/"
-cp -a filesystem/* jail/
+#cp -a filesystem/* jail/
+rsync -av --delete-after filesystem/ jail/
 rsync -av --delete-after --exclude="*.squashfs" tmp/ iso/
+rsync -av archives/ jail/var/cache/apt/archives/
 
 umount filesystem tmp
 
 echo "Ahora puede hacer los cambios necesarios en el chroot, cuando salga se creará la ISO"
 
-cp /etc/resolv.conf jail/etc/
-chroot jail mount -t proc none /proc
-chroot jail/
+cp -fv /etc/resolv.conf jail/etc/
+
+cp -fv ${2} jail/tmp/
+
+if which systemd-nspawn ; then
+  systemd-nspawn -D jail /tmp/${2##*/}
+else
+  mount -t proc none jail/proc
+  mount -t sysfs none jail/sys
+  mount --bind /dev jail/dev
+  chroot jail/ /tmp/${2##*/}
+fi
+
+rsync -av jail/var/cache/apt/archives/ archives/

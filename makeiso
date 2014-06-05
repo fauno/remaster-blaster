@@ -1,6 +1,10 @@
 #!/bin/bash
 umount jail/proc
 rm -v iso/casper/filesystem.squashfs jail/etc/mtab
+rm -v jail/var/cache/apt/archives/*.deb
+rm -rv jail/tmp/*
+cp -vf splash.png iso/isolinux/
+cp -vf isolinux.cfg iso/isolinux/
 
 mksquashfs jail iso/casper/filesystem.squashfs || {
     echo "No se pudo crear filesystem.squashfs"
@@ -17,10 +21,10 @@ md5sum casper/* > md5sum.txt
 
 printf $(du -sx --block-size=1 ../jail | cut -f1) > casper/filesystem.size
 
-mkisofs -D -r -V "GNU Radio" -cache-inodes \
+mkisofs -D -r -V "$1" -cache-inodes \
         -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat \
         -no-emul-boot -boot-load-size 4 -boot-info-table \
-        -o ../gnu-radio-$(date +%Y.%m.%d).iso .
+        -o ../"${1// /-}"-$(date +%Y.%m.%d).iso .
 
 popd
 

@@ -1,0 +1,263 @@
+#!/bin/bash
+set -e
+
+distro=saucy
+
+# cosas que no necesitamos
+purge=(
+  mint-flashplugin mint-flashplugin-11
+  mono-runtime catfish evolution-data-server-goa
+  language-pack-en language-pack-en-base language-pack-gnome-en
+  language-pack-gnome-en-base firefox-locale-en
+  xchat thunderbird seahorse ristretto
+  unrar metacity
+
+  fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao
+  fonts-lklug-sinhala fonts-nanum fonts-sil-abyssinica fonts-sil-padauk
+  fonts-takao-pgothic fonts-thai-tlwg fonts-tibetan-machine
+  fonts-tlwg-garuda fonts-tlwg-kinnari fonts-tlwg-loma fonts-tlwg-mono
+  fonts-tlwg-norasi fonts-tlwg-purisa fonts-tlwg-sawasdee
+  fonts-tlwg-typewriter fonts-tlwg-typist fonts-tlwg-typo
+  fonts-tlwg-umpush fonts-tlwg-waree
+
+)
+
+# cosas que necesitamos
+packages=(
+  build-essential pandoc
+  ca-certificates
+  deb.torproject.org-keyring tor vidalia
+  pidgin-otr
+  claws-mail claws-mail-themes
+  fish xsel
+  git rsync
+  idjc qjackctl
+  language-pack-es language-pack-es-base language-pack-gnome-es
+  language-pack-gnome-es-base firefox-locale-es
+  kde-l10n-es gimp-help-es 
+  openoffice.org-hyphenation
+  myspell-es wspanish libreoffice-help-es libreoffice-l10n-es
+  kgpg haveged
+  remmina
+  tinc zim
+)
+
+# plugins para firefox
+morcilla=(
+  https://www.eff.org/files/https-everywhere-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/394968/platform:2/addon-394968-latest.xpi
+)
+
+export http_proxy=http://localhost:8123
+apt-get install --yes gnupg2 git
+
+echo "pasando el sistema a castellano"
+echo "LANG=es_AR.UTF-8" >/etc/default/locale
+echo "LANGUAGE=es_AR:es" >>/etc/default/locale
+cat >/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="keyboard-layout" version="1.0">
+  <property name="Default" type="empty">
+    <property name="XkbDisable" type="bool" value="false"/>
+    <property name="XkbLayout" type="string" value="latam"/>
+    <property name="XkbModel" type="string" value="pc105"/>
+  </property>
+</channel>
+EOF
+
+echo "instalando duraskel"
+pushd /tmp
+test -d /tmp/duraskel/.git || git clone https://github.com/fauno/duraskel -b hackmenta
+pushd /tmp/duraskel
+make install
+rsync -av src/ /root/
+popd
+
+echo "configurando repositorios tor"
+# https://www.torproject.org/docs/debian.html.en
+echo "deb     http://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
+http_proxy= gpg2 --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89
+gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+
+
+echo "sacando porquerías e instalando paquetes"
+apt-get update
+apt-get purge --yes ${purge[@]}
+apt-get install --yes ${packages[@]}
+
+# esto es un bardo sólo porque debian sacó cacert.org de ca-certificates
+echo "instalando cacert.org"
+# ver cacert-dot-org en parabola
+wget http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
+sha1_ok="SHA1 Fingerprint=13:5C:EC:36:F4:9C:B8:E9:3B:1A:B2:70:CD:80:88:46:76:CE:8F:33"
+sha1_test="$(openssl x509 -noout -fingerprint -in root.crt)"
+
+test "${sha1_ok}" == "${sha1_test}"
+install -Dm644 root.crt /usr/share/ca-certificates/cacert.org/cacert.org_root.crt
+
+cert_ok="class3.crt: OK"
+cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
+
+test "${cert_ok}" == "${cert_test}"
+install -Dm644 class3.crt /usr/share/ca-certificates/cacert.org/cacert.org_class3.crt
+
+sed '/^!cacert\.org/d' -i /etc/ca-certificates.conf
+echo "cacert.org/cacert.org_root.crt" >> /etc/ca-certificates.conf
+echo "cacert.org/cacert.org_class3.crt" >> /etc/ca-certificates.conf
+
+update-ca-certificates --fresh
+
+echo "instalando librevpn"
+pushd /tmp
+test -d /tmp/librevpn/.git || git clone https://github.com/fauno/librevpn
+pushd /tmp/librevpn
+make install PREFIX=/usr
+
+echo "instalando plugins de firefox"
+pushd /usr/lib/firefox-addons/extensions
+wget -c ${morcilla[@]}
+popd
+
+cat >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js <<EOF
+//
+user_pref("extensions.update.enabled", true);
+
+// Use LANG environment variable to choose locale
+user_pref("intl.locale.matchOS", true);
+
+// Disable default browser checking.
+user_pref("browser.shell.checkDefaultBrowser", false);
+
+// Prevent EULA dialog to popup on first run
+user_pref("browser.EULA.override", true);
+
+// Set the UserAgent
+user_pref("general.useragent.vendor", "HackMenta");
+user_pref("general.useragent.vendorSub", "16");
+user_pref("general.useragent.vendorComment", "Petra");
+
+// Default search engine
+user_pref("browser.search.order.1", "DuckDuckGo");
+user_pref("browser.search.order.2", "Ixquick");
+user_pref("browser.search.order.3", "Startpage");
+user_pref("browser.search.selectedEngine", "DuckDuckGo");
+user_pref("browser.search.searchEnginesURL", "http://www.linuxmint.com/searchengines/");
+user_pref("keyword.URL", "https://duckduckgo.com/?t=lm&q=");
+
+// Activate the backspace key for browsing back
+user_pref("browser.backspace_action", 0);
+
+// enable ipv6
+user_pref("network.dns.disableIPv6", false);
+
+// Ignore Mozilla release notes startup pages
+user_pref("browser.startup.homepage_override.mstone", "ignore");
+
+// Homepage
+user_pref("browser.startup.homepage", "http://wiki.hackcoop.com.ar/");
+
+// Save tabs before exiting
+user_pref("browser.showQuitWarning", true);
+
+// apturl
+user_pref("network.protocol-handler.app.apt",  "/usr/bin/apturl");
+user_pref("network.protocol-handler.app.apt+http",  "/usr/bin/apturl");
+user_pref("network.protocol-handler.warn-external.apt", true);
+user_pref("network.protocol-handler.warn-external.apt+http", true);
+
+// identify default locale to use if no /usr/lib/firefox-addons/searchplugins/LOCALE
+// exists for the current used LOCALE
+user_pref("distribution.searchplugins.defaultLocale", "es-AR");
+
+// Enable the NetworkManager integration
+//user_pref("network.manage-offline-status", true);
+
+// Don't disable our bundled extensions in the application directory
+user_pref("extensions.autoDisableScopes", 0);
+user_pref("extensions.shownSelectionUI", true);
+
+// Map to hyphenation patterns from openoffice.org-hyphenation and openoffice.org-dictionaries
+user_pref("intl.hyphenation-alias.af", "af-za");
+user_pref("intl.hyphenation-alias.af-*", "af-za");
+user_pref("intl.hyphenation-alias.bn", "bn-in");
+user_pref("intl.hyphenation-alias.bn-*", "bn-in");
+user_pref("intl.hyphenation-alias.ca-*", "ca");
+user_pref("intl.hyphenation-alias.cs", "cs-cz");
+user_pref("intl.hyphenation-alias.cs-*", "cs-cz");
+user_pref("intl.hyphenation-alias.da", "da-dk");
+user_pref("intl.hyphenation-alias.da-*", "da-dk");
+user_pref("intl.hyphenation-alias.de", "de-de");
+user_pref("intl.hyphenation-alias.de-*", "de-de");
+user_pref("intl.hyphenation-alias.de-AT-1901", "de-de");
+user_pref("intl.hyphenation-alias.de-CH-*", "de-de");
+user_pref("intl.hyphenation-alias.de-DE-1901", "de-de");
+user_pref("intl.hyphenation-alias.el", "el-gr");
+user_pref("intl.hyphenation-alias.el-*", "el-gr");
+user_pref("intl.hyphenation-alias.en", "en-us");
+user_pref("intl.hyphenation-alias.en-*", "en-us");
+user_pref("intl.hyphenation-alias.es", "es-es");
+user_pref("intl.hyphenation-alias.es-*", "es-es");
+user_pref("intl.hyphenation-alias.et", "et-ee");
+user_pref("intl.hyphenation-alias.et-*", "et-ee");
+user_pref("intl.hyphenation-alias.fi", "fi-fi");
+user_pref("intl.hyphenation-alias.fi-*", "fi-fi");
+user_pref("intl.hyphenation-alias.fr-*", "fr");
+user_pref("intl.hyphenation-alias.ga", "ga-ie");
+user_pref("intl.hyphenation-alias.ga-*", "ga-ie");
+user_pref("intl.hyphenation-alias.gu", "gu-in");
+user_pref("intl.hyphenation-alias.gu-*", "gu-in");
+user_pref("intl.hyphenation-alias.hi", "hi-in");
+user_pref("intl-hyphenation-alias.hi-in", "hi-in");
+user_pref("intl.hyphenation-alias.hr", "hr-hr");
+user_pref("intl.hyphenation-alias.hr-*", "hr-hr");
+user_pref("intl.hyphenation-alias.hu", "hu-hu");
+user_pref("intl.hyphenation-alias.hu-*", "hu-hu");
+user_pref("intl.hyphenation-alias.id", "id-id");
+user_pref("intl-hyphenation-alias.id-*", "id-id");
+user_pref("intl.hyphenation-alias.is", "is-is");
+user_pref("intl.hyphenation-alias.is-*", "is-is");
+user_pref("intl.hyphenation-alias.it", "it-it");
+user_pref("intl.hyphenation-alias.it-*", "it-it");
+user_pref("intl.hyphenation-alias.kn", "kn-in");
+user_pref("intl.hyphenation-alias.kn-*", "kn-in");
+user_pref("intl.hyphenation-alias.lt", "lt-lt");
+user_pref("intl.hyphenation-alias.lt-*", "lt-lt");
+user_pref("intl.hyphenation-alias.lv", "lv-lv");
+user_pref("intl.hyphenation-alias.lv-*", "lv-lv");
+user_pref("intl.hyphenation-alias.nb", "nb-no");
+user_pref("intl.hyphenation-alias.nb-*", "nb-no");
+user_pref("intl.hyphenation-alias.nl", "nl-nl");
+user_pref("intl.hyphenation-alias.nl-*", "nl-nl");
+user_pref("intl.hyphenation-alias.nn", "nn-no");
+user_pref("intl.hyphenation-alias.nn-*", "nn-no");
+user_pref("intl.hyphenation-alias.pa", "pa-in");
+user_pref("intl.hyphenation-alias.pa-*", "pa-in");
+user_pref("intl.hyphenation-alias.pl", "pl-pl");
+user_pref("intl.hyphenation-alias.pl-*", "pl-pl");
+user_pref("intl.hyphenation-alias.pt", "pt-pt");
+user_pref("intl.hyphenation-alias.pt-*", "pt-pt");
+user_pref("intl.hyphenation-alias.ro", "ro-ro");
+user_pref("intl.hyphenation-alias.ro-*", "ro-ro");
+user_pref("intl.hyphenation-alias.ru", "ru-ru");
+user_pref("intl.hyphenation-alias.ru-*", "ru-ru");
+user_pref("intl.hyphenation-alias.sh-*", "sh");
+user_pref("intl.hyphenation-alias.sk", "sk-sk");
+user_pref("intl.hyphenation-alias.sk-*", "sk-sk");
+user_pref("intl.hyphenation-alias.sl", "sl-si");
+user_pref("intl.hyphenation-alias.sl-*", "sl-si");
+user_pref("intl.hyphenation-alias.sr-*", "sr");
+user_pref("intl.hyphenation-alias.sv", "sv-se");
+user_pref("intl.hyphenation-alias.sv-*", "sv-se");
+user_pref("intl.hyphenation-alias.uk", "uk-ua");
+user_pref("intl.hyphenation-alias.uk-*", "uk-ua");
+user_pref("intl.hyphenation-alias.zu", "zu-za");
+user_pref("intl.hyphenation-alias.zu-*", "zu-za");
+EOF
+
+
+echo "seteando shell por defecto"
+sed "s,/usr,," -i /etc/shells
+sed "s/^DSHELL=.*/DSHELL=\/bin\/fish/" -i /etc/adduser.conf
+ln -sv /usr/bin/fish /bin/

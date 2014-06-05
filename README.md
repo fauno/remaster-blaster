@@ -5,15 +5,19 @@ Remasteriza todas las ISO que usen casper.
 ## Historia
 
 Estos scripts fueron escritos durante la remasterización de Trisquel en
-Juan Carlos Radio.
+Juan Carlos Radio y mejorados para HackMenta.
 
 ## Uso
 
 Preparar la ISO para remasterizar
 
-  remaster trisquel.iso
+  remaster trisquel.iso script-de-cambios
 
-Esto nos deja en una chroot donde podemos trabajar.  Cuando terminamos,
-remasterizamos:
+Cuando terminamos, remasterizamos:
 
-  makeiso
+  makeiso "Juan Carlos Radio"
+
+## HackMenta
+
+  remaster mint.iso makementa
+  makeiso "Hack Menta"
