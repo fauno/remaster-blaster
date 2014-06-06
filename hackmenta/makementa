@@ -50,6 +50,7 @@ packages=(
   qrencode
   imagemagick
   libnotify-bin
+  mumble
 )
 
 # plugins para firefox
