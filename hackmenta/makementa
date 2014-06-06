@@ -40,15 +40,34 @@ packages=(
   kgpg haveged
   remmina
   tinc zim
+  mini-httpd 
+  tor torsocks 
+  prosody 
+  nanoblogger 
+  rawdog 
+  tidy
+  markdown
+  python2-feedparser
+  qrencode
+  imagemagick
+  libnotify-bin
 )
 
 # plugins para firefox
+#  HTTPS everywhere
+#  Perspective
+#  Adblock
+#  Flash Video Downloader
+#  Brief
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
-  https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpti
   https://addons.mozilla.org/firefox/downloads/latest/394968/platform:2/addon-394968-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/6584/platform:2/addon-6584-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
 )
 
+# Si no tenes polipo aclara esta linea
 export http_proxy=http://localhost:8123
 apt-get install --yes gnupg2 git
 
