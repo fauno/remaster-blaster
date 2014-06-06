@@ -26,7 +26,7 @@ purge=(
 packages=(
   build-essential pandoc
   ca-certificates
-  deb.torproject.org-keyring tor vidalia
+  deb.torproject.org-keyring tor vidalia torsocks
   pidgin-otr
   claws-mail claws-mail-themes
   fish xsel
@@ -41,7 +41,6 @@ packages=(
   remmina
   tinc zim
   mini-httpd 
-  tor torsocks 
   prosody 
   nanoblogger 
   rawdog 
