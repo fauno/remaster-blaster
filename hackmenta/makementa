@@ -9,7 +9,7 @@ purge=(
   mono-runtime catfish evolution-data-server-goa
   language-pack-en language-pack-en-base language-pack-gnome-en
   language-pack-gnome-en-base firefox-locale-en
-  xchat thunderbird seahorse ristretto
+  xchat seahorse ristretto
   unrar metacity
 
   fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao
@@ -28,7 +28,7 @@ packages=(
   ca-certificates
   deb.torproject.org-keyring tor vidalia torsocks
   pidgin-otr
-  claws-mail claws-mail-themes
+  thunderbird-locale-es-es enigmail
   fish xsel
   git rsync
   idjc qjackctl
