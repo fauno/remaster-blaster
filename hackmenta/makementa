@@ -26,7 +26,7 @@ purge=(
 packages=(
   build-essential pandoc
   ca-certificates
-  deb.torproject.org-keyring tor vidalia torsocks
+  deb.torproject.org-keyring tor torsocks
   pidgin-otr
   sylpheed
   thunderbird-locale-es-es enigmail xul-ext-lightning
