@@ -28,7 +28,8 @@ packages=(
   ca-certificates
   deb.torproject.org-keyring tor vidalia torsocks
   pidgin-otr
-  thunderbird-locale-es-es enigmail
+  sylpheed
+  thunderbird-locale-es-es enigmail xul-ext-lightning
   fish xsel
   git rsync
   idjc qjackctl
@@ -65,6 +66,18 @@ morcilla=(
   https://addons.mozilla.org/firefox/downloads/latest/394968/platform:2/addon-394968-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/6584/platform:2/addon-6584-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
+)
+
+# plugins para thunderbird
+# paranoia - https://addons.mozilla.org/en-US/thunderbird/addon/paranoia/
+# conversations - https://addons.mozilla.org/en-US/thunderbird/addon/gmail-conversation-view/
+# display quota - https://addons.mozilla.org/en-US/thunderbird/addon/display-quota/
+# lovebird - https://addons.mozilla.org/en-US/thunderbird/addon/lovebird/
+morcilla_tb=(
+  https://addons.mozilla.org/thunderbird/downloads/latest/451482/addon-451482-latest.xpi
+  https://addons.mozilla.org/thunderbird/downloads/latest/54035/addon-54035-latest.xpi
+  https://addons.mozilla.org/thunderbird/downloads/latest/881/addon-881-latest.xpi
+  https://addons.mozilla.org/thunderbird/downloads/file/194876/lovebird-1.0b1-tb.xpi
 )
 
 # Si no tenes polipo aclara esta linea
@@ -133,6 +146,11 @@ pushd /tmp
 test -d /tmp/librevpn/.git || git clone https://github.com/fauno/librevpn
 pushd /tmp/librevpn
 make install PREFIX=/usr
+
+echo "instalando plugins de thunderbird"
+pushd /usr/lib/thunderbird-addons/extensions/
+wget -c ${morcilla_tb[@]}
+popd
 
 echo "instalando plugins de firefox"
 pushd /usr/lib/firefox-addons/extensions
