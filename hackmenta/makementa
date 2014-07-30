@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-distro=saucy
+distro=trusty
 
 # cosas que no necesitamos
 purge=(
-  mint-flashplugin mint-flashplugin-11
+  adobe-flashplugin
   mono-runtime catfish evolution-data-server-goa
   language-pack-en language-pack-en-base language-pack-gnome-en
   language-pack-gnome-en-base firefox-locale-en
@@ -47,7 +47,7 @@ packages=(
   rawdog 
   tidy
   markdown
-  python2-feedparser
+  python-feedparser
   qrencode
   imagemagick
   libnotify-bin
@@ -110,7 +110,11 @@ popd
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
 echo "deb     http://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
-http_proxy= gpg2 --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89
+
+# a veces hay errores temporales en la obtencion de llaves
+while ! http_proxy= gpg2 --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89; do
+  echo "falló obtener clave de tor, reintentando"
+done
 gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 
 
