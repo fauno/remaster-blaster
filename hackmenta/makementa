@@ -175,9 +175,9 @@ popd
 echo "instalando plugins de mozilla"
 for i in /usr/lib/{thunderbird,firefox}-addons/extensions/*.xpi; do
   id="$(get_extension_id "$i")"
-  mkdir "$id"
-  pushd "$id"
-  unzip "../$i"
+  mkdir "${i%/*}/$id"
+  pushd "${i%/*}/$id"
+  unzip "$i"
   popd
 done
 
