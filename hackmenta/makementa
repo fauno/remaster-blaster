@@ -20,7 +20,8 @@ purge=(
   fonts-tlwg-garuda fonts-tlwg-kinnari fonts-tlwg-loma fonts-tlwg-mono
   fonts-tlwg-norasi fonts-tlwg-purisa fonts-tlwg-sawasdee
   fonts-tlwg-typewriter fonts-tlwg-typist fonts-tlwg-typo
-  fonts-tlwg-umpush fonts-tlwg-waree
+  fonts-tlwg-umpush fonts-tlwg-waree ttf-punjabi-fonts
+  ttf-indic-fonts-core
 
 )
 
@@ -37,7 +38,7 @@ packages=(
   idjc qjackctl
   language-pack-es language-pack-es-base language-pack-gnome-es
   language-pack-gnome-es-base firefox-locale-es
-  kde-l10n-es gimp-help-es 
+  kde-l10n-es gimp-help-es aspell-es
   openoffice.org-hyphenation
   myspell-es wspanish libreoffice-help-es libreoffice-l10n-es
   kgpg haveged
@@ -54,7 +55,7 @@ packages=(
   imagemagick
   libnotify-bin
   mumble
-  xmlstarlet
+  xmlstarlet firefox
 )
 
 # plugins para firefox
@@ -133,7 +134,6 @@ echo "sacando porquerías e instalando paquetes"
 apt-get update
 apt-get purge --yes ${purge[@]}
 apt-get install --yes ${packages[@]}
-apt-get upgrade --yes
 
 # esto es un bardo sólo porque debian sacó cacert.org de ca-certificates
 echo "instalando cacert.org"
