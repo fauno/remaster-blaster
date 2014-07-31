@@ -52,6 +52,7 @@ packages=(
   imagemagick
   libnotify-bin
   mumble
+  xmlstarlet
 )
 
 # plugins para firefox
@@ -79,6 +80,16 @@ morcilla_tb=(
   https://addons.mozilla.org/thunderbird/downloads/latest/881/addon-881-latest.xpi
   https://addons.mozilla.org/thunderbird/downloads/file/194876/lovebird-1.0b1-tb.xpi
 )
+
+# Retrieve the extension id for an addon from its install.rdf
+# http://kb.mozillazine.org/Determine_extension_ID
+get_extension_id() {
+  unzip -qc $1 install.rdf | xmlstarlet sel \
+        -N rdf=http://www.w3.org/1999/02/22-rdf-syntax-ns# \
+        -N em=http://www.mozilla.org/2004/em-rdf# \
+        -t -v \
+        "//rdf:Description[@about='urn:mozilla:install-manifest']/em:id"
+}
 
 # Si no tenes polipo aclara esta linea
 export http_proxy=http://localhost:8123
@@ -151,15 +162,24 @@ test -d /tmp/librevpn/.git || git clone https://github.com/fauno/librevpn
 pushd /tmp/librevpn
 make install PREFIX=/usr
 
-echo "instalando plugins de thunderbird"
+echo "descargando plugins de thunderbird"
 pushd /usr/lib/thunderbird-addons/extensions/
 wget -c ${morcilla_tb[@]}
 popd
 
-echo "instalando plugins de firefox"
+echo "descargando plugins de firefox"
 pushd /usr/lib/firefox-addons/extensions
 wget -c ${morcilla[@]}
 popd
+
+echo "instalando plugins de mozilla"
+for i in /usr/lib/{thunderbird,firefox}-addons/extensions/*.xpi; do
+  id="$(get_extension_id "$i")"
+  mkdir "$id"
+  pushd "$id"
+  unzip "../$i"
+  popd
+done
 
 cat >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js <<EOF
 //
