@@ -91,7 +91,8 @@ get_extension_id() {
         -N rdf=http://www.w3.org/1999/02/22-rdf-syntax-ns# \
         -N em=http://www.mozilla.org/2004/em-rdf# \
         -t -v \
-        "//rdf:Description[@about='urn:mozilla:install-manifest']/em:id"
+        "//rdf:Description[@about='urn:mozilla:install-manifest']/em:id" ||
+        echo
 }
 
 apt-get install --yes gnupg2 git
@@ -176,6 +177,8 @@ popd
 echo "instalando plugins de mozilla"
 for i in /usr/lib/{thunderbird,firefox}-addons/extensions/*.xpi; do
   id="$(get_extension_id "$i")"
+
+  test -z "$id" && continue
   mkdir "${i%/*}/$id"
   pushd "${i%/*}/$id"
   unzip "$i"
