@@ -170,12 +170,12 @@ wget -c ${morcilla_tb[@]}
 popd
 
 echo "descargando plugins de firefox"
-pushd /usr/lib/firefox-addons/extensions
+pushd /usr/lib/firefox-addons/distribution/extensions/
 wget -c ${morcilla[@]}
 popd
 
 echo "instalando plugins de mozilla"
-for i in /usr/lib/{thunderbird,firefox}-addons/extensions/*.xpi; do
+for i in /usr/lib/{thunderbird-addons,firefox-addons/distribution}/extensions/*.xpi; do
   id="$(get_extension_id "$i")"
 
   test -z "$id" && continue
@@ -184,6 +184,14 @@ for i in /usr/lib/{thunderbird,firefox}-addons/extensions/*.xpi; do
   unzip "$i"
   popd
 done
+
+find /usr/lib/thunderbird-addons/extensions/ \
+     /usr/lib/firefox-addons/distribution/extensions/ \
+     -type d -exec chmod 755 {} \;
+
+find /usr/lib/thunderbird-addons/extensions/ \
+     /usr/lib/firefox-addons/distribution/extensions/ \
+     -type f -exec chmod 644 {} \;
 
 cat >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js <<EOF
 //
@@ -200,8 +208,8 @@ user_pref("browser.EULA.override", true);
 
 // Set the UserAgent
 user_pref("general.useragent.vendor", "HackMenta");
-user_pref("general.useragent.vendorSub", "16");
-user_pref("general.useragent.vendorComment", "Petra");
+user_pref("general.useragent.vendorSub", "17");
+user_pref("general.useragent.vendorComment", "Qiana");
 
 // Default search engine
 user_pref("browser.search.order.1", "DuckDuckGo");
