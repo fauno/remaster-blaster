@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+# Si no tenes polipo aclara esta linea
+export http_proxy=http://localhost:8123
 distro=trusty
 
 # cosas que no necesitamos
@@ -91,8 +93,6 @@ get_extension_id() {
         "//rdf:Description[@about='urn:mozilla:install-manifest']/em:id"
 }
 
-# Si no tenes polipo aclara esta linea
-export http_proxy=http://localhost:8123
 apt-get install --yes gnupg2 git
 
 echo "pasando el sistema a castellano"
@@ -133,6 +133,7 @@ echo "sacando porquerías e instalando paquetes"
 apt-get update
 apt-get purge --yes ${purge[@]}
 apt-get install --yes ${packages[@]}
+apt-get upgrade --yes
 
 # esto es un bardo sólo porque debian sacó cacert.org de ca-certificates
 echo "instalando cacert.org"
