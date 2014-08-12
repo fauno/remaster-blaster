@@ -50,7 +50,7 @@ packages=(
   qrencode
   imagemagick
   libnotify-bin
-  
+  cryptkeeper
   localepurge
   parcellite
 )
