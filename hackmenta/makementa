@@ -50,6 +50,9 @@ packages=(
   qrencode
   imagemagick
   libnotify-bin
+  
+  localepurge
+  parcellite
 )
 
 # plugins para firefox
