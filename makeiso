@@ -21,10 +21,10 @@ md5sum casper/* > md5sum.txt
 
 printf $(du -sx --block-size=1 ../jail | cut -f1) > casper/filesystem.size
 
-mkisofs -D -r -V "$1" -cache-inodes \
-        -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat \
-        -no-emul-boot -boot-load-size 4 -boot-info-table \
-        -o ../"${1// /-}"-$(date +%Y.%m.%d).iso .
+genisofs -D -r -V "$1" -cache-inodes \
+         -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat \
+         -no-emul-boot -boot-load-size 4 -boot-info-table \
+         -o ../"${1// /-}"-$(date +%Y.%m.%d).iso .
 
 popd
 
