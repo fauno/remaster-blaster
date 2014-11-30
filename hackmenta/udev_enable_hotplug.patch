@@ -1,0 +1,14 @@
+--- /etc/init.d/udev	2014-11-20 14:46:03.762611178 -0300
++++ /etc/init.d/udev.orig	2014-11-20 14:45:50.469168058 -0300
+@@ -122,6 +122,11 @@
+   log_end_msg 1
+ fi
+ 
++if [ ! -e /sys/kernel/uevent_helper ]; then
++  log_failure_msg "udev requires hotplug support, not started"
++  log_end_msg 1
++fi
++
+ if ! ps --no-headers --format args ax | egrep -q '^\['; then
+   log_warning_msg "udev does not support containers, not started"
+   exit 0

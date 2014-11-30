@@ -2,7 +2,7 @@
 set -e
 
 # Si no tenes polipo aclara esta linea
-export http_proxy=http://localhost:8123
+#export http_proxy=http://localhost:8123
 distro=trusty
 
 # cosas que no necesitamos
@@ -11,7 +11,7 @@ purge=(
   mono-runtime catfish evolution-data-server-goa
   language-pack-en language-pack-en-base language-pack-gnome-en
   language-pack-gnome-en-base firefox-locale-en
-  xchat seahorse ristretto
+  xchat seahorse ristretto hexchat
   unrar metacity
 
   fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao
@@ -35,13 +35,12 @@ packages=(
   thunderbird-locale-es-es enigmail xul-ext-lightning
   fish xsel
   git rsync
-  idjc qjackctl
   language-pack-es language-pack-es-base language-pack-gnome-es
   language-pack-gnome-es-base firefox-locale-es
   kde-l10n-es gimp-help-es aspell-es
   openoffice.org-hyphenation
   myspell-es wspanish libreoffice-help-es libreoffice-l10n-es
-  kgpg haveged
+  gpa signing-party haveged
   remmina
   tinc zim
   mini-httpd 
@@ -56,6 +55,8 @@ packages=(
   libnotify-bin
   mumble
   xmlstarlet firefox
+  scantailor djvulibre-bin imagemagick ocrodjvu minidjvu
+  idjc
 )
 
 # plugins para firefox
@@ -64,6 +65,7 @@ packages=(
 #  Adblock
 #  Flash Video Downloader
 #  Brief
+#  Privacy Badger
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
@@ -71,6 +73,7 @@ morcilla=(
   https://addons.mozilla.org/firefox/downloads/latest/6584/platform:2/addon-6584-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
   https://raw.githubusercontent.com/b4zz4/loic/master/release/loic.firefox.xpi
+  https://s.eff.org/files/privacy-badger-latest.xpi
 )
 
 # plugins para thunderbird
@@ -96,7 +99,15 @@ get_extension_id() {
         echo
 }
 
-apt-get install --yes gnupg2 git
+# no parar a preguntarnos cosas
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get install --yes gnupg2 git localepurge
+sed "/NEEDSCONFIGFIRST/d" -i /etc/locale.nopurge
+for l in es es_AR es_AR.UTF-8 en ; do
+  grep -qw "^${l}$" /etc/locale.nopurge||
+    echo "${l}" >>/etc/locale.nopurge
+done
 
 echo "pasando el sistema a castellano"
 echo "LANG=es_AR.UTF-8" >/etc/default/locale
@@ -135,6 +146,16 @@ gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 echo "sacando porquerías e instalando paquetes"
 apt-get update
 apt-get purge --yes ${purge[@]}
+# http://askubuntu.com/a/520941
+touch /var/run/utmp
+# propio :P
+patch /etc/init.d/udev /tmp/udev_disable_hotplug.patch
+# https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1325142/comments/9
+echo "libpam-systemd hold"|dpkg --set-selections
+apt-get upgrade --yes
+apt-get autoremove --yes
+patch /etc/init.d/udev /tmp/udev_enable_hotplug.patch
+echo "libpam-systemd install"|dpkg --set-selections
 apt-get install --yes ${packages[@]}
 
 # esto es un bardo sólo porque debian sacó cacert.org de ca-certificates
@@ -180,7 +201,7 @@ for i in /usr/lib/{thunderbird-addons,firefox-addons/distribution}/extensions/*.
   id="$(get_extension_id "$i")"
 
   test -z "$id" && continue
-  mkdir "${i%/*}/$id"
+  mkdir "${i%/*}/$id" || continue
   pushd "${i%/*}/$id"
   unzip "$i"
   popd
@@ -195,6 +216,8 @@ find /usr/lib/thunderbird-addons/extensions/ \
      -type f -exec chmod 644 {} \;
 
 cat >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js <<EOF
+// Deshabilitar pedirle permiso a Google para ver un sitio
+user_pref("browser.safebrowsing.enabled", false);
 //
 user_pref("extensions.update.enabled", true);
 
@@ -335,3 +358,22 @@ echo "seteando shell por defecto"
 sed "s,/usr,," -i /etc/shells
 sed "s/^DSHELL=.*/DSHELL=\/bin\/fish/" -i /etc/adduser.conf
 ln -sv /usr/bin/fish /bin/
+
+echo "instalando syncthing"
+add-apt-repository --yes ppa:ytvwld/syncthing
+add-apt-repository --yes ppa:nilarimogard/webupd8
+apt-get update --yes
+apt-get install --yes syncthing syncthing-gtk
+
+echo "instalando dl.git"
+pushd /etc/skel/
+git clone http://repo.hackcoop.com.ar/dl.git
+mkdir -p .config/fish
+echo 'PATH=~/dl:$PATH' >>.bashrc
+echo 'set PATH $PATH ~/dl' >>.config/fish/config.fish
+
+echo "instalando tor browser bundle"
+# TODO esta en inglés
+add-apt-repository --yes ppa:webupd8team/tor-browser
+apt-get update --yes
+apt-get install --yes tor-browser
