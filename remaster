@@ -35,7 +35,8 @@ echo "Sincronizando filesystem/ => jail/"
 #cp -a filesystem/* jail/
 rsync -avHAX --delete-after --progress --human-readable filesystem/ jail/
 rsync -avHAX --delete-after --progress --human-readable --exclude="*.squashfs" tmp/ iso/
-rsync -avHAX --progress --human-readable archives/ jail/var/cache/apt/archives/
+
+mount --bind archives jail/var/cache/apt/archives/
 
 umount filesystem tmp
 
@@ -59,5 +60,5 @@ else
   chroot jail/ /tmp/${1##*/}
 fi
 
-rsync -av jail/var/cache/apt/archives/ archives/
+umount jail/var/cache/apt/archives/
 rm -fv jail/usr/sbin/policy-rc.d
