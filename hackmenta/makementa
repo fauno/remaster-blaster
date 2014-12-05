@@ -10,7 +10,7 @@ purge=(
   language-pack-en language-pack-en-base language-pack-gnome-en
   language-pack-gnome-en-base firefox-locale-en
   xchat thunderbird seahorse ristretto
-  unrar metacity
+  unrar metacity totem
 
   fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao
   fonts-lklug-sinhala fonts-nanum fonts-sil-abyssinica fonts-sil-padauk
