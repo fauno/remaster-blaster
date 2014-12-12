@@ -333,3 +333,9 @@ echo "/usr/share/linuxmint/mintinstall/installed/mintbackup.png
 done
 
 sudo update-initramfs -u
+
+# fondo de pantalla
+
+cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_17.png
+cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_qiana.png
+
