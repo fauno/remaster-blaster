@@ -12,7 +12,7 @@ purge=(
   language-pack-en language-pack-en-base language-pack-gnome-en
   language-pack-gnome-en-base firefox-locale-en
   xchat seahorse ristretto hexchat
-  unrar metacity
+  unrar metacity totem
 
   fonts-kacst fonts-kacst-one fonts-khmeros-core fonts-lao
   fonts-lklug-sinhala fonts-nanum fonts-sil-abyssinica fonts-sil-padauk
@@ -57,6 +57,8 @@ packages=(
   xmlstarlet firefox
   scantailor djvulibre-bin imagemagick ocrodjvu minidjvu
   idjc
+  cryptkeeper
+  parcellite
 )
 
 # plugins para firefox
@@ -65,7 +67,11 @@ packages=(
 #  Adblock
 #  Flash Video Downloader
 #  Brief
+<<<<<<< HEAD
 #  Privacy Badger
+=======
+#  Loic
+>>>>>>> 2d4bb0cf9169191e739a0be2392d72a0fb44655a
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
@@ -353,6 +359,13 @@ user_pref("intl.hyphenation-alias.zu", "zu-za");
 user_pref("intl.hyphenation-alias.zu-*", "zu-za");
 EOF
 
+# Inicio de programas
+mkdir -p /etc/skel/.config/autostart 
+cd /etc/skel/.config/autostart
+## Inicio del historial del portapapeles
+cp /usr/share/applications/parcellite.desktop .
+## Inicio de cifrado de carpetas
+cp /usr/share/applications/cryptkeeper.desktop .
 
 echo "seteando shell por defecto"
 sed "s,/usr,," -i /etc/shells
@@ -377,3 +390,51 @@ echo "instalando tor browser bundle"
 add-apt-repository --yes ppa:webupd8team/tor-browser
 apt-get update --yes
 apt-get install --yes tor-browser
+
+# logos
+
+cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
+
+LOGO="logo.png"
+
+echo "/usr/share/linuxmint/common/artwork/logos/16.png
+/usr/share/linuxmint/common/artwork/logos/22.png
+/usr/share/linuxmint/common/artwork/logos/24.png
+/usr/share/linuxmint/common/artwork/logos/32.png
+/usr/share/linuxmint/common/artwork/logos/48.png
+/usr/share/linuxmint/logo.png
+/usr/share/linuxmint/mintinstall/icons/mintbackup.png
+/usr/share/linuxmint/mintinstall/icons/mintdesktop.png
+/usr/share/linuxmint/mintinstall/icons/mintinstall.png
+/usr/share/linuxmint/mintinstall/icons/mintmenu.png
+/usr/share/linuxmint/mintinstall/icons/mintnanny.png
+/usr/share/linuxmint/mintinstall/icons/mintupdate.png
+/usr/share/linuxmint/mintinstall/icons/mintupload.png
+/lib/plymouth/themes/mint-logo/logo.png" \
+| while read A; do
+
+	SIZE=$(identify -verbose $A | grep "geometry" | sed 's/+.*//g; s/^.*:\ //g')
+	convert $LOGO -resize $SIZE $A
+
+done
+
+# logos con marca de instalados
+
+echo "/usr/share/linuxmint/mintinstall/installed/mintbackup.png
+/usr/share/linuxmint/mintinstall/installed/mintdesktop.png
+/usr/share/linuxmint/mintinstall/installed/mintinstall.png
+/usr/share/linuxmint/mintinstall/installed/mintmenu.png
+/usr/share/linuxmint/mintinstall/installed/mintnanny.png
+/usr/share/linuxmint/mintinstall/installed/mintupdate.png
+/usr/share/linuxmint/mintinstall/installed/mintupload.png" \
+| while read A; do
+	convert $(echo $A | sed 's/installed/icons/g') -gravity SouthEast /usr/share/linuxmint/mintinstall/emblem-installed.png -composite $A
+done
+
+sudo update-initramfs -u
+
+# fondo de pantalla
+
+cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_17.png
+cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_qiana.png
+
