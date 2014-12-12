@@ -134,7 +134,7 @@ popd
 
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
-echo "deb     http://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
+echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
 
 # a veces hay errores temporales en la obtencion de llaves
 while ! http_proxy= gpg2 --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89; do
@@ -165,13 +165,13 @@ wget http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
 sha1_ok="SHA1 Fingerprint=13:5C:EC:36:F4:9C:B8:E9:3B:1A:B2:70:CD:80:88:46:76:CE:8F:33"
 sha1_test="$(openssl x509 -noout -fingerprint -in root.crt)"
 
-test "${sha1_ok}" == "${sha1_test}"
+test "${sha1_ok}" == "${sha1_test}" &&
 install -Dm644 root.crt /usr/share/ca-certificates/cacert.org/cacert.org_root.crt
 
 cert_ok="class3.crt: OK"
 cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
 
-test "${cert_ok}" == "${cert_test}"
+test "${cert_ok}" == "${cert_test}" &&
 install -Dm644 class3.crt /usr/share/ca-certificates/cacert.org/cacert.org_class3.crt
 
 sed '/^!cacert\.org/d' -i /etc/ca-certificates.conf
