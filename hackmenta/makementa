@@ -391,50 +391,51 @@ add-apt-repository --yes ppa:webupd8team/tor-browser
 apt-get update --yes
 apt-get install --yes tor-browser
 
+pushd /tmp
 # logos
-
 cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
 
 LOGO="logo.png"
 
-echo "/usr/share/linuxmint/common/artwork/logos/16.png
-/usr/share/linuxmint/common/artwork/logos/22.png
-/usr/share/linuxmint/common/artwork/logos/24.png
-/usr/share/linuxmint/common/artwork/logos/32.png
-/usr/share/linuxmint/common/artwork/logos/48.png
-/usr/share/linuxmint/logo.png
-/usr/share/linuxmint/mintinstall/icons/mintbackup.png
-/usr/share/linuxmint/mintinstall/icons/mintdesktop.png
-/usr/share/linuxmint/mintinstall/icons/mintinstall.png
-/usr/share/linuxmint/mintinstall/icons/mintmenu.png
-/usr/share/linuxmint/mintinstall/icons/mintnanny.png
-/usr/share/linuxmint/mintinstall/icons/mintupdate.png
-/usr/share/linuxmint/mintinstall/icons/mintupload.png
-/lib/plymouth/themes/mint-logo/logo.png" \
-| while read A; do
+for logo in /usr/share/linuxmint/common/artwork/logos/16.png
+            /usr/share/linuxmint/common/artwork/logos/22.png
+            /usr/share/linuxmint/common/artwork/logos/24.png
+            /usr/share/linuxmint/common/artwork/logos/32.png
+            /usr/share/linuxmint/common/artwork/logos/48.png
+            /usr/share/linuxmint/logo.png
+            /usr/share/linuxmint/mintinstall/icons/mintbackup.png
+            /usr/share/linuxmint/mintinstall/icons/mintdesktop.png
+            /usr/share/linuxmint/mintinstall/icons/mintinstall.png
+            /usr/share/linuxmint/mintinstall/icons/mintmenu.png
+            /usr/share/linuxmint/mintinstall/icons/mintnanny.png
+            /usr/share/linuxmint/mintinstall/icons/mintupdate.png
+            /usr/share/linuxmint/mintinstall/icons/mintupload.png
+            /lib/plymouth/themes/mint-logo/logo.png ; do
 
-	SIZE=$(identify -verbose $A | grep "geometry" | sed 's/+.*//g; s/^.*:\ //g')
-	convert $LOGO -resize $SIZE $A
-
+  # obtener la resolución
+	size=$(identify -verbose "${logo}" |
+           grep "geometry" |
+           cut -d'+' -f1 | cut -d':' -f2)
+  # convertir nuestro logo a la resolución correspondiente
+	convert "${LOGO}" -resize ${size} "${logo}"
 done
 
 # logos con marca de instalados
-
-echo "/usr/share/linuxmint/mintinstall/installed/mintbackup.png
-/usr/share/linuxmint/mintinstall/installed/mintdesktop.png
-/usr/share/linuxmint/mintinstall/installed/mintinstall.png
-/usr/share/linuxmint/mintinstall/installed/mintmenu.png
-/usr/share/linuxmint/mintinstall/installed/mintnanny.png
-/usr/share/linuxmint/mintinstall/installed/mintupdate.png
-/usr/share/linuxmint/mintinstall/installed/mintupload.png" \
-| while read A; do
-	convert $(echo $A | sed 's/installed/icons/g') -gravity SouthEast /usr/share/linuxmint/mintinstall/emblem-installed.png -composite $A
+for logo in /usr/share/linuxmint/mintinstall/installed/mintbackup.png
+            /usr/share/linuxmint/mintinstall/installed/mintdesktop.png
+            /usr/share/linuxmint/mintinstall/installed/mintinstall.png
+            /usr/share/linuxmint/mintinstall/installed/mintmenu.png
+            /usr/share/linuxmint/mintinstall/installed/mintnanny.png
+            /usr/share/linuxmint/mintinstall/installed/mintupdate.png
+            /usr/share/linuxmint/mintinstall/installed/mintupload.png ; do
+	convert "${logo/installed/icons}" -gravity SouthEast \
+          /usr/share/linuxmint/mintinstall/emblem-installed.png \
+          -composite "${logo}"
 done
 
-sudo update-initramfs -u
+update-initramfs -u
 
 # fondo de pantalla
-
 cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_17.png
 cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_qiana.png
 
