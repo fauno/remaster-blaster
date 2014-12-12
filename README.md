@@ -27,5 +27,5 @@ Cuando terminamos, remasterizamos:
 ## HackMenta
 
     cd hackmenta
-    ../remaster mint.iso makementa *.patch
+    ../remaster mint.iso makementa *.patch *.svg *.png
     ../makeiso "Hack Menta"
