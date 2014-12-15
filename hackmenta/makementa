@@ -67,11 +67,8 @@ packages=(
 #  Adblock
 #  Flash Video Downloader
 #  Brief
-<<<<<<< HEAD
 #  Privacy Badger
-=======
 #  Loic
->>>>>>> 2d4bb0cf9169191e739a0be2392d72a0fb44655a
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
