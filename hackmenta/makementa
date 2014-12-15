@@ -59,6 +59,7 @@ packages=(
   idjc
   cryptkeeper
   parcellite
+  gnome-encfs-manager
 )
 
 # plugins para firefox
@@ -134,6 +135,9 @@ pushd /tmp/duraskel
 make install
 rsync -av src/ /root/
 popd
+
+echo "configurando repositorio gnome-encfs-manager"
+echo "deb http://ppa.launchpad.net/gencfsm/ppa/ubuntu ${distro} main" >/etc/apt/sources.list.d/gencfsm.list
 
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
