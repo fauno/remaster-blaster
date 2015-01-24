@@ -43,10 +43,10 @@ packages=(
   gpa signing-party haveged
   remmina
   tinc zim
-  mini-httpd 
-  prosody 
-  nanoblogger 
-  rawdog 
+  mini-httpd
+  prosody
+  nanoblogger
+  rawdog
   tidy
   markdown
   python-feedparser
@@ -362,7 +362,7 @@ user_pref("intl.hyphenation-alias.zu-*", "zu-za");
 EOF
 
 # Inicio de programas
-mkdir -p /etc/skel/.config/autostart 
+mkdir -p /etc/skel/.config/autostart
 cd /etc/skel/.config/autostart
 ## Inicio del historial del portapapeles
 cp /usr/share/applications/parcellite.desktop .
@@ -386,6 +386,12 @@ git clone http://repo.hackcoop.com.ar/dl.git
 mkdir -p .config/fish
 echo 'PATH=~/dl:$PATH' >>.bashrc
 echo 'set PATH $PATH ~/dl' >>.config/fish/config.fish
+
+echo "actualizando base de datos de manpages"
+/usr/share/fish/tools/create_manpage_completions.py \
+  --manpath \
+  --progress \
+  --directory /etc/skel/.config/fish/generated_completions
 
 echo "instalando tor browser bundle"
 # TODO esta en inglés
