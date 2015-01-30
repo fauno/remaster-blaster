@@ -144,8 +144,15 @@ echo "configurando repositorios tor"
 echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
 
 # a veces hay errores temporales en la obtencion de llaves
-while ! http_proxy= gpg2 --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89; do
+i=0
+while test $i -ne 10 ;do
+  http_proxy= \
+  gpg2 --keyserver pool.sks-keyservers.net \
+       --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 \
+  && break
+
   echo "falló obtener clave de tor, reintentando"
+  let i++ || true
 done
 gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
 
