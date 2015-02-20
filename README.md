@@ -27,5 +27,8 @@ Cuando terminamos, remasterizamos:
 ## HackMenta
 
     cd hackmenta
-    ../remaster mint.iso makementa *.patch *.svg *.png
+    ../remaster mint.iso makementa
     ../makeiso "Hack Menta"
+
+Los archivos adicionales al script makementa se colocan dentro del
+directorio `files/` y dentro de la chroot se encuentran en `/tmp`
