@@ -33,7 +33,7 @@ packages=(
   pidgin-otr
   sylpheed
   thunderbird-locale-es-es enigmail xul-ext-lightning
-  fish xsel
+  xsel
   git rsync
   language-pack-es language-pack-es-base language-pack-gnome-es
   language-pack-gnome-es-base firefox-locale-es
@@ -393,11 +393,6 @@ cp /usr/share/applications/parcellite.desktop .
 ## Inicio de cifrado de carpetas
 cp /usr/share/applications/cryptkeeper.desktop .
 
-echo "seteando shell por defecto"
-sed "s,/usr,," -i /etc/shells
-sed "s/^DSHELL=.*/DSHELL=\/bin\/fish/" -i /etc/adduser.conf
-ln -sv /usr/bin/fish /bin/
-
 echo "instalando syncthing"
 add-apt-repository --yes ppa:ytvwld/syncthing
 add-apt-repository --yes ppa:nilarimogard/webupd8
@@ -407,15 +402,7 @@ apt-get install --yes syncthing syncthing-gtk
 echo "instalando dl.git"
 pushd /etc/skel/
 git clone http://repo.hackcoop.com.ar/dl.git
-mkdir -p .config/fish
 echo 'PATH=~/dl:$PATH' >>.bashrc
-echo 'set PATH $PATH ~/dl' >>.config/fish/config.fish
-
-echo "actualizando base de datos de manpages"
-/usr/share/fish/tools/create_manpage_completions.py \
-  --manpath \
-  --progress \
-  --directory /etc/skel/.config/fish/generated_completions
 
 echo "instalando tor browser bundle"
 # TODO esta en inglés
