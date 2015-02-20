@@ -147,6 +147,12 @@ echo 'sed -i "s/persona/${1}/g" "${4}/.purple/"*' >>/usr/local/sbin/adduser.loca
 echo 'sed -i "s,~,${4},g" "${4}/.config/transmission/settings.json"' >>/usr/local/sbin/adduser.local
 chmod +x /usr/local/sbin/adduser.local
 
+# programas al inicio
+mkdir -p /etc/skel/.config/autostart
+pushd /etc/skel/.config/autostart
+# lo symlinkeamos por si hay cambios luego
+ln -sv /usr/share/applications/pidgin.desktop .
+
 echo "configurando repositorio gnome-encfs-manager"
 echo "deb http://ppa.launchpad.net/gencfsm/ppa/ubuntu ${distro} main" >/etc/apt/sources.list.d/gencfsm.list
 
