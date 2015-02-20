@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<purple version='1.0'>
+	<blist>
+		<group name='Ayuda Mutua'>
+			<setting name='collapsed' type='bool'>0</setting>
+			<chat proto='prpl-irc' account='persona@irc.hackcoop.com.ar'>
+				<component name='channel'>#automigracion</component>
+				<setting name='gtk-autojoin' type='bool'>1</setting>
+				<setting name='custom_buddy_icon' type='string'>9ea3938f2d38a1a23216fcda33b817db63ef5711.png</setting>
+			</chat>
+		</group>
+	</blist>
+	<privacy>
+		<account proto='prpl-irc' name='persona@irc.hackcoop.com.ar' mode='1'/>
+		<account proto='prpl-bonjour' name='persona' mode='1'/>
+	</privacy>
+</purple>

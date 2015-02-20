@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<account version='1.0'>
+	<account>
+		<protocol>prpl-irc</protocol>
+		<name>persona@irc.hackcoop.com.ar</name>
+		<statuses>
+			<status type='available' name='Disponible' active='true'>
+				<attributes/>
+			</status>
+			<status type='away' name='Ausente' active='false'>
+				<attributes/>
+			</status>
+			<status type='offline' name='Desconectado' active='false'>
+				<attributes/>
+			</status>
+		</statuses>
+		<settings>
+			<setting name='encoding' type='string'>UTF-8</setting>
+			<setting name='auth_plain_in_clear' type='bool'>0</setting>
+			<setting name='sasl' type='bool'>0</setting>
+			<setting name='autodetect_utf8' type='bool'>1</setting>
+			<setting name='ssl' type='bool'>1</setting>
+			<setting name='port' type='int'>6697</setting>
+			<setting name='realname' type='string'></setting>
+			<setting name='username' type='string'></setting>
+		</settings>
+		<settings ui='gtk-gaim'>
+			<setting name='auto-login' type='bool'>1</setting>
+		</settings>
+		<current_error/>
+	</account>
+	<account>
+		<protocol>prpl-bonjour</protocol>
+		<name>persona</name>
+		<statuses>
+			<status type='available' name='Disponible' active='true'>
+				<attributes/>
+			</status>
+			<status type='away' name='Ausente' active='false'>
+				<attributes/>
+			</status>
+			<status type='offline' name='Desconectado' active='false'>
+				<attributes/>
+			</status>
+		</statuses>
+		<settings>
+			<setting name='use-global-buddyicon' type='bool'>1</setting>
+			<setting name='first' type='string'></setting>
+			<setting name='port' type='int'>5298</setting>
+			<setting name='email' type='string'></setting>
+			<setting name='last' type='string'></setting>
+			<setting name='AIM' type='string'></setting>
+			<setting name='jid' type='string'></setting>
+		</settings>
+		<settings ui='gtk-gaim'>
+			<setting name='auto-login' type='bool'>1</setting>
+		</settings>
+		<current_error/>
+	</account>
+</account>

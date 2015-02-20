@@ -136,6 +136,17 @@ make install
 rsync -av src/ /root/
 popd
 
+# pisar la configuración de pidgin con nuestra propia configuración
+cp -fv /tmp/{blist,accounts}.xml /etc/skel/.purple
+mkdir -p /etc/skel/.purple/certificates/x509/tls_peers
+cat /tmp/irc.hackcoop.com.ar.crt >/etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
+
+# modifica las variables al crear un usuario
+echo '#!/bin/bash' >/usr/local/sbin/adduser.local
+echo 'sed -i "s/persona/${1}/g" "${4}/.purple/"*' >>/usr/local/sbin/adduser.local
+echo 'sed -i "s,~,${4},g" "${4}/.config/transmission/settings.json"' >>/usr/local/sbin/adduser.local
+chmod +x /usr/local/sbin/adduser.local
+
 echo "configurando repositorio gnome-encfs-manager"
 echo "deb http://ppa.launchpad.net/gencfsm/ppa/ubuntu ${distro} main" >/etc/apt/sources.list.d/gencfsm.list
 
