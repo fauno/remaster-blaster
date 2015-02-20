@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! -w / ]; then
+    echo "Correr como root"
+    exit 1
+fi
+
+mount --bind archives jail/var/cache/apt/archives/
+
+# http://major.io/2014/06/26/install-debian-packages-without-starting-daemons/
+echo '#!/bin/sh' >jail/usr/sbin/policy-rc.d
+echo 'exit 101'  >jail/usr/sbin/policy-rc.d
+chmod +x jail/usr/sbin/policy-rc.d
+
+cat /etc/resolv.conf >jail/etc/resolv.conf
+
+if which systemd-nspawn ; then
+  systemd-nspawn -D jail
+else
+  mount -t proc none jail/proc
+  mount -t sysfs none jail/sys
+  mount --bind /dev jail/dev
+  chroot jail/
+fi
+
+umount jail/var/cache/apt/archives/
+rm -fv jail/usr/sbin/policy-rc.d
