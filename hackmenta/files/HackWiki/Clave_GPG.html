@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8">
+<title>Clave GPG - HackLab de Barracas</title>
+<meta name="generator" content="MediaWiki 1.22.0">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="GNU Privacy Guard (GPG) es una herramienta de cifrado de datos y firmas digitales, usado como reemplazo de PGP (Pretty Good Privacy) pero con la diferencia que es software libre licenciado bajo la GPL. GPG utiliza el estándar del IETF denominado OpenPGP.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico.html">
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php.html" title="HackLab de Barracas (es)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.hackcoop.com.ar/api.php?action=rsd">
+<link rel="copyright" href="HackLab_de_Barracas:Derechos_de_autor.html">
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de HackLab de Barracas" href="index.php?title=Especial:CambiosRecientes&amp;feed=atom.html">
+<link rel="stylesheet" href="ArchWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: wiki:resourceloader:filter:minify-css:7:da81894a262faddb62408789293d7adb */</style>
+
+<meta property="og:type" content="article">
+	<meta property="og:site_name" content="HackLab de Barracas">
+	<meta property="og:title" content="Clave GPG">
+	<meta property="og:description" content="GNU Privacy Guard (GPG) es una herramienta de cifrado de datos y firmas digitales, usado como reemplazo de PGP (Pretty Good Privacy) pero con la diferencia que es software libre licenciado bajo la GPL. GPG utiliza el estándar del IETF denominado OpenPGP.">
+	<meta property="og:url" content="http://wiki.hackcoop.com.ar/Clave_GPG">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Clave_GPG skin-bootstrap action-view">
+
+			<nav class="navbar"><div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="P%C3%A1gina_principal.html">HackLab de Barracas</a><div id="user" class="pull-right btn-group">
+<a href="index.php?title=Especial:Entrar&amp;returnto=Clave+GPG&amp;returntoquery=printable%3Dyes.html" class="btn btn-warning">Iniciar sesión <icon class="icon-signin icon-white"></icon></a><button class="btn dropdown-toggle btn-warning" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu">
+<li id="pt-uls" class="active"><a href="#" class="uls-trigger autonym">español</a></li>
+<li id="pt-createaccount"><a href="index.php?title=Especial:Entrar&amp;returnto=Clave+GPG&amp;returntoquery=printable%3Dyes&amp;type=signup.html">Crear una cuenta</a></li>
+</ul>
+</div>
+<div class="nav-collapse"><ul class="nav">
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Especial:Categor%C3%ADas&amp;limit=500">Categorías</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">Quehaceres</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://irc.hackcoop.com.ar/">Chat</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+</ul></div>
+</div></div>
+<div id="page" class="pull-right"><ul class="nav nav-tabs">
+<li id="ca-nstab-main" class="selected"><a href="Clave_GPG.html" title="Ver el artículo [c]" accesskey="c">Página</a></li>
+<li id="ca-talk" class="new"><a href="index.php?title=Discusi%C3%B3n:Clave_GPG&amp;action=edit&amp;redlink=1.html" title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></li>
+<li id="ca-viewsource"><a href="index.php?title=Clave_GPG&amp;action=edit.html" title="Esta página está protegida.
+Puedes ver su código fuente [e]" accesskey="e">Ver fuente</a></li>
+<li id="ca-history"><a href="index.php?title=Clave_GPG&amp;action=history.html" rel="archives" title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Historial</a></li>
+</ul></div></nav>
+
+			<div id="page" class="container container-fluid">
+
+				<div class="row-fluid">
+					<aside class="span3">
+								<ul class="nav nav-stacked nav-pills">
+<li><form action="/index.php" class="search"><input type="search" name="search" placeholder="Search" title="Buscar en HackLab de Barracas [f]" accesskey="f" id="searchInput" class="search-query"></form></li>
+<li> <a href="P%C3%A1gina_principal.html" title="Página principal"><img alt="LogoHacklab.svg" src="../File:195px-LogoHacklab.svg.png" width="195" height="195" srcset="/images/thumb/9/9d/LogoHacklab.svg/293px-LogoHacklab.svg.png 1.5x, /images/thumb/9/9d/LogoHacklab.svg/390px-LogoHacklab.svg.png 2x"></a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:SubirArchivo.html" title="Especial:SubirArchivo">Subir un archivo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:CositaLinda.html" title="Categoría:CositaLinda">Cositas Lindas</a>
+</li>
+<li> <a href="Especial:ListaIm%C3%A1genes.html" title="Especial:ListaImágenes">y más archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHaceres</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Otras acciones</a>
+</li>
+</ul>
+							</aside>
+						
+					<article id="content" class="span8" style="margin: 2em; margin-bottom: 0">
+						<div class="page-header">
+							<h1>
+								Clave GPG								<small></small>
+							</h1>
+						</div>	
+						<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr">
+<p><br>
+<b>GNU Privacy Guard</b> (GPG) es una herramienta de cifrado de datos y firmas digitales, usado como reemplazo de PGP (Pretty Good Privacy) pero con la diferencia que es software libre licenciado bajo la GPL. GPG utiliza el estándar del IETF denominado OpenPGP.
+</p>
+<p>Utilizandolo correctamente, GPG puede proporcionar un gran nivel de seguridad y puede utilizarse para proteger datos almacenados en discos, copias de seguridad, etc.
+</p>
+<p>Lo primero que necesitamos hacer es crear nuestra clave:
+</p>
+<div id="toc" class="toc">
+<div id="toctitle"><h2>Contenido</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Configuraci.C3.B3n_previa"><span class="tocnumber">1</span> <span class="toctext">Configuración previa</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Crear_clave_GPG"><span class="tocnumber">2</span> <span class="toctext">Crear clave GPG</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Crear_Llave_maestra"><span class="tocnumber">2.1</span> <span class="toctext">Crear Llave maestra</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Crear_Subkey_para_Firmar"><span class="tocnumber">2.2</span> <span class="toctext">Crear Subkey para Firmar</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Crear_Subkey_para_Cifrar"><span class="tocnumber">2.3</span> <span class="toctext">Crear Subkey para Cifrar</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Compartir_llaves"><span class="tocnumber">3</span> <span class="toctext">Compartir llaves</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7">
+<a href="#Subir_llaves_al_servidor"><span class="tocnumber">3.1</span> <span class="toctext">Subir llaves al servidor</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Buscar_llaves_en_el_servidor"><span class="tocnumber">3.1.1</span> <span class="toctext">Buscar llaves en el servidor</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9">
+<a href="#Adjuntar_llaves_v.C3.ADa_mail"><span class="tocnumber">3.2</span> <span class="toctext">Adjuntar llaves vía mail</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Abrir_llaves_adjuntadas_v.C3.ADa_mail"><span class="tocnumber">3.2.1</span> <span class="toctext">Abrir llaves adjuntadas vía mail</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#Otorgar_confianza_a_llaves"><span class="tocnumber">4</span> <span class="toctext">Otorgar confianza a llaves</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Desde_el_servidor"><span class="tocnumber">4.1</span> <span class="toctext">Desde el servidor</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Localmente"><span class="tocnumber">4.2</span> <span class="toctext">Localmente</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Configuraci.C3.B3n_en_cliente_de_correo_Claws"><span class="tocnumber">5</span> <span class="toctext">Configuración en cliente de correo Claws</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Configuraci.C3.B3n_en_cliente_de_correo_Thunderbird"><span class="tocnumber">6</span> <span class="toctext">Configuración en cliente de correo Thunderbird</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Referencias"><span class="tocnumber">7</span> <span class="toctext">Referencias</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Configuraci.C3.B3n_previa">Configuración previa</span></h2>
+<p>Voy a copiar el contenido de dos archivos de <a rel="nofollow" class="external free" href="http://github.com/fauno/duraskel">http://github.com/fauno/duraskel</a>
+Esto se puede hacer desde la terminal usando Git (no como root, sino desde tu usuario):
+</p>
+<pre>$ git clone <a rel="nofollow" class="external free" href="http://github.com/fauno/duraskel">http://github.com/fauno/duraskel</a>
+</pre>
+<div style="padding: 5px; margin: 0.50em 0; background-color: #DDFFDD; border: thin solid #BBDDBB; overflow: hidden;">
+<strong> Nota: </strong>asegúrate que no estés en terminal como "root"</div>
+<p>Para ver los archivos que se copiaron y que nos interesan:
+</p>
+<pre>$ cd ~/duraskel/src/.gnupg
+$ ls
+</pre>
+<p>Allí deberán estar listados estos archivos: gpg.conf  sks-keyservers.netCA.pem
+</p>
+<p>Por un lado, vamos a crear, en el directorio <b>Home</b>, en la subcarpeta <code>.gnupg</code>, el archivo txt de configuración <a rel="nofollow" class="external text" href="https://raw.githubusercontent.com/fauno/duraskel/develop/src/.gnupg/gpg.conf">gpg.conf</a> (uno de los que bajamos con el git)
+</p>
+<p>Después, guardamos en esa misma carpeta el certificado del servidor de llaves para que siempre se conecte con ese servidor de forma segura para obtener/mandar llaves <a rel="nofollow" class="external text" href="https://raw.githubusercontent.com/fauno/duraskel/develop/src/.gnupg/sks-keyservers.netCA.pem">sks-keyservers.netCA.pem</a> (el segundo archivo que bajamos con el git)
+</p>
+<p>Instalamos el paquete <b>Haveged</b>, un generador de números aleatorios.
+</p>
+<pre>$ sudo apt-get install haveged
+$ sudo service haveged start
+$ sudo service haveged enable
+</pre>
+<p><b>En Arch Linux</b>
+</p>
+<pre>$ sudo pacman -Sy haveged
+$ sudo systemctl start haveged
+$ sudo systemctl enable haveged
+</pre>
+<div style="padding: 5px; margin: 0.50em 0; background-color: #DDFFDD; border: thin solid #BBDDBB; overflow: hidden;">
+<strong> Nota: </strong>Si tu sistema no tiene este programa podes seguir la guiá, solo va a tardar más en generar la llave.</div>
+<h2><span class="mw-headline" id="Crear_clave_GPG">Crear clave GPG</span></h2>
+<p>Idealmente, se deberá generar una Llave maestra (del tipo RSA y RSA (por defecto)). Y dos subkeys una para Firmar (del tipo RSA (solo firmar)) y otra para cifrar  (del tipo RSA (solo cifrar)). Todas ellas deberán ser claves de 4096bi.
+</p>
+<h3><span class="mw-headline" id="Crear_Llave_maestra">Crear Llave maestra</span></h3>
+<pre>$ gpg --gen-key
+</pre>
+<div style="padding: 5px; margin: 0.50em 0; background-color: #DDFFDD; border: thin solid #BBDDBB; overflow: hidden;">
+<strong> Nota: </strong>asegúrate que no estés en terminal como "root"</div>
+<ul>
+<li> En la primera opción, selecciona la opción por default, es decir, la opción (1) RSA y RSA (por defecto).
+</li>
+<li> En la segunda opción, escoge la clave de 4096bi = + seguridad
+</li>
+<li> En la tercera opción, selecciona que no caduque nunca la clave (opción 0) y S (sí), a continuación.
+</li>
+</ul>
+<p>Como resultado nos da algo así como:
+</p>
+<pre>pub   4096R/0x18893E37090D6ADD 2014-03-29
+     Huella de clave = B436 2ABB D1DF 44C7 458D  F5EF 1889 3E37 090D 6ADD
+uid              [  absoluta ] ganesh &lt;aelevadoan@riseup.net&gt;
+sub   4096R/0x373B117E07E541AE 2014-03-29
+</pre>
+<p>Tengo mi versión larga de la llave pública&gt;&gt; "Huella de clave"
+y la versión corta en pub tras el Ox &gt;&gt; E3709...etc.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Crear_Subkey_para_Firmar">Crear Subkey para Firmar</span></h3>
+<pre>$ gpg --edit (version corta después del Ox, en el ejemplo: 18893E37090D6ADD)
+$ addkey
+</pre>
+<ul>
+<li> En la primera opción, selecciona la opción (4) RSA (sólo firmar).
+</li>
+<li> En la segunda opción, escoge la clave de 4096bi = + seguridad
+</li>
+<li> En la tercera opción, selecciona que no caduque nunca la clave (opción 0) y S (sí), a continuación.
+</li>
+</ul>
+<p>Guardamos los cambios:
+</p>
+<pre>$ save
+</pre>
+<h3><span class="mw-headline" id="Crear_Subkey_para_Cifrar">Crear Subkey para Cifrar</span></h3>
+<pre>$ gpg --edit (version corta después del Ox, en el ejemplo: 18893E37090D6ADD)
+$ addkey
+</pre>
+<ul>
+<li> En la primera opción, selecciona la opción (6) RSA (sólo cifrar).
+</li>
+<li> En la segunda opción, escoge la clave de 4096bi = + seguridad
+</li>
+<li> En la tercera opción, selecciona que no caduque nunca la clave (opción 0) y S (sí), a continuación.
+</li>
+</ul>
+<p>Guardamos los cambios:
+</p>
+<pre>$ save
+</pre>
+<h2><span class="mw-headline" id="Compartir_llaves">Compartir llaves</span></h2>
+<p>Se pueden compartir llaves de diferente manera: subirlas al servidor o adjuntarlas directamente en un mail (sin necesidad de subirlas a un servidor)
+</p>
+<h3><span class="mw-headline" id="Subir_llaves_al_servidor">Subir llaves al servidor</span></h3>
+<p>Tengo mi versión larga de la llave pública&gt;&gt; "Huella de clave"
+y la versión corta en pub tras el Ox &gt;&gt; E3709...etc.
+</p>
+<p>Ahora envío mi clave al servidor para que los demás me puedan buscar:
+</p>
+<pre>$ gpg --send-key llavepúblicaversióncorta
+</pre>
+<p>//nota: si no te anda el servidor usa
+$  gpg2 --send-key  llavepúblicaversióncorta
+</p>
+<h4><span class="mw-headline" id="Buscar_llaves_en_el_servidor">Buscar llaves en el servidor</span></h4>
+<p>Así, sólo conociendo nuestro mail, nos podrán buscar ( podremos buscar a otros) de la siguiente manera:
+</p>
+<pre>$ gpg --search-key nuestromail
+</pre>
+<p>también puedo hacer esto via "Seahorse" haciendo importar &gt;&gt; clic derecho &gt;&gt; propiedades
+</p>
+<h3><span class="mw-headline" id="Adjuntar_llaves_v.C3.ADa_mail">Adjuntar llaves vía mail</span></h3>
+<p>Con <a href="GPG#Configuraci.C3.B3n_en_cliente_de_correo_Thunderbird.html" title="GPG" class="mw-redirect">Thunderbird + Enigmail</a> instalado, antes de enviar el mail con el adjunto se deberá tildar la opción:
+</p>
+<p><a href="Archivo:Adjuntar-llave.png.html" class="image"><img alt="Adjuntar-llave.png" src="../File:350px-Adjuntar-llave.png" width="350" height="268" srcset="/images/b/bd/Adjuntar-llave.png 1.5x, /images/b/bd/Adjuntar-llave.png 2x"></a>
+</p>
+<p>Aunque no parezca que se adjunta, una vez que enviemos el mail el adjunto aparecerá, si es que tildamos esa opción previamente.
+</p>
+<h4><span class="mw-headline" id="Abrir_llaves_adjuntadas_v.C3.ADa_mail">Abrir llaves adjuntadas vía mail</span></h4>
+<p>Cuando nos envian un mail con una clave GPG, hay que desplegar la flechita hacía abajo que nos muestra el .asc (la llave pública adjuntada). 
+</p>
+<p><a href="Archivo:Abrir-adjunto.png.html" class="image"><img alt="Abrir-adjunto.png" src="../File:350px-Abrir-adjunto.png" width="350" height="157" srcset="/images/2/22/Abrir-adjunto.png 1.5x, /images/2/22/Abrir-adjunto.png 2x"></a>
+</p>
+<p>Le damos doble click y elegimos importarla:
+</p>
+<p><a href="Archivo:Importar-gpg.png.html" class="image"><img alt="Importar-gpg.png" src="../File:350px-Importar-gpg.png" width="350" height="79" srcset="/images/thumb/9/9d/Importar-gpg.png/525px-Importar-gpg.png 1.5x, /images/9/9d/Importar-gpg.png 2x"></a>
+</p>
+<h2><span class="mw-headline" id="Otorgar_confianza_a_llaves">Otorgar confianza a llaves</span></h2>
+<h3><span class="mw-headline" id="Desde_el_servidor">Desde el servidor</span></h3>
+<p>Una vez importada la llave de la persona, vamos a editarla para cambiarle el "nivel de confianza" que le tenemos.
+</p>
+<pre>$ gpg --edit-key mail
+</pre>
+<p>trust&gt;&gt;sign&gt;&gt;save
+</p>
+<p>Cada tanto hagan un <code>gpg --refresh-keys</code> así se traen las firmas nuevas y las llaves que ya no sirven se limpian.
+</p>
+<p>{{tip|esta firma de llaves es pública, por lo que otorgar confianza a través del servidor puede poner en evidencia nuestra red de confianza. Para evitarlo es posible firmar las claves localmente.
+</p>
+<h3><span class="mw-headline" id="Localmente">Localmente</span></h3>
+<p>Si se firma una llave localmente no estamos evidenciando nuestros lazos de confianza.
+</p>
+<pre>$ gpg --lsign-key mail
+</pre>
+<h2><span class="mw-headline" id="Configuraci.C3.B3n_en_cliente_de_correo_Claws">Configuración en cliente de correo Claws</span></h2>
+<p>ver&gt;&gt; fuente de mensaje
+</p>
+<div style="padding: 5px; margin: 0.50em 0; background-color: #DDFFDD; border: thin solid #BBDDBB; overflow: hidden;">
+<strong> Nota: </strong>por si acaso, reinicia claws ahora</div>
+<p>para que no esté todo el rato pidiéndome la contraseña 
+menú de aplicaciones &gt;&gt; config &gt;&gt; sesión e inicio añadir&gt;&gt; gpg <code>gpg-agent --daemon</code>
+</p>
+<h2><span class="mw-headline" id="Configuraci.C3.B3n_en_cliente_de_correo_Thunderbird">Configuración en cliente de correo Thunderbird</span></h2>
+<p>Si aún no tenés el Thunderbird instalado se puede descargar así:
+</p>
+<pre>$ apt-get install thunderbird
+</pre>
+<p>En debian el paquete se llama Icedove.
+</p>
+<p>Una vez instalado el Thunderbird, hay que instalarse el plugin Enigmail
+</p>
+<pre>$ apt-get install enigmail
+</pre>
+<p>Hay que ir al Thunderbird (ya con tu mail configurado) y en el Menú de opciones va a aparecer un Submenú con el nombre Enigmail. Ahí elegimos la Opción "Asistente de Configuración"
+</p>
+<p><a href="Archivo:Gpg-paso1.png.html" class="image"><img alt="Gpg-paso1.png" src="../File:200px-Gpg-paso1.png" width="200" height="249" srcset="/images/1/12/Gpg-paso1.png 1.5x, /images/1/12/Gpg-paso1.png 2x"></a>
+</p>
+<p><br>
+Continúo con la siguiente opción:
+</p>
+<p><a href="Archivo:Gpg-paso2.png.html" class="image"><img alt="Gpg-paso2.png" src="../File:350px-Gpg-paso2.png" width="350" height="133" srcset="/images/thumb/7/7f/Gpg-paso2.png/525px-Gpg-paso2.png 1.5x, /images/7/7f/Gpg-paso2.png 2x"></a>
+</p>
+<p><br>
+Seleccionar la opción Encriptar por default, hará que si tenemos la clave de algún mail ingresada en el Enigmail, al enviarle un correo a esa persona se lo hará de manera encriptada por default.
+</p>
+<p><a href="Archivo:Gpg-paso3.png.html" class="image"><img alt="Gpg-paso3.png" src="../File:350px-Gpg-paso3.png" width="350" height="214" srcset="/images/thumb/4/4d/Gpg-paso3.png/525px-Gpg-paso3.png 1.5x, /images/4/4d/Gpg-paso3.png 2x"></a>
+</p>
+<p><br>
+También elegimos firmar por default:
+</p>
+<p><a href="Archivo:Gpg-paso4.png.html" class="image"><img alt="Gpg-paso4.png" src="../File:350px-Gpg-paso4.png" width="350" height="157" srcset="/images/thumb/6/60/Gpg-paso4.png/525px-Gpg-paso4.png 1.5x, /images/6/60/Gpg-paso4.png 2x"></a>
+</p>
+<p><br>
+Y elegimos el cambiar otras configuraciones:
+</p>
+<p><a href="Archivo:Gpg-paso5.png.html" class="image"><img alt="Gpg-paso5.png" src="../File:350px-Gpg-paso5.png" width="350" height="167" srcset="/images/thumb/1/16/Gpg-paso5.png/525px-Gpg-paso5.png 1.5x, /images/1/16/Gpg-paso5.png 2x"></a>
+</p>
+<p><br>
+Ahí nos va a detectar automáticamente la clave GPG que generamos previamente:
+</p>
+<p><a href="Archivo:Gpg-paso6.png.html" class="image"><img alt="Gpg-paso6.png" src="../File:350px-Gpg-paso6.png" width="350" height="254" srcset="/images/thumb/a/ac/Gpg-paso6.png/525px-Gpg-paso6.png 1.5x, /images/a/ac/Gpg-paso6.png 2x"></a>
+</p>
+<h2><span class="mw-headline" id="Referencias">Referencias</span></h2>
+<ul>
+<li> <a rel="nofollow" class="external text" href="https://alexcabal.com/creating-the-perfect-gpg-keypair/">Creating the perfect GPG keypair</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/fauno/duraskel">duraskel</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="https://help.riseup.net/es/security/message-security/openpgp/gpg-best-practices">GPG buenas prácticas</a>
+</li>
+</ul>
+
+</div>						<footer><div id="catlinks" class="catlinks well"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="Especial:Categor%C3%ADas.html" title="Especial:Categorías">Categorías</a>: <ul>
+<li><a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a></li>
+<li><a href="Categor%C3%ADa:FaltaToqueSexy.html" title="Categoría:FaltaToqueSexy">FaltaToqueSexy</a></li>
+<li><a href="Categor%C3%ADa:Privacidad.html" title="Categoría:Privacidad">Privacidad</a></li>
+<li><a href="Categor%C3%ADa:Cifrado.html" title="Categoría:Cifrado">Cifrado</a></li>
+<li><a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHacer</a></li>
+</ul>
+</div></div></footer>
+											</article>
+				</div>
+
+				<ul class="horizontal">
+<li> <a href="HackLab_de_Barracas:Derechos_de_autor.html" title="HackLab de Barracas:Derechos de autor">Licencia</a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://fm.hackcoop.com.ar/">Radios</a>
+</li>
+<li> <a href="Categor%C3%ADa:Campa%C3%B1as.html" title="Categoría:Campañas">Campañas</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://hackcoop.com.ar/listas/">Listas de correo</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Páginas especiales</a>
+</li>
+<li> <a href="Glosario.html" title="Glosario" class="mw-redirect">Glosario</a>
+</li>
+</ul>
+<ul class="horizontal">
+<li><a href="HackLab_de_Barracas:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos.html" title="HackLab de Barracas:Política de protección de datos">Política de protección de datos</a></li>
+<li><a href="HackLab_de_Barracas:Acerca_de.html" title="HackLab de Barracas:Acerca de">Acerca de HackLab de Barracas</a></li>
+<li><a href="HackLab_de_Barracas:Limitaci%C3%B3n_general_de_responsabilidad.html" title="HackLab de Barracas:Limitación general de responsabilidad">Aviso legal</a></li>
+</ul>
+<ul class="horizontal pull-right"><li><a href="/www.mediawiki.org/.html"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></li></ul>
+
+			</div> </body>
+			</html>

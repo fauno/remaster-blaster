@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8">
+<title>Correo cifrado - HackLab de Barracas</title>
+<meta name="generator" content="MediaWiki 1.22.0">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Configurar el servidor de correo para cifrar de forma oportunista y por cuenta los correos entrantes y salientes en el mismo almacenamiento del servidor.  De esta forma sólo se pueden obtener los correos sabiendo los datos de la cuenta.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico.html">
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php.html" title="HackLab de Barracas (es)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.hackcoop.com.ar/api.php?action=rsd">
+<link rel="copyright" href="HackLab_de_Barracas:Derechos_de_autor.html">
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de HackLab de Barracas" href="index.php?title=Especial:CambiosRecientes&amp;feed=atom.html">
+<link rel="stylesheet" href="ArchWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: wiki:resourceloader:filter:minify-css:7:da81894a262faddb62408789293d7adb */</style>
+
+<meta property="og:type" content="article">
+	<meta property="og:site_name" content="HackLab de Barracas">
+	<meta property="og:title" content="Correo cifrado">
+	<meta property="og:description" content="Configurar el servidor de correo para cifrar de forma oportunista y por cuenta los correos entrantes y salientes en el mismo almacenamiento del servidor.  De esta forma sólo se pueden obtener los correos sabiendo los datos de la cuenta.">
+	<meta property="og:url" content="http://wiki.hackcoop.com.ar/Correo_cifrado">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Correo_cifrado skin-bootstrap action-view">
+
+			<nav class="navbar"><div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="P%C3%A1gina_principal.html">HackLab de Barracas</a><div id="user" class="pull-right btn-group">
+<a href="index.php?title=Especial:Entrar&amp;returnto=Correo+cifrado&amp;returntoquery=printable%3Dyes.html" class="btn btn-warning">Iniciar sesión <icon class="icon-signin icon-white"></icon></a><button class="btn dropdown-toggle btn-warning" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu">
+<li id="pt-uls" class="active"><a href="#" class="uls-trigger autonym">español</a></li>
+<li id="pt-createaccount"><a href="index.php?title=Especial:Entrar&amp;returnto=Correo+cifrado&amp;returntoquery=printable%3Dyes&amp;type=signup.html">Crear una cuenta</a></li>
+</ul>
+</div>
+<div class="nav-collapse"><ul class="nav">
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Especial:Categor%C3%ADas&amp;limit=500">Categorías</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">Quehaceres</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://irc.hackcoop.com.ar/">Chat</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+</ul></div>
+</div></div>
+<div id="page" class="pull-right"><ul class="nav nav-tabs">
+<li id="ca-nstab-main" class="selected"><a href="Correo_cifrado.html" title="Ver el artículo [c]" accesskey="c">Página</a></li>
+<li id="ca-talk" class="new"><a href="index.php?title=Discusi%C3%B3n:Correo_cifrado&amp;action=edit&amp;redlink=1.html" title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></li>
+<li id="ca-viewsource"><a href="index.php?title=Correo_cifrado&amp;action=edit.html" title="Esta página está protegida.
+Puedes ver su código fuente [e]" accesskey="e">Ver fuente</a></li>
+<li id="ca-history"><a href="index.php?title=Correo_cifrado&amp;action=history.html" rel="archives" title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Historial</a></li>
+</ul></div></nav>
+
+			<div id="page" class="container container-fluid">
+
+				<div class="row-fluid">
+					<aside class="span3">
+								<ul class="nav nav-stacked nav-pills">
+<li><form action="/index.php" class="search"><input type="search" name="search" placeholder="Search" title="Buscar en HackLab de Barracas [f]" accesskey="f" id="searchInput" class="search-query"></form></li>
+<li> <a href="P%C3%A1gina_principal.html" title="Página principal"><img alt="LogoHacklab.svg" src="../File:195px-LogoHacklab.svg.png" width="195" height="195" srcset="/images/thumb/9/9d/LogoHacklab.svg/293px-LogoHacklab.svg.png 1.5x, /images/thumb/9/9d/LogoHacklab.svg/390px-LogoHacklab.svg.png 2x"></a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:SubirArchivo.html" title="Especial:SubirArchivo">Subir un archivo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:CositaLinda.html" title="Categoría:CositaLinda">Cositas Lindas</a>
+</li>
+<li> <a href="Especial:ListaIm%C3%A1genes.html" title="Especial:ListaImágenes">y más archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHaceres</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Otras acciones</a>
+</li>
+</ul>
+							</aside>
+						
+					<article id="content" class="span8" style="margin: 2em; margin-bottom: 0">
+						<div class="page-header">
+							<h1>
+								Correo cifrado								<small></small>
+							</h1>
+						</div>	
+						<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr">
+<div class="mw-pt-translate-header noprint nomobile">Esta página contiene <span class="plainlinks"><a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Correo_cifrado&amp;oldid=5748&amp;diff=6529">cambios</a></span> los cuales no han sido marcados para traducción.</div>
+<hr>
+<div class="mw-pt-languages noprint" lang="es" dir="ltr"><table><tbody><tr valign="top">
+<td class="mw-pt-languages-label">Otros idiomas:</td>
+<td class="mw-pt-languages-list autonym">
+<a href="index.php?title=Especial:Traducir&amp;group=page-Correo+cifrado&amp;language=en&amp;task=view.html" title="Iniciar la traducción para este idioma" class="new">English</a> <img src="/extensions/Translate/resources/images/prog-1.png" alt="0%" title="0%" width="9" height="9"> • ‎<span class="mw-pt-languages-ui mw-pt-languages-selected">español</span> <img src="/extensions/Translate/resources/images/prog-5.png" alt="100%" title="100%" width="9" height="9">
+</td>
+</tr></tbody></table></div>
+<div id="toc" class="toc">
+<div id="toctitle"><h2>Contenido</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Objetivo"><span class="tocnumber">1</span> <span class="toctext">Objetivo</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Pruebas"><span class="tocnumber">2</span> <span class="toctext">Pruebas</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#EncFS"><span class="tocnumber">2.1</span> <span class="toctext">EncFS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Resultados"><span class="tocnumber">2.1.1</span> <span class="toctext">Resultados</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5">
+<a href="#GPG"><span class="tocnumber">2.2</span> <span class="toctext">GPG</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Resultados_2"><span class="tocnumber">2.2.1</span> <span class="toctext">Resultados</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Borrado_seguro"><span class="tocnumber">3</span> <span class="toctext">Borrado seguro</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Objetivo">Objetivo</span></h2>
+<p>Configurar el servidor de correo para cifrar de forma oportunista y por cuenta los correos entrantes y salientes en el mismo almacenamiento del servidor.  De esta forma sólo se pueden obtener los correos sabiendo los datos de la cuenta.
+</p>
+<h2><span class="mw-headline" id="Pruebas">Pruebas</span></h2>
+<h3><span class="mw-headline" id="EncFS">EncFS</span></h3>
+<p>Según una discusión en RiseUp [referencia faltante] sería posible cifrar los correos de las personas creando un directorio cifrado que sólo se monta al inicio de sesión y se desmonta automáticamente, dándole al servidor una ventana para mover los correos recibidos en el entretiempo del directorio "buffer" al directorio cifrado.
+</p>
+<p>En 2014-07-26 <a href="Hacker:Fauno.html" title="Hacker:Fauno">Hacker:Fauno</a> hizo las siguientes pruebas:
+</p>
+<ul>
+<li> Crear un directorio cifrado EncFS para los directorios cur del Maildir de la cuenta
+</li>
+<li> Montar el directorio cifrado al inicio de sesión con <code>pam_encfs</code> y dovecot con autenticación por PAM
+</li>
+<li> Symlinkear los directorios cur a sus contrapartes en EncFS
+</li>
+</ul>
+<p>Entonces:
+</p>
+<pre>
+# en una cuenta de prueba, crear un directorio encfs
+mkdir -p ~/.Maildir.enc ~/.Maildir
+encfs ~/.Maildir.enc ~/.Maildir
+# Mover el directorio de correos vistos al directorio cifrado
+mv ~/Maildir/cur ~/.Maildir/
+# Hacer un link simbólico desde la bandeja de entrada
+ln -sv ~/.Maildir/cur ~/Maildir/
+# Enviar un correo de prueba e intentar leerlo
+</pre>
+<h4><span class="mw-headline" id="Resultados">Resultados</span></h4>
+<p>En este punto los correos en cur/ están cifrados, pero dovecot falla al mover los nuevos desde new/ a cur/ por una limitación en el uso que hace del sistema de archivos:
+</p>
+<pre>Jul 26 12:37:57 naven dovecot: imap(test): Error: rename(/srv/personas
+/test.org/test/Maildir/new/1406388679.V806Ib407bdM943156.naven:2,S, /srv/personas/test.org/test/Maildir/cur/14
+06388679.V806Ib407bdM943156.naven:2,S) failed: Invalid cross-device link</pre>
+<p>Desactivar la opción <code>maildir_copy_with_hardlinks</code> tampoco funcionó.
+</p>
+<p>No se probó pam_encfs hasta no resolver esta limitación.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="GPG">GPG</span></h3>
+<p>Hay varios proyectos que usan filtros o scripts de servidores de correo para cifrarlos durante el transporte, aunque la mayoría se centran en el envío cifrado (ver <a rel="nofollow" class="external text" href="https://www.gnu.org/software/anubis/">GNU Anubis</a>, <a rel="nofollow" class="external text" href="https://code.google.com/p/gpg-mailgate/">gpg-mailgate</a>.  <a rel="nofollow" class="external text" href="https://grepular.com/Automatically_Encrypting_all_Incoming_Email">Grepular</a> implementa un <a rel="nofollow" class="external text" href="https://github.com/mikecardwell/gpgit">script</a> que se puede usar directamente en exim para cifrar todos los correos no cifrados entrantes, de forma que <b>el contenido</b> se guarde cifrado para el receptor.
+</p>
+<p>Hacerlo funcionar en postfix hay que hacerlo por usuario, usando la tubería en los alias.  Otra persona lo puso directamente en dovecot, <a rel="nofollow" class="external text" href="https://perot.me/encrypt-specific-incoming-emails-using-dovecot-and-sieve">usando pigeonhole</a> y el soporte para ejecutar programas externos.
+</p>
+<p>Otra idea sería adaptar gpgit para correr como un daemon que recibe mails en texto plano y los devuelve cifrados (usándolo como milter?)
+</p>
+<p>El problema de esto es que los metadatos no se cifran, por lo que teniendo acceso al servidor (en vivo o por analisis forense) se puede recuperar el grafo social de las cuentas (aunque también se lo puede saber leyendo los logs del servidor si no se anonimizan.)
+</p>
+<h4><span class="mw-headline" id="Resultados_2">Resultados</span></h4>
+<p>Todavía no se hicieron pruebas pero es lo que más promete en cuanto a cifrado punto a punto.
+</p>
+<p>2014-07-27 El script <code>gpgit.pl</code> necesita Mail::GnuPG de CPAN y falla al correr los tests con perl 5.20 y gnupg 2.0.25 (tal vez tenga que instalar gpg1?).  Luego de forzar la instalación (<code>cpan -fiT Mail::GnuPG</code>) tira un error de falta de permisos en Devel::GlobalDestruction aunque puede ser de la distribución.
+</p>
+<p>2014-07-29 Arreglados los problemas de Perl y CPAN (falta de permisos de lectura en los directorios de @INC), <code>gpgit.pl</code> tarda 1s en devolver un correo PGP/MIME, usando un llavero que incluye sólo mi llave personal.
+</p>
+<h2><span class="mw-headline" id="Borrado_seguro">Borrado seguro</span></h2>
+<p>En lugar de remover el archivo del mail, usar <code>shred</code> para borrar todo rastro de que haya existido.  La solución sería crear una librería que cambie el comportamiento de <code>unlink()</code> para que llame a shred.  Luego usar <code>LD_PRELOAD</code> en dovecot (o en el cliente local si está escrito en C) para que use esa función en lugar de la del sistema.
+</p>
+<ul>
+<li> <a rel="nofollow" class="external text" href="http://dovecot.org/pipermail/dovecot/2011-September/078584.html">Dovecot: Shredding instead of deleting</a>
+</li>
+</ul>
+<p><b>Estado:</b> Le escribí a Mike Cardwell y me dijo que lo tiene abandonado pero que si lo logro/amos le escribamos :)
+</p>
+</div>						<footer><div id="catlinks" class="catlinks well"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="Especial:Categor%C3%ADas.html" title="Especial:Categorías">Categorías</a>: <ul>
+<li><a href="Categor%C3%ADa:Correo.html" title="Categoría:Correo">Correo</a></li>
+<li><a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a></li>
+<li><a href="Categor%C3%ADa:Investigaci%C3%B3n.html" title="Categoría:Investigación">Investigación</a></li>
+</ul>
+</div></div></footer>
+											</article>
+				</div>
+
+				<ul class="horizontal">
+<li> <a href="HackLab_de_Barracas:Derechos_de_autor.html" title="HackLab de Barracas:Derechos de autor">Licencia</a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://fm.hackcoop.com.ar/">Radios</a>
+</li>
+<li> <a href="Categor%C3%ADa:Campa%C3%B1as.html" title="Categoría:Campañas">Campañas</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://hackcoop.com.ar/listas/">Listas de correo</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Páginas especiales</a>
+</li>
+<li> <a href="Glosario.html" title="Glosario" class="mw-redirect">Glosario</a>
+</li>
+</ul>
+<ul class="horizontal">
+<li><a href="HackLab_de_Barracas:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos.html" title="HackLab de Barracas:Política de protección de datos">Política de protección de datos</a></li>
+<li><a href="HackLab_de_Barracas:Acerca_de.html" title="HackLab de Barracas:Acerca de">Acerca de HackLab de Barracas</a></li>
+<li><a href="HackLab_de_Barracas:Limitaci%C3%B3n_general_de_responsabilidad.html" title="HackLab de Barracas:Limitación general de responsabilidad">Aviso legal</a></li>
+</ul>
+<ul class="horizontal pull-right"><li><a href="/www.mediawiki.org/.html"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></li></ul>
+
+			</div> </body>
+			</html>

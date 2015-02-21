@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8">
+<title>Scantailor - HackLab de Barracas</title>
+<meta name="generator" content="MediaWiki 1.22.0">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Es una herramienta interactiva de procesamiento de imágenes escanedas. Tiene funciones como corregir orientación, dividir páginas, alineación, selección de contenidos y ajuste de márgenes. En él se ingresan imágenes escanedas crudas y se termina el proceso con imágenes preparadas para ser unidas en un archivo PDF o DJVU.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico.html">
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php.html" title="HackLab de Barracas (es)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.hackcoop.com.ar/api.php?action=rsd">
+<link rel="copyright" href="HackLab_de_Barracas:Derechos_de_autor.html">
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de HackLab de Barracas" href="index.php?title=Especial:CambiosRecientes&amp;feed=atom.html">
+<link rel="stylesheet" href="ArchWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: wiki:resourceloader:filter:minify-css:7:da81894a262faddb62408789293d7adb */</style>
+
+<meta property="og:type" content="article">
+	<meta property="og:site_name" content="HackLab de Barracas">
+	<meta property="og:title" content="Scantailor">
+	<meta property="og:description" content="Es una herramienta interactiva de procesamiento de imágenes escanedas. Tiene funciones como corregir orientación, dividir páginas, alineación, selección de contenidos y ajuste de márgenes. En él se ingresan imágenes escanedas crudas y se termina el proceso con imágenes preparadas para ser unidas en un archivo PDF o DJVU.">
+	<meta property="og:url" content="http://wiki.hackcoop.com.ar/Scantailor">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Scantailor skin-bootstrap action-view">
+
+			<nav class="navbar"><div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="P%C3%A1gina_principal.html">HackLab de Barracas</a><div id="user" class="pull-right btn-group">
+<a href="index.php?title=Especial:Entrar&amp;returnto=Scantailor&amp;returntoquery=printable%3Dyes.html" class="btn btn-warning">Iniciar sesión <icon class="icon-signin icon-white"></icon></a><button class="btn dropdown-toggle btn-warning" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu">
+<li id="pt-uls" class="active"><a href="#" class="uls-trigger autonym">español</a></li>
+<li id="pt-createaccount"><a href="index.php?title=Especial:Entrar&amp;returnto=Scantailor&amp;returntoquery=printable%3Dyes&amp;type=signup.html">Crear una cuenta</a></li>
+</ul>
+</div>
+<div class="nav-collapse"><ul class="nav">
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Especial:Categor%C3%ADas&amp;limit=500">Categorías</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">Quehaceres</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://irc.hackcoop.com.ar/">Chat</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+</ul></div>
+</div></div>
+<div id="page" class="pull-right"><ul class="nav nav-tabs">
+<li id="ca-nstab-main" class="selected"><a href="Scantailor.html" title="Ver el artículo [c]" accesskey="c">Página</a></li>
+<li id="ca-talk" class="new"><a href="index.php?title=Discusi%C3%B3n:Scantailor&amp;action=edit&amp;redlink=1.html" title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></li>
+<li id="ca-viewsource"><a href="index.php?title=Scantailor&amp;action=edit.html" title="Esta página está protegida.
+Puedes ver su código fuente [e]" accesskey="e">Ver fuente</a></li>
+<li id="ca-history"><a href="index.php?title=Scantailor&amp;action=history.html" rel="archives" title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Historial</a></li>
+</ul></div></nav>
+
+			<div id="page" class="container container-fluid">
+
+				<div class="row-fluid">
+					<aside class="span3">
+								<ul class="nav nav-stacked nav-pills">
+<li><form action="/index.php" class="search"><input type="search" name="search" placeholder="Search" title="Buscar en HackLab de Barracas [f]" accesskey="f" id="searchInput" class="search-query"></form></li>
+<li> <a href="P%C3%A1gina_principal.html" title="Página principal"><img alt="LogoHacklab.svg" src="../File:195px-LogoHacklab.svg.png" width="195" height="195" srcset="/images/thumb/9/9d/LogoHacklab.svg/293px-LogoHacklab.svg.png 1.5x, /images/thumb/9/9d/LogoHacklab.svg/390px-LogoHacklab.svg.png 2x"></a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:SubirArchivo.html" title="Especial:SubirArchivo">Subir un archivo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:CositaLinda.html" title="Categoría:CositaLinda">Cositas Lindas</a>
+</li>
+<li> <a href="Especial:ListaIm%C3%A1genes.html" title="Especial:ListaImágenes">y más archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHaceres</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Otras acciones</a>
+</li>
+</ul>
+							</aside>
+						
+					<article id="content" class="span8" style="margin: 2em; margin-bottom: 0">
+						<div class="page-header">
+							<h1>
+								Scantailor								<small></small>
+							</h1>
+						</div>	
+						<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr">
+<p><br>
+Es una herramienta interactiva de procesamiento de imágenes escanedas. Tiene funciones como corregir orientación, dividir páginas, alineación, selección de contenidos y ajuste de márgenes. En él se ingresan imágenes escanedas <i>crudas</i> y se termina el proceso con imágenes preparadas para ser unidas en un archivo <b>PDF</b> o <b>DJVU</b>.
+</p>
+<div id="toc" class="toc">
+<div id="toctitle"><h2>Contenido</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Instalando_Scan_Tailor"><span class="tocnumber">1</span> <span class="toctext">Instalando Scan Tailor</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Usando_Scantailor"><span class="tocnumber">2</span> <span class="toctext">Usando Scantailor</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Iniciando"><span class="tocnumber">2.1</span> <span class="toctext">Iniciando</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Carpeta_de_entrada_y_Archivos_en_el_proyecto"><span class="tocnumber">2.2</span> <span class="toctext">Carpeta de entrada y Archivos en el proyecto</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Paso_1:_Corregir_orientaci.C3.B3n"><span class="tocnumber">2.3</span> <span class="toctext">Paso 1: Corregir orientación</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Paso_2:_Dividir_P.C3.A1ginas"><span class="tocnumber">2.4</span> <span class="toctext">Paso 2: Dividir Páginas</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Paso_3:_Alineaci.C3.B3n"><span class="tocnumber">2.5</span> <span class="toctext">Paso 3: Alineación</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Paso_4:_Seleccione_el_contenido"><span class="tocnumber">2.6</span> <span class="toctext">Paso 4: Seleccione el contenido</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Paso_5:_Margenes"><span class="tocnumber">2.7</span> <span class="toctext">Paso 5: Margenes</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Paso_6:_Salida"><span class="tocnumber">2.8</span> <span class="toctext">Paso 6: Salida</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Instalando_Scan_Tailor">Instalando Scan Tailor</span></h2>
+<p>La forma de instalar Scan Tailor es distinta dependiendo que gestor de paquetes usa tu distribución de GNU/Linux. Las mas comunes son Pacman y Aptitude.
+El comando para cada una es:
+</p>
+<p>Con pacman 
+<code>sudo pacman -S scantailor</code>
+</p>
+<p>Con aptitude
+<code>sudo apt-get install scantailor</code>
+</p>
+<p>Con este comando te pedirá tu contraseña para tu usuario. Si tu usuario no tiene permisos sudo podes o asignarle permisos a tu usuario o logearte como root mediante el comando su y luego correr el comando sin el sudo.
+</p>
+<h2><span class="mw-headline" id="Usando_Scantailor">Usando Scantailor</span></h2>
+<p>Dependiendo tu distribución de GNU/Linux Scan Tailor aparecerá en el menú de aplicaciones. Si no lo encontrás podés correr por terminal el programa con el siguiente comando:
+</p>
+<p><code>scantailor</code>
+</p>
+<h3><span class="mw-headline" id="Iniciando">Iniciando</span></h3>
+<p>La primer pantalla que aparece es la pantalla para elegir un <i><b>Nuevo Proyecto</b></i> o <i><b>Cargar proyecto</b></i>.
+</p>
+<p><br>
+<i><b>Nuevo Proyecto</b></i>: Si es la primera vez que vamos a trabajar en el procesamiento de un libro.
+</p>
+<p><i><b>Cargar proyecto</b></i>: Si vas a retomar un proyecto en el cual estuviste trabajando con anterioridad.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_01_nuevo_proyecto_y_cargar_proyecto.jpg.html" class="image" title="Nuevo Proyecto y Cargar Proyecto"><img alt="Nuevo Proyecto y Cargar Proyecto" src="../File:600px-Guia_preprocesamiento_01_nuevo_proyecto_y_cargar_proyecto.jpg" width="600" height="324" srcset="/images/3/3d/Guia_preprocesamiento_01_nuevo_proyecto_y_cargar_proyecto.jpg 1.5x, /images/3/3d/Guia_preprocesamiento_01_nuevo_proyecto_y_cargar_proyecto.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Carpeta_de_entrada_y_Archivos_en_el_proyecto">Carpeta de entrada y Archivos en el proyecto</span></h3>
+<p>En la ventana que aparece tenes que ingresar cual será la <i><b>Carpeta de entrada</b></i> y la selección de 
+<i><b>Archivos en proyecto</b></i>
+</p>
+<p><i><b>Carpeta de entrada</b></i>: Acá tenés que elegir la carpeta donde están las imágenes del libro. En el caso de tener como fuente un archivo <b>pdf</b> o <b>djvu</b> se necesita un programa llamado <a href="Ghostscript.html" title="Ghostscript">Ghostscript</a> para separarlos.
+</p>
+<p><i><b>Archivos en proyecto</b></i>: Acá seleccionas que archivos de la carpeta que seleccionaste anteriormente formarán parte del proyecto. En la imagen de ejemplo se ve como automaticamete se excluyó el archivo PDF que se encontraba en la misma carpeta y que era la fuente de las imagenes que vamos a trabajar.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_02_carpeta_de_entrada_.jpg.html" class="image" title="Carpeta de entrada y Archivos en el proyecto"><img alt="Carpeta de entrada y Archivos en el proyecto" src="../File:400px-Guia_preprocesamiento_02_carpeta_de_entrada_.jpg" width="400" height="440" srcset="/images/a/a0/Guia_preprocesamiento_02_carpeta_de_entrada_.jpg 1.5x, /images/a/a0/Guia_preprocesamiento_02_carpeta_de_entrada_.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Paso_1:_Corregir_orientaci.C3.B3n">Paso 1: Corregir orientación</span></h3>
+<p>Las imagenes cuya orientación hayan sido detectadas erroneamente pueden ser rotadas manualmente de a 90º grados. Como se ve en la imágen a continuación. En este paso como en todos los pasos posteriores cuando se introduce una modificación manual, se puede elegir cual queremos que sea la extensión de esa modificación, es decir si queremos que se aplique solo a esa página, a las seleccionadas, a todas, etc.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_03_corregir_orientacion.jpg.html" class="image" title="Corregir orientación"><img alt="Corregir orientación" src="../File:600px-Guia_preprocesamiento_03_corregir_orientacion.jpg" width="600" height="324" srcset="/images/f/f4/Guia_preprocesamiento_03_corregir_orientacion.jpg 1.5x, /images/f/f4/Guia_preprocesamiento_03_corregir_orientacion.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_04_corregir_orientacion.jpg.html" class="image" title="Corregir orientación"><img alt="Corregir orientación" src="../File:600px-Guia_preprocesamiento_04_corregir_orientacion.jpg" width="600" height="324" srcset="/images/c/cc/Guia_preprocesamiento_04_corregir_orientacion.jpg 1.5x, /images/c/cc/Guia_preprocesamiento_04_corregir_orientacion.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Paso_2:_Dividir_P.C3.A1ginas">Paso 2: Dividir Páginas</span></h3>
+<p>Scan Tailor, detecta la división de páginas en la imagen automaticamente. Variando entre las opciones de página completa, página parcial o dos páginas por imagen. Si la deteccion se produce erroneamente se puede modificar manualmente. En las dos imagenes de abajo se puede ver un error comun, que se detectó solamente una parte de la página, debido a que se trata de una página de dos columnas.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_05_dividir_paginas.jpg.html" class="image" title="Dividir Páginas"><img alt="Dividir Páginas" src="../File:600px-Guia_preprocesamiento_05_dividir_paginas.jpg" width="600" height="324" srcset="/images/6/66/Guia_preprocesamiento_05_dividir_paginas.jpg 1.5x, /images/6/66/Guia_preprocesamiento_05_dividir_paginas.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_06_dividir_paginas.jpg.html" class="image" title="Dividir Páginas"><img alt="Dividir Páginas" src="../File:600px-Guia_preprocesamiento_06_dividir_paginas.jpg" width="600" height="324" srcset="/images/b/bd/Guia_preprocesamiento_06_dividir_paginas.jpg 1.5x, /images/b/bd/Guia_preprocesamiento_06_dividir_paginas.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Paso_3:_Alineaci.C3.B3n">Paso 3: Alineación</span></h3>
+<p>El tercer paso es la deteccion de la <i><b>Alineación</b></i>. Dependiendo la calidad de nuestras imagenes de base, la transformación puede ser muy sutil o muy grande. Este paso aunque sutil al ojo es muy importante para lo que será despues la creación de la capa de OCR. En la imagen de abajo se muestra como el ajuste automático de alineación es solamente de 0.94º, pero inclusive esta pequeña modificación mejora considerablemente el reconocimiento OCR.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_07_alineacion.jpg.html" class="image" title="Alineación"><img alt="Alineación" src="../File:600px-Guia_preprocesamiento_07_alineacion.jpg" width="600" height="324" srcset="/images/8/80/Guia_preprocesamiento_07_alineacion.jpg 1.5x, /images/8/80/Guia_preprocesamiento_07_alineacion.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_08_alineacion.jpg.html" class="image" title="Alineación"><img alt="Alineación" src="../File:600px-Guia_preprocesamiento_08_alineacion.jpg" width="600" height="324" srcset="/images/c/c0/Guia_preprocesamiento_08_alineacion.jpg 1.5x, /images/c/c0/Guia_preprocesamiento_08_alineacion.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Paso_4:_Seleccione_el_contenido">Paso 4: Seleccione el contenido</span></h3>
+<p>En realidad este es el primer paso que es necesario mirar para revisar. Podemos hacer todos los otros pasos hasta este inclusive automaticamente y recien mirar como esta quedando en este paso. Si se arrastra algun error de deteccion automática de los pasos anteriores se puede sobre la página con el error volver a los pasos anteriores y corregir sin problema.
+En las imagenes de muestra, se marca el error de detección mas común, que es el de los numeros de página. Muchas veces los números de página no son detectados como contenido y si no lo ampliamos nostoros, no apareceran en el resultado final de las páginas. Quedando las páginas sin sus respectivos números. Es por eso que es necesario en este paso revisar que esté bien seleccionado.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_09_seleccionar_contenido.jpg.html" class="image" title="Seleccione el contenido"><img alt="Seleccione el contenido" src="../File:600px-Guia_preprocesamiento_09_seleccionar_contenido.jpg" width="600" height="324" srcset="/images/6/67/Guia_preprocesamiento_09_seleccionar_contenido.jpg 1.5x, /images/6/67/Guia_preprocesamiento_09_seleccionar_contenido.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_10_seleccionar_contenido.jpg.html" class="image" title="Seleccione el contenido"><img alt="Seleccione el contenido" src="../File:600px-Guia_preprocesamiento_10_seleccionar_contenido.jpg" width="600" height="324" srcset="/images/8/8d/Guia_preprocesamiento_10_seleccionar_contenido.jpg 1.5x, /images/8/8d/Guia_preprocesamiento_10_seleccionar_contenido.jpg 2x"></a>
+</p>
+<p>En la siguiente imagen se muestra como el error de detección se puede ver en los thumbnails, asique no es necesario mirar todas las paginas sino solo las que sean dudosas en los thumbnails.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_11_seleccionar_contenido.jpg.html" class="image" title="Seleccione el contenido"><img alt="Seleccione el contenido" src="../File:600px-Guia_preprocesamiento_11_seleccionar_contenido.jpg" width="600" height="324" srcset="/images/1/11/Guia_preprocesamiento_11_seleccionar_contenido.jpg 1.5x, /images/1/11/Guia_preprocesamiento_11_seleccionar_contenido.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Paso_5:_Margenes">Paso 5: Margenes</span></h3>
+<p>Los margenes son la manera en que se distribuirán los contenidos seleccionados en la página anterior en relación a la hoja. La ubicaccion de los margenes es por defecto en la parte superior. En la mayoría de las páginas esta ubicación es correcta, pero en algunas como pueden ser la primer página de un capítulo u otros tipos de páginas que no ocupan la totalidad del espacio, es necesario hacer un ajuste. 
+En las ímagenes a continuación se muestra la imágen original, luego la ubicación automática y luego la correción a la alineación inferior.
+</p>
+<p><a href="Archivo:Guia_preprocesamiento_13_margenes.jpg.html" class="image" title="Margenes"><img alt="Margenes" src="../File:600px-Guia_preprocesamiento_13_margenes.jpg" width="600" height="324" srcset="/images/0/01/Guia_preprocesamiento_13_margenes.jpg 1.5x, /images/0/01/Guia_preprocesamiento_13_margenes.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_14_margenes.jpg.html" class="image" title="Margenes"><img alt="Margenes" src="../File:600px-Guia_preprocesamiento_14_margenes.jpg" width="600" height="324" srcset="/images/e/e4/Guia_preprocesamiento_14_margenes.jpg 1.5x, /images/e/e4/Guia_preprocesamiento_14_margenes.jpg 2x"></a>
+<a href="Archivo:Guia_preprocesamiento_15_margenes.jpg.html" class="image" title="Margenes"><img alt="Margenes" src="../File:600px-Guia_preprocesamiento_15_margenes.jpg" width="600" height="324" srcset="/images/f/f5/Guia_preprocesamiento_15_margenes.jpg 1.5x, /images/f/f5/Guia_preprocesamiento_15_margenes.jpg 2x"></a>
+</p>
+<p>Un error que suele pasar es que al tener distintos tamaños de imagenes en un proyecto, algunas de las imagenes queden demasiado pequeñas. Esto se soluciona destildando en la o las páginas que están desequilibrando el libro, la opción <i><b>Igualar en tamaño a las demas páginas</b></i>
+</p>
+<h3><span class="mw-headline" id="Paso_6:_Salida">Paso 6: Salida</span></h3>
+<p>Así esta listo para para pasarle un OCR
+</p>
+<p><br>
+aca van las fotitos de la gilada del scantailor
+</p>
+</div>						<footer><div id="catlinks" class="catlinks well"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="Especial:Categor%C3%ADas.html" title="Especial:Categorías">Categorías</a>: <ul>
+<li><a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a></li>
+<li><a href="Categor%C3%ADa:Digitalizaci%C3%B3n_de_Libros.html" title="Categoría:Digitalización de Libros">Digitalización de Libros</a></li>
+<li><a href="Categor%C3%ADa:Escaner_de_libros.html" title="Categoría:Escaner de libros">Escaner de libros</a></li>
+</ul>
+</div></div></footer>
+											</article>
+				</div>
+
+				<ul class="horizontal">
+<li> <a href="HackLab_de_Barracas:Derechos_de_autor.html" title="HackLab de Barracas:Derechos de autor">Licencia</a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://fm.hackcoop.com.ar/">Radios</a>
+</li>
+<li> <a href="Categor%C3%ADa:Campa%C3%B1as.html" title="Categoría:Campañas">Campañas</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://hackcoop.com.ar/listas/">Listas de correo</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Páginas especiales</a>
+</li>
+<li> <a href="Glosario.html" title="Glosario" class="mw-redirect">Glosario</a>
+</li>
+</ul>
+<ul class="horizontal">
+<li><a href="HackLab_de_Barracas:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos.html" title="HackLab de Barracas:Política de protección de datos">Política de protección de datos</a></li>
+<li><a href="HackLab_de_Barracas:Acerca_de.html" title="HackLab de Barracas:Acerca de">Acerca de HackLab de Barracas</a></li>
+<li><a href="HackLab_de_Barracas:Limitaci%C3%B3n_general_de_responsabilidad.html" title="HackLab de Barracas:Limitación general de responsabilidad">Aviso legal</a></li>
+</ul>
+<ul class="horizontal pull-right"><li><a href="/www.mediawiki.org/.html"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></li></ul>
+
+			</div> </body>
+			</html>

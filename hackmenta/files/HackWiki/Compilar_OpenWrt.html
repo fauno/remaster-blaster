@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8">
+<title>Compilar OpenWrt - HackLab de Barracas</title>
+<meta name="generator" content="MediaWiki 1.22.0">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="OpenWrt es la distro para dispositivos embebidos, especialmente routers.  Como el espacio es un problema, se suele compilar lo estrictamente necesario.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico.html">
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php.html" title="HackLab de Barracas (es)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.hackcoop.com.ar/api.php?action=rsd">
+<link rel="copyright" href="HackLab_de_Barracas:Derechos_de_autor.html">
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de HackLab de Barracas" href="index.php?title=Especial:CambiosRecientes&amp;feed=atom.html">
+<link rel="stylesheet" href="ArchWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: wiki:resourceloader:filter:minify-css:7:da81894a262faddb62408789293d7adb */</style>
+
+<meta property="og:type" content="article">
+	<meta property="og:site_name" content="HackLab de Barracas">
+	<meta property="og:title" content="Compilar OpenWrt">
+	<meta property="og:description" content="OpenWrt es la distro para dispositivos embebidos, especialmente routers.  Como el espacio es un problema, se suele compilar lo estrictamente necesario.">
+	<meta property="og:url" content="http://wiki.hackcoop.com.ar/Compilar_OpenWrt">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Compilar_OpenWrt skin-bootstrap action-view">
+
+			<nav class="navbar"><div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="P%C3%A1gina_principal.html">HackLab de Barracas</a><div id="user" class="pull-right btn-group">
+<a href="index.php?title=Especial:Entrar&amp;returnto=Compilar+OpenWrt&amp;returntoquery=printable%3Dyes.html" class="btn btn-warning">Iniciar sesión <icon class="icon-signin icon-white"></icon></a><button class="btn dropdown-toggle btn-warning" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu">
+<li id="pt-uls" class="active"><a href="#" class="uls-trigger autonym">español</a></li>
+<li id="pt-createaccount"><a href="index.php?title=Especial:Entrar&amp;returnto=Compilar+OpenWrt&amp;returntoquery=printable%3Dyes&amp;type=signup.html">Crear una cuenta</a></li>
+</ul>
+</div>
+<div class="nav-collapse"><ul class="nav">
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Especial:Categor%C3%ADas&amp;limit=500">Categorías</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">Quehaceres</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://irc.hackcoop.com.ar/">Chat</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+</ul></div>
+</div></div>
+<div id="page" class="pull-right"><ul class="nav nav-tabs">
+<li id="ca-nstab-main" class="selected"><a href="Compilar_OpenWrt.html" title="Ver el artículo [c]" accesskey="c">Página</a></li>
+<li id="ca-talk" class="new"><a href="index.php?title=Discusi%C3%B3n:Compilar_OpenWrt&amp;action=edit&amp;redlink=1.html" title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></li>
+<li id="ca-viewsource"><a href="index.php?title=Compilar_OpenWrt&amp;action=edit.html" title="Esta página está protegida.
+Puedes ver su código fuente [e]" accesskey="e">Ver fuente</a></li>
+<li id="ca-history"><a href="index.php?title=Compilar_OpenWrt&amp;action=history.html" rel="archives" title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Historial</a></li>
+</ul></div></nav>
+
+			<div id="page" class="container container-fluid">
+
+				<div class="row-fluid">
+					<aside class="span3">
+								<ul class="nav nav-stacked nav-pills">
+<li><form action="/index.php" class="search"><input type="search" name="search" placeholder="Search" title="Buscar en HackLab de Barracas [f]" accesskey="f" id="searchInput" class="search-query"></form></li>
+<li> <a href="P%C3%A1gina_principal.html" title="Página principal"><img alt="LogoHacklab.svg" src="../File:195px-LogoHacklab.svg.png" width="195" height="195" srcset="/images/thumb/9/9d/LogoHacklab.svg/293px-LogoHacklab.svg.png 1.5x, /images/thumb/9/9d/LogoHacklab.svg/390px-LogoHacklab.svg.png 2x"></a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:SubirArchivo.html" title="Especial:SubirArchivo">Subir un archivo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:CositaLinda.html" title="Categoría:CositaLinda">Cositas Lindas</a>
+</li>
+<li> <a href="Especial:ListaIm%C3%A1genes.html" title="Especial:ListaImágenes">y más archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHaceres</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Otras acciones</a>
+</li>
+</ul>
+							</aside>
+						
+					<article id="content" class="span8" style="margin: 2em; margin-bottom: 0">
+						<div class="page-header">
+							<h1>
+								Compilar OpenWrt								<small></small>
+							</h1>
+						</div>	
+						<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr">
+<p><br>
+<a rel="nofollow" class="external text" href="https://openwrt.org">OpenWrt</a> es la distro para dispositivos embebidos, especialmente routers.  Como el espacio es un problema, se suele compilar lo estrictamente necesario.
+</p>
+<p>Muchas veces no es necesario compilarlo desde cero porque el proyecto mismo lo publica a partir de sus repositorios de desarrollo.  Si sólo vas a generar firmwares para los dispositivos, te conviene descargar el ImageBuilder <a rel="nofollow" class="external text" href="http://downloads.openwrt.org/snapshots/">desde estos repositorios</a> y hacete un mirror del target con el que está trabajando con <code>wget --mirror --no-parent url_del_target</code>, porque en la próxima compilación se pierden los paquetes que estabas usando o te generan conflictos.
+</p>
+<p>Desde hace un tiempo OpenWrt solo publica el SDK y el ImageBuilder para 64b, por lo que si estás trabajando en 32b (y si no sabés de qué se trata probablemente estés en 32b, lo podés comprobar con <code>uname -m</code>) vas a tener que compilarlos por tu cuenta sí o sí.
+</p>
+<p>Por todo esto conviene compilar el propio entorno de OpenWrt.  Además, si se van a compilar módulos del kernel que no son externos (que vienen en las fuentes de linux pero no son compilados por defecto por OpenWrt), también hay que recompilar OpenWrt.
+</p>
+<div id="toc" class="toc">
+<div id="toctitle"><h2>Contenido</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Estructura_de_directorios"><span class="tocnumber">1</span> <span class="toctext">Estructura de directorios</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Obtener_los_fuentes_de_OpenWrt"><span class="tocnumber">2</span> <span class="toctext">Obtener los fuentes de OpenWrt</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Compilar"><span class="tocnumber">3</span> <span class="toctext">Compilar</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Terminado"><span class="tocnumber">4</span> <span class="toctext">Terminado</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Los_otros_paquetes"><span class="tocnumber">5</span> <span class="toctext">Los otros paquetes</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#TODO"><span class="tocnumber">6</span> <span class="toctext">TODO</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Estructura_de_directorios">Estructura de directorios</span></h2>
+<p>Guía para ubicarse cuando nos movemos entre directorios:
+</p>
+<pre>.
+openwrt/        # fuentes de OpenWrt
+packages/       # paquetes locales
+ib/             # ImageBuilder
+sdk/            # SDK
+packages-owrt/  # paquetes descargados desde OpenWrt
+repo/           # repositorio local (owrt+local)
+</pre>
+<h2><span class="mw-headline" id="Obtener_los_fuentes_de_OpenWrt">Obtener los fuentes de OpenWrt</span></h2>
+<blockquote>Todo esto necesita las herramientas de compilación de GNU/Linux.  En Parabola hay que instalar el grupo <code>base-devel</code> y en Debian y amigos <code>build-essential</code>.</blockquote>
+<p>Van a hacer falta unos 10G de espacio en disco para compilar todo.
+</p>
+<p>Clonar el repositorio:
+</p>
+<p><code>git clone <a rel="nofollow" class="external free" href="git://git.openwrt.org/openwrt.git">git://git.openwrt.org/openwrt.git</a><br>
+cd openwrt</code>
+</p>
+<p>Se puede empezar con una configuración desde cero con <code>make menuconfig</code> pero nos podemos ahorrar el trabajo usando la configuración que se usa para las versiones de desarrollo.  Por ejemplo, para el <i>target</i> ar71xx (el de todos los TP-Link), descargamos:
+</p>
+<p><code>wget -O .config <a rel="nofollow" class="external free" href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/config">http://downloads.openwrt.org/snapshots/trunk/ar71xx/config</a></code>
+</p>
+<p>Y luego editamos el archivo <code>.config</code> directamente o a través de <code>make menuconfig</code>.
+</p>
+<p>Hay que asegurarse que la opción de compilar el SDK esté habilitada.  En <code>.config</code> cambiar <code># CONFIG_SDK is not set</code> por <code>CONFIG_SDK=y</code>:
+</p>
+<p><code>sed "s/^.*CONFIG_SDK.*/CONFIG_SDK=y/" -i .config</code>
+</p>
+<p>(En el menú de configuración está en la primera pantalla.)
+</p>
+<p>También conviene instalar el paquete <code>ccache</code> y habilitar la opción <code>CONFIG_CCACHE</code> para acelerar el proceso de compilación a partir de la segunda vez.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Compilar">Compilar</span></h2>
+<p>Si ya habíamos compilado antes y estamos actualizando, conviene hacer <code>make dist-clean</code> para eliminar todos los archivos anteriores y empezar con una compilación limpia.
+</p>
+<p>Una vez que estén todas las configuraciones locales hechas, correr <code>make</code> e irse a hacer otra cosa por un par de horas.
+</p>
+<p><code>make</code> se puede parar y volver a empezar en cualquier momento, el proceso continúa desde donde se lo dejó.  Si hubo algún error (aunque es raro), es mejor correrlo con <code>make V=99</code> aunque la salida va a ser extremadamente verborrágica.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Terminado">Terminado</span></h2>
+<p>Cuando termine la compilación, en el directorio <code>bin/<i>ar71xx</i>/</code> van a quedar un directorio <code>packages/</code> con todos los paquetes compilados y una base de datos para usar con <code>opkg</code>.  Además van a estar los archivos del SDK y el ImageBuilder.
+</p>
+<p>Estos dos son los más importantes porque con el primero se pueden crear nuevos paquetes y con el segundo se pueden crear nuevos firmwares e incluir los paquetes propios en el repositorio.  El ImageBuilder tiene todos los paquetes de <code>packages/</code> así que con mantener estos dos archivos ya es suficiente :)
+</p>
+<p>Lo demás se puede descartar porque no lo vamos a usar y/o está contenido en los otros directorios.
+</p>
+<h2><span class="mw-headline" id="Los_otros_paquetes">Los otros paquetes</span></h2>
+<table style="border:2px solid #F7D436; margin-left:auto; margin-right:auto; width:80%; padding:3px" class="vcard layouttemplate">
+<tr>
+<td style="padding:3px; vertical-align:center; width:60px;"> <img alt="Dialog-warning-orange.svg" src="../File:55px-Dialog-warning-orange.svg.png" width="55" height="52" srcset="/images/thumb/d/d7/Dialog-warning-orange.svg/83px-Dialog-warning-orange.svg.png 1.5x, /images/thumb/d/d7/Dialog-warning-orange.svg/110px-Dialog-warning-orange.svg.png 2x">
+</td>
+<td>El ImageBuilder ya no incluye <b>todos</b> los paquetes de los repositorios, por lo que si los queremos hay que descargarlos uno por uno usando wget --mirror como dijimos en la introducción
+</td>
+</tr>
+</table>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>En esta compilación no se incluyeron los paquetes extra de OpenWrt (la mayoría, unos 4000).  Para tener los repositorios completos sin tener que compilarlo todo (o seleccionar lo que queremos y compilarlo a mano con el SDK), se puede descargar el ImageBuilder de OpenWrt y extraer los paquetes desde ahí.
+</p>
+<pre>wget http://downloads.openwrt.org/snapshots/trunk/ar71xx/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-x86_64.tar.bz2 -O - |
+tar --strip-components=1 -vzjf - OpenWrt-ImageBuilder-ar71xx_generic-for-pc-i686/packages/
+
+mv packages packages-owrt</pre>
+<p>Esto descarga el IB y extrae el directorio <code>packages/</code> que contiene sin extraer ni guardar nada más.
+</p>
+<p>Como este directorio también contiene paquetes que ya compilamos nosotros, vamos a tener que eliminarlos y darles prioridad a los nuestros.
+</p>
+<p>Extraer el IB y ponerlo en el directorio <code>ib/</code>:
+</p>
+<pre>tar xvf openwrt/bin/ar71xx/OpenWrt-ImageBuilder...
+mv OpenWrt-ImageBuilder* ib</pre>
+<p>Mover el directorio de paquetes del IB a la raíz del entorno de trabajo:
+</p>
+<pre>mv ib/packages .</pre>
+<p>Crear el repositorio y vincularlo al IB:
+</p>
+<pre>mkdir repo
+ln -s ../repo ib/packages</pre>
+<p>En este momento tenemos tres directorios con paquetes.
+</p>
+<p><code>packages-owrt/</code> tiene los paquetes compilados por OpenWrt.
+</p>
+<p><code>packages/</code> tiene los paquetes compilados por nosotrxs.
+</p>
+<p><code>repo/</code> no tiene nada pero IB espera que tenga algo para poder trabajar.
+</p>
+<p>La idea es mezclar los dos primeros en el tercero, dando prioridad a los locales:
+</p>
+<pre>
+cd repo
+ln -s ../packages/* .
+ln -s ../packages-owrt/* .
+</pre>
+<p>La idea es que si el paquete ya existe el link falle.
+</p>
+<p>Luego de esto se puede recrear el repositorio:
+</p>
+<pre>cd ib
+make package_index</pre>
+<h2><span class="mw-headline" id="TODO">TODO</span></h2>
+<ul>
+<li> Hay una forma de manejar distintos perfiles de configuración desde el mismo árbol pero todavía no lo probamos.
+</li>
+</ul>
+
+</div>						<footer><div id="catlinks" class="catlinks well"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="Especial:Categor%C3%ADas.html" title="Especial:Categorías">Categorías</a>: <ul>
+<li><a href="Categor%C3%ADa:MallaCr%C3%ADtica.html" title="Categoría:MallaCrítica">MallaCrítica</a></li>
+<li><a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHacer</a></li>
+</ul>
+</div></div></footer>
+											</article>
+				</div>
+
+				<ul class="horizontal">
+<li> <a href="HackLab_de_Barracas:Derechos_de_autor.html" title="HackLab de Barracas:Derechos de autor">Licencia</a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://fm.hackcoop.com.ar/">Radios</a>
+</li>
+<li> <a href="Categor%C3%ADa:Campa%C3%B1as.html" title="Categoría:Campañas">Campañas</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://hackcoop.com.ar/listas/">Listas de correo</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Páginas especiales</a>
+</li>
+<li> <a href="Glosario.html" title="Glosario" class="mw-redirect">Glosario</a>
+</li>
+</ul>
+<ul class="horizontal">
+<li><a href="HackLab_de_Barracas:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos.html" title="HackLab de Barracas:Política de protección de datos">Política de protección de datos</a></li>
+<li><a href="HackLab_de_Barracas:Acerca_de.html" title="HackLab de Barracas:Acerca de">Acerca de HackLab de Barracas</a></li>
+<li><a href="HackLab_de_Barracas:Limitaci%C3%B3n_general_de_responsabilidad.html" title="HackLab de Barracas:Limitación general de responsabilidad">Aviso legal</a></li>
+</ul>
+<ul class="horizontal pull-right"><li><a href="/www.mediawiki.org/.html"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></li></ul>
+
+			</div> </body>
+			</html>

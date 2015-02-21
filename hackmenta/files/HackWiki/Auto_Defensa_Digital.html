@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8">
+<title>Auto Defensa Digital - HackLab de Barracas</title>
+<meta name="generator" content="MediaWiki 1.22.0">
+<meta name="robots" content="noindex,follow">
+<meta name="description" content="Auto Defensa Digital fue un taller sobre iptables, ipset y snort que se hizo en el HackLab el 2015-02-07.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico.html">
+<link rel="search" type="application/opensearchdescription+xml" href="opensearch_desc.php.html" title="HackLab de Barracas (es)">
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.hackcoop.com.ar/api.php?action=rsd">
+<link rel="copyright" href="HackLab_de_Barracas:Derechos_de_autor.html">
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de HackLab de Barracas" href="index.php?title=Especial:CambiosRecientes&amp;feed=atom.html">
+<link rel="stylesheet" href="ArchWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: wiki:resourceloader:filter:minify-css:7:da81894a262faddb62408789293d7adb */</style>
+
+<meta property="og:type" content="article">
+	<meta property="og:site_name" content="HackLab de Barracas">
+	<meta property="og:title" content="Auto Defensa Digital">
+	<meta property="og:description" content="Auto Defensa Digital fue un taller sobre iptables, ipset y snort que se hizo en el HackLab el 2015-02-07.">
+	<meta property="og:url" content="http://wiki.hackcoop.com.ar/Auto_Defensa_Digital">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Auto_Defensa_Digital skin-bootstrap action-view">
+
+			<nav class="navbar"><div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="P%C3%A1gina_principal.html">HackLab de Barracas</a><div id="user" class="pull-right btn-group">
+<a href="index.php?title=Especial:Entrar&amp;returnto=Auto+Defensa+Digital&amp;returntoquery=printable%3Dyes.html" class="btn btn-warning">Iniciar sesión <icon class="icon-signin icon-white"></icon></a><button class="btn dropdown-toggle btn-warning" data-toggle="dropdown"><span class="caret"></span></button><ul class="dropdown-menu">
+<li id="pt-uls" class="active"><a href="#" class="uls-trigger autonym">español</a></li>
+<li id="pt-createaccount"><a href="index.php?title=Especial:Entrar&amp;returnto=Auto+Defensa+Digital&amp;returntoquery=printable%3Dyes&amp;type=signup.html">Crear una cuenta</a></li>
+</ul>
+</div>
+<div class="nav-collapse"><ul class="nav">
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Gu%C3%ADas.html" title="Categoría:Guías">Guías</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://wiki.hackcoop.com.ar/index.php?title=Especial:Categor%C3%ADas&amp;limit=500">Categorías</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">Quehaceres</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://irc.hackcoop.com.ar/">Chat</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+</ul></div>
+</div></div>
+<div id="page" class="pull-right"><ul class="nav nav-tabs">
+<li id="ca-nstab-main" class="selected"><a href="Auto_Defensa_Digital.html" title="Ver el artículo [c]" accesskey="c">Página</a></li>
+<li id="ca-talk" class="new"><a href="index.php?title=Discusi%C3%B3n:Auto_Defensa_Digital&amp;action=edit&amp;redlink=1.html" title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></li>
+<li id="ca-viewsource"><a href="index.php?title=Auto_Defensa_Digital&amp;action=edit.html" title="Esta página está protegida.
+Puedes ver su código fuente [e]" accesskey="e">Ver fuente</a></li>
+<li id="ca-history"><a href="index.php?title=Auto_Defensa_Digital&amp;action=history.html" rel="archives" title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Historial</a></li>
+</ul></div></nav>
+
+			<div id="page" class="container container-fluid">
+
+				<div class="row-fluid">
+					<aside class="span3">
+								<ul class="nav nav-stacked nav-pills">
+<li><form action="/index.php" class="search"><input type="search" name="search" placeholder="Search" title="Buscar en HackLab de Barracas [f]" accesskey="f" id="searchInput" class="search-query"></form></li>
+<li> <a href="P%C3%A1gina_principal.html" title="Página principal"><img alt="LogoHacklab.svg" src="../File:195px-LogoHacklab.svg.png" width="195" height="195" srcset="/images/thumb/9/9d/LogoHacklab.svg/293px-LogoHacklab.svg.png 1.5x, /images/thumb/9/9d/LogoHacklab.svg/390px-LogoHacklab.svg.png 2x"></a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a href="Crear_articulo.html" title="Crear articulo">Crear articulo</a>
+</li>
+<li> <a href="Especial:SubirArchivo.html" title="Especial:SubirArchivo">Subir un archivo</a>
+</li>
+<li> <a href="Especial:UploadWizard.html" title="Especial:UploadWizard">Subir archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:CositaLinda.html" title="Categoría:CositaLinda">Cositas Lindas</a>
+</li>
+<li> <a href="Especial:ListaIm%C3%A1genes.html" title="Especial:ListaImágenes">y más archivos</a>
+</li>
+<li> <a href="Categor%C3%ADa:Proyectos.html" title="Categoría:Proyectos">Proyectos</a>
+</li>
+<li> <a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHaceres</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Otras acciones</a>
+</li>
+</ul>
+							</aside>
+						
+					<article id="content" class="span8" style="margin: 2em; margin-bottom: 0">
+						<div class="page-header">
+							<h1>
+								Auto Defensa Digital								<small></small>
+							</h1>
+						</div>	
+						<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr">
+<p><br>
+Auto Defensa Digital fue un taller sobre <code>iptables</code>, <code>ipset</code> y <code>snort</code> que se hizo en el HackLab el 2015-02-07.
+</p>
+<div id="toc" class="toc">
+<div id="toctitle"><h2>Contenido</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Referencias"><span class="tocnumber">1</span> <span class="toctext">Referencias</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Iptables"><span class="tocnumber">2</span> <span class="toctext">Iptables</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Introducci.C3.B3n_a_iptables"><span class="tocnumber">2.1</span> <span class="toctext">Introducción a iptables</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Creando_un_firewall"><span class="tocnumber">2.2</span> <span class="toctext">Creando un firewall</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Ipset"><span class="tocnumber">3</span> <span class="toctext">Ipset</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Snort"><span class="tocnumber">4</span> <span class="toctext">Snort</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Referencias">Referencias</span></h1>
+<ul>
+<li> <code>iptables</code>, en este formato nos estamos refiriendo al comando que se ejecuta en una línea de comandos (o shell, o terminal, o cli, como le quieran llamar)
+</li>
+</ul>
+<h1><span class="mw-headline" id="Iptables">Iptables</span></h1>
+<p>Iptables son las herramientas para administrar los filtros de paquetes del kernel linux.  Con iptables se le puede indicar a linux qué hacer con cada paquete o conexión que recibe, ignorarla, rechazarla, reenviarla, etc.  No solo es capaz de crear firewalls, sino también de convertir la computadora en un router.
+</p>
+<p>En el taller vimos cómo crear un "<a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Stateful_firewall">statefull firewall</a>", que es un firewall muy simple que hace análisis de cada conexión y sus estados, en lugar de cada paquete.  La características principales de este firewall son:
+</p>
+<ul>
+<li> Se lo puede reiniciar sin perder las conexiones existentes
+</li>
+<li> Es simple, porque una vez que se permite una conexión, no es necesario volver a procesarla
+</li>
+</ul>
+<h2><span class="mw-headline" id="Introducci.C3.B3n_a_iptables">Introducción a iptables</span></h2>
+<p>Iptables se maneja por reglas y acciones especificadas en la línea de comandos.  Por defecto acepta todos los paquetes entrantes y salientes.  Esto es un problema para la autodefensa digital, porque si tenemos un servicio que necesitamos que funcione localmente, pero no hacia afuera, y el kernel admite todas las conexiones, estamos aumentando nuestra <a href="Accion_Directa_Digital.html" title="Accion Directa Digital">superficie de ataque</a>.
+</p>
+<p>Con el comando <code>iptables -nvL</code> vemos todas las reglas actuales.  Sin ninguna configuración se ve así:
+</p>
+<pre>
+Chain INPUT (policy ACCEPT 1919 packets, 452K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 5 packets, 300 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 1666 packets, 415K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+</pre>
+<p>Cada cadena ("chain") indica la dirección de los paquetes, INPUT son los paquetes que llegan desde la red y OUTPUT los que salen.  FORWARD solo tiene sentido si estamos configurando un router.
+</p>
+<p>La política ("policy") de cada cadena indica la acción por defecto para cada paquete, si no hay ninguna especificada.  En este caso, la política es ACCEPT, es decir aceptar cualquier paquete que entre o salga.  Como decíamos esto es malo porque no tenemos control sobre las conexiones que se hacen hacia nuestra computadora y dependemos de la buena o mala configuración de los servicios.
+</p>
+<p>Esta configuración no tiene ninguna regla, por lo que todo es aceptado y nada es analizado.
+</p>
+<p>Las reglas de <code>iptables</code> se analizan en orden de arriba para abajo, como una lista de condiciones que si se cumplen excluyen a las subsiguientes, pero que cuando no se cumplen, se continúa la comprobación.
+</p>
+<p>Por eso es importante al leer otras guías que se pueden encontrar en Internet, que al correr los comandos desde una línea de comandos y nos olvidamos alguno, no lo pongamos después, porque el orden de las reglas (y los comandos que corrimos para agregarlas) es importante y pueden fallar cosas o no funcionar como esperábamos.  Hay forma de insertar reglas en un orden determinado, pero es un poco más complejo, porque hay que saber entre cuáles reglas va la que queremos insertar.
+</p>
+<p>De todas formas no es recomendable escribir las reglas de iptables a mano, porque cuando se reinicia la computadora se pierden y hay que volverlas a escribir.  En Internet van a encontrar que hay muchos scripts, bastante complejos algunos, que se encargan de levantar las reglas cada vez.  Esto ya no es necesario porque hace tiempo <code>iptables</code> soporta <code>iptables-save</code> e <code>iptable-restore</code> para volcar las reglas actuales en un archivo y volverlas a recuperar.
+</p>
+<p>Lo más simple es hacer un volcado original de las reglas sin modificar a un archivo y agregar las reglas propias ahí mismo. Con esto nos aseguramos que las reglas están escritas en el orden adecuado y que las vemos como un todo en lugar de reglas sueltas.  Luego se pueden recuperar con el comando <code>iptables-restore &lt; reglas.rules</code>.
+</p>
+<p>En esta guía se asume que las reglas están en el archivo <code>/etc/iptables/iptables.rules</code> y que existe un servicio que se encarga de correr <code>iptables-restore</code> cuando lo considere adecuado.  Esto nos asegura que entre reinicios del firewall, mientras hacemos pruebas, las reglas de filtrado del kernel se vacían y se vuelven a completar únicamente con las reglas que le decimos.  Esto evita incoherencias y dolores de cabeza.  En Parabola (o Arch, o derivados), este servicio es <code>systemctl restart iptables</code>.
+</p>
+<h2><span class="mw-headline" id="Creando_un_firewall">Creando un firewall</span></h2>
+<p>El objetivo de crear un firewall es tener un mejor control sobre las conexiones que aceptamos.  Este firewall ignora cualquier conexión por defecto y solo permite las que especificamos.  En este caso solo hablamos de reglas en la cadena INPUT y porque no nos interesa filtrarnos a nosotras mismas, dejamos la cadena OUTPUT tal cual estaba.
+</p>
+<p>El <a rel="nofollow" class="external text" href="http://kiwwwi.com.ar/pastes/iptables.rules">firewall completo se puede descargar acá</a>.  <a rel="nofollow" class="external text" href="http://kiwwwi.com.ar/pastes/iptables.rules.html">Acá tiene color</a>.  Cada regla tiene su comentario, explicando para qué sirve.
+</p>
+<p>El archivo <code>iptables.rules</code> se puede descargar dentro de <code>/etc/iptables/</code> y activar con <code>iptables-restore &lt;/etc/iptables/iptables.rules</code>.  Para ejecutarlo al inicio del sistema, usar el servicio de la distribución GNU/Linux, o agregar el comando anterior al archivo <code>/etc/rc.local</code>.
+</p>
+<table style="border:2px solid #F7D436; margin-left:auto; margin-right:auto; width:80%; padding:3px" class="vcard layouttemplate">
+<tr>
+<td style="padding:3px; vertical-align:center; width:60px;"> <img alt="Dialog-warning-orange.svg" src="../File:55px-Dialog-warning-orange.svg.png" width="55" height="52" srcset="/images/thumb/d/d7/Dialog-warning-orange.svg/83px-Dialog-warning-orange.svg.png 1.5x, /images/thumb/d/d7/Dialog-warning-orange.svg/110px-Dialog-warning-orange.svg.png 2x">
+</td>
+<td>TODO: Faltan reglas para detectar escaneos con nmap
+</td>
+</tr>
+</table>
+<p><br>
+</p>
+<p><br>
+</p>
+<pre>
+*filter
+# Políticas por defecto
+#
+# Ignorar todas las conexiones entrantes que no hayamos permitido
+# específicamente
+:INPUT DROP [0:0]
+# Esta computadora no es un router (aun)
+:FORWARD DROP [0:0]
+# Permitirnos todo
+:OUTPUT ACCEPT [0:0]
+
+# Comienzo del firewall
+
+# Bloquear garcas
+#
+# Esta regla solo tiene sentido con ipset, crear la tabla con `ipset
+# create garcas hash:net` y agregar direcciones IPv4 que queramos
+# bloquear en el firewall con `ipset add garcas 8.8.8.8` donde 8.8.8.8
+# es la IPv4 a bloquear.
+# 
+# -A INPUT -m set --match-set garcas src,dst -j REJECT --reject-with icmp-host-unreachable -m comment --comment "GARCAS"
+
+# Permitir las conexiones ya validadas
+#
+# Cuando una conexión no está establecida, es decir que es
+# potencialmente aceptable, esta regla falla y se siguen procesando las
+# reglas posteriores.  Una vez que la conexión pasa alguna de las reglas
+# posteriores, se la considera establecida, por lo que es aceptada
+# automáticamente.
+#
+# La contra de esta regla genérica es que no se puede contar la cantidad
+# de datos transferidos por tipo de conexión.  Pero tiene a favor que el
+# firewall es muy simple porque tiene un solo punto de ingreso.
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -m comment --comment "VALIDOS"
+
+# Ignorar conexiones inválidas
+#
+# En algunos casos las conexiones vienen con paquetes inválidos, pero en
+# otras los escaner de red como nmap usan paquetes inválidos para hacer
+# detección de servicios.  Esta regla los ignora.
+#
+# TODO: en realidad habría que rechazarlos de forma inteligente.
+-A INPUT -m conntrack --ctstate INVALID -j DROP -m comment --comment "INVALIDOS"
+
+# Pings
+#
+# Para saber que el host está levantado y andando, tiene que poder
+# responder pings.  Sin esta regla los pings no se responden.  También
+# se los puede rechazar, haciéndole creer a la otra punta (un nmap por
+# ejemplo) que nuestro host no está funcionando.  Es como un manto de
+# invisibilidad.  La contra es que nosotras tampoco vamos a poder saber
+# si nuestro host está funcionando, si no estamos en el mismo espacio
+# físico.
+
+# Aceptarlos
+-A INPUT -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT -m comment --comment "PINGS"
+
+# Rechazarlos
+# -A INPUT -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -J REJECT --reject-with icmp-host-unreachable
+
+# Rechazar todas las conexiones nuevas que no sean NEW
+# 
+# Sólo aceptamos conexiones no establecidas que sean nuevas.  Si el host
+# remoto intenta conectarse con nosotras sin negociar una conexión
+# antes, le decimos que intente de vuelta.
+# 
+# Son dos reglas distintas porque UDP y TCP manejan las conexiones de
+# forma distinta.
+-A INPUT -p udp -m conntrack ! --ctstate NEW -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack ! --ctstate NEW -j REJECT --reject-with tcp-reset
+
+# Aceptar localhost
+# 
+# La interfaz lo(calhost) es confiable para nosotras y la aceptamos.
+-A INPUT -i lo -j ACCEPT
+
+# Abrir puertos
+#
+# A partir de acá empezamos a permitir conexiones dependiendo del puerto
+# destino.  Por cada servicio que queramos exponer a hosts remotos, hay
+# que crear una regla aceptando su puerto y protocolo IP.
+
+# SSH
+# 
+# Aceptamos SSH en el puerto 22 y en el 1863
+-A INPUT -p tcp -m multiport --dports 1863,22 -j ACCEPT -m comment --comment "SSH"
+
+# HTTP
+# 
+# Sólo tenemos servidores HTTP en los puertos 80 y 443.
+-A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT -m comment --comment "HTTP"
+
+# Mail
+#
+# Los servidores de correo utilizan varios puertos.  La primera regla
+# acepta los puertos de SMTP y la segunda de POPS e IMAPS
+-A INPUT -p tcp -m multiport --dports 25,465,587 -j ACCEPT -m comment --comment "SMTP"
+-A INPUT -p tcp -m multiport --dports 995,993 -j ACCEPT -m comment --comment "MAIL"
+
+# XMPP
+#
+# Los servidores jabber funcionan en estos puertos
+-A INPUT -p tcp -m multiport --dports 5222,5269,5280,5298 -j ACCEPT -m comment --comment "XMPP"
+
+# mDNS
+# 
+# Permitir tráfico de avahi-daemon
+-A INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
+
+# Servidor DNS
+# 
+# Si tenemos un servidor DNS abierto necesita el puerto 53 en ambos
+# protocolos abierto.
+-A INPUT -p udp --dport 53 -j ACCEPT
+-A INPUT -p tcp --dport 53 -j ACCEPT
+
+
+# Fin del firewall
+COMMIT
+
+
+</pre>
+<p><br>
+</p>
+<h1><span class="mw-headline" id="Ipset">Ipset</span></h1>
+<p>Falta escribir esto
+</p>
+<h1><span class="mw-headline" id="Snort">Snort</span></h1>
+<p>Falta escribir esto
+</p>
+</div>						<footer><div id="catlinks" class="catlinks well"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="Especial:Categor%C3%ADas.html" title="Especial:Categorías">Categorías</a>: <ul>
+<li><a href="Categor%C3%ADa:Taller.html" title="Categoría:Taller">Taller</a></li>
+<li><a href="Categor%C3%ADa:QueHacer.html" title="Categoría:QueHacer">QueHacer</a></li>
+</ul>
+</div></div></footer>
+											</article>
+				</div>
+
+				<ul class="horizontal">
+<li> <a href="HackLab_de_Barracas:Derechos_de_autor.html" title="HackLab de Barracas:Derechos de autor">Licencia</a>
+</li>
+<li> <a href="Donaciones.html" title="Donaciones">Donaciones ♡</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://fm.hackcoop.com.ar/">Radios</a>
+</li>
+<li> <a href="Categor%C3%ADa:Campa%C3%B1as.html" title="Categoría:Campañas">Campañas</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="http://hackcoop.com.ar/listas/">Listas de correo</a>
+</li>
+<li> <a href="Especial:P%C3%A1ginasEspeciales.html" title="Especial:PáginasEspeciales">Páginas especiales</a>
+</li>
+<li> <a href="Glosario.html" title="Glosario" class="mw-redirect">Glosario</a>
+</li>
+</ul>
+<ul class="horizontal">
+<li><a href="HackLab_de_Barracas:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos.html" title="HackLab de Barracas:Política de protección de datos">Política de protección de datos</a></li>
+<li><a href="HackLab_de_Barracas:Acerca_de.html" title="HackLab de Barracas:Acerca de">Acerca de HackLab de Barracas</a></li>
+<li><a href="HackLab_de_Barracas:Limitaci%C3%B3n_general_de_responsabilidad.html" title="HackLab de Barracas:Limitación general de responsabilidad">Aviso legal</a></li>
+</ul>
+<ul class="horizontal pull-right"><li><a href="/www.mediawiki.org/.html"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></li></ul>
+
+			</div> </body>
+			</html>
