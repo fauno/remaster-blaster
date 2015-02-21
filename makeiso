@@ -1,15 +1,28 @@
 #!/bin/bash
+
+# ubicaciones del mbr de isolinux
+mbrs=(/usr/lib/syslinux/bios/isohdpfx.bin /usr/lib/ISOLINUX/isohdpfx.bin)
+
+for mbr_ in ${mbrs[@]}; do
+  test -f "${mbr_}" && mbr="${mbr_}"
+done
+
+if test -z "${mbr}"; then
+  echo "No se puede encontrar el MBR para la ISO, instalá isolinux"
+  exit 1
+fi
+
 umount jail/proc
+umount jail/var/cache/apt/archives
 rm -v iso/casper/filesystem.squashfs jail/etc/mtab
-rm -v jail/var/cache/apt/archives/*.deb
 rm -rv jail/tmp/*
 cp -vf splash.png iso/isolinux/
 cp -vf isolinux.cfg iso/isolinux/
 
-mksquashfs jail iso/casper/filesystem.squashfs || {
-    echo "No se pudo crear filesystem.squashfs"
-    exit 1
-}
+if ! mksquashfs jail iso/casper/filesystem.squashfs ; then
+  echo "No se pudo crear filesystem.squashfs"
+  exit 1
+fi
 
 pushd iso
 
@@ -26,7 +39,7 @@ xorriso -as genisoimage \
     -b isolinux/isolinux.bin \
     -c isolinux/boot.cat \
     -iso-level 3 -no-emul-boot -partition_offset 16 -boot-load-size 4 -boot-info-table \
-    -isohybrid-mbr /usr/lib/syslinux/bios/isohdpfx.bin \
+    -isohybrid-mbr "${mbr}" \
     -o ../"${1// /-}"-$(date +%Y.%m.%d).iso .
 
 popd
