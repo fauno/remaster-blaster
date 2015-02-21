@@ -1,3 +1,7 @@
+// No mostrar la ventana de HTTPS Everywhere
+user_pref("extensions.https_everywhere._observatory.popup_shown", true);
+user_pref("extensions.https_everywhere.firstrun_context_menu", false);
+
 // Deshabilitar pedirle permiso a Google para ver un sitio
 user_pref("browser.safebrowsing.enabled", false);
 //
