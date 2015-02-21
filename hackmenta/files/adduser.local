@@ -1,0 +1,6 @@
+#!/bin/bash
+# Cambia los nicks en pidgin
+sed -i "s/persona/${1}/g" "${4}/.purple/"*.xml
+# Cambia el directorio por defecto de transmission
+sed -i "s,~,${4},g" "${4}/.config/transmission/settings.json"
+
