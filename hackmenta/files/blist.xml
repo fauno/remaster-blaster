@@ -7,7 +7,12 @@
 			<chat proto='prpl-irc' account='persona@irc.hackcoop.com.ar'>
 				<component name='channel'>#automigracion</component>
 				<setting name='gtk-autojoin' type='bool'>1</setting>
-				<setting name='custom_buddy_icon' type='string'>9ea3938f2d38a1a23216fcda33b817db63ef5711.png</setting>
+				<setting name='custom_buddy_icon' type='string'>hackmenta.png</setting>
+			</chat>
+			<chat proto='prpl-irc' account='persona@irc.hackcoop.com.ar'>
+				<component name='channel'>#lab</component>
+				<setting name='gtk-autojoin' type='bool'>0</setting>
+				<setting name='custom_buddy_icon' type='string'>hacklab.png</setting>
 			</chat>
 		</group>
 	</blist>
