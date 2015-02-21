@@ -34,7 +34,7 @@ packages=(
   sylpheed
   thunderbird-locale-es-es enigmail xul-ext-lightning
   xsel
-  git rsync
+  git rsync htop
   language-pack-es language-pack-es-base language-pack-gnome-es
   language-pack-gnome-es-base firefox-locale-es
   kde-l10n-es gimp-help-es aspell-es
@@ -57,7 +57,23 @@ packages=(
   xmlstarlet firefox
   scantailor djvulibre-bin imagemagick ocrodjvu minidjvu
   idjc
-  cryptkeeper
+  parcellite
+  gnome-encfs-manager
+  syncthing syncthing-gtk
+  tor-browser
+)
+
+# repositorios extra
+ppas=(
+  gencfsm
+  ytvwld/syncthing
+  nilarimogard/webupd8
+  webupd8team/tor-browser
+)
+
+# programas en el inicio
+autostart=(
+  pidgin
   parcellite
   gnome-encfs-manager
 )
@@ -65,7 +81,7 @@ packages=(
 # plugins para firefox
 #  HTTPS everywhere
 #  Perspective
-#  Adblock
+#  µBlock
 #  Flash Video Downloader
 #  Brief
 #  Privacy Badger
@@ -73,7 +89,7 @@ packages=(
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
-  https://addons.mozilla.org/firefox/downloads/latest/394968/platform:2/addon-394968-latest.xpi
+  https://github.com/gorhill/uBlock/releases/download/0.8.8.2/uBlock.firefox.xpi
   https://addons.mozilla.org/firefox/downloads/latest/6584/platform:2/addon-6584-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
   https://raw.githubusercontent.com/b4zz4/loic/master/release/loic.firefox.xpi
@@ -106,6 +122,7 @@ get_extension_id() {
 # no parar a preguntarnos cosas
 export DEBIAN_FRONTEND=noninteractive
 
+locale-gen es_AR.UTF-8
 apt-get install --yes gnupg2 git localepurge
 sed "/NEEDSCONFIGFIRST/d" -i /etc/locale.nopurge
 for l in es es_AR es_AR.UTF-8 en ; do
@@ -116,17 +133,7 @@ done
 echo "pasando el sistema a castellano"
 echo "LANG=es_AR.UTF-8" >/etc/default/locale
 echo "LANGUAGE=es_AR:es" >>/etc/default/locale
-cat >/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-
-<channel name="keyboard-layout" version="1.0">
-  <property name="Default" type="empty">
-    <property name="XkbDisable" type="bool" value="false"/>
-    <property name="XkbLayout" type="string" value="latam"/>
-    <property name="XkbModel" type="string" value="pc105"/>
-  </property>
-</channel>
-EOF
+install -Dm644 /tmp/keyboard-layout.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
 
 echo "instalando duraskel"
 pushd /tmp
@@ -134,27 +141,34 @@ test -d /tmp/duraskel/.git || git clone https://github.com/fauno/duraskel -b hac
 pushd /tmp/duraskel
 make install
 rsync -av src/ /root/
+# mantener el bashrc original de mint
+rm -f /etc/skel/.bashrc /root/.bashrc
 popd
 
 # pisar la configuración de pidgin con nuestra propia configuración
-cp -fv /tmp/{blist,accounts}.xml /etc/skel/.purple
-mkdir -p /etc/skel/.purple/certificates/x509/tls_peers
-cat /tmp/irc.hackcoop.com.ar.crt >/etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
+cp -fv /tmp/{blist,accounts}.xml /etc/skel/.purple/
+install -Dm644 /tmp/logo.png /etc/skel/.purple/icons/hackmenta.png
+install -Dm644 /tmp/hacklab.png /etc/skel/.purple/icons/hacklab.png
+install -Dm644 /tmp/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
 
 # modifica las variables al crear un usuario
-echo '#!/bin/bash' >/usr/local/sbin/adduser.local
-echo 'sed -i "s/persona/${1}/g" "${4}/.purple/"*' >>/usr/local/sbin/adduser.local
-echo 'sed -i "s,~,${4},g" "${4}/.config/transmission/settings.json"' >>/usr/local/sbin/adduser.local
-chmod +x /usr/local/sbin/adduser.local
+install -Dm755 /tmp/adduser.local /usr/local/sbin/adduser.local
+
+mkdir -p /etc/skel/Escritorio/
+cp -rv /tmp/HackWiki /etc/skel/
 
 # programas al inicio
 mkdir -p /etc/skel/.config/autostart
 pushd /etc/skel/.config/autostart
 # lo symlinkeamos por si hay cambios luego
-ln -sv /usr/share/applications/pidgin.desktop .
+for auto in ${autostart[@]}; do
+  ln -sv /usr/share/applications/${auto}.desktop .
+done
 
-echo "configurando repositorio gnome-encfs-manager"
-echo "deb http://ppa.launchpad.net/gencfsm/ppa/ubuntu ${distro} main" >/etc/apt/sources.list.d/gencfsm.list
+echo "configurando repositorios"
+for ppa in ${ppas[@]}; do
+  add-apt-repository --yes ppa:${ppa}
+done
 
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
@@ -205,7 +219,6 @@ cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
 test "${cert_ok}" == "${cert_test}" &&
 install -Dm644 class3.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_class3.crt
 
-sed '/^!cacert\.org/d' -i /etc/ca-certificates.conf
 install -dm755 /etc/ca-certificates/update.d
 echo "cacert.org/cacert.org_root.crt" >>/etc/ca-certificates/update.d/cacert.conf
 echo "cacert.org/cacert.org_class3.crt" >>/etc/ca-certificates/update.d/cacert.conf
@@ -247,32 +260,19 @@ find /usr/lib/thunderbird-addons/extensions/ \
      /usr/lib/firefox-addons/distribution/extensions/ \
      -type f -exec chmod 644 {} \;
 
+# opciones por defecto de firefox
 cat /tmp/prefs.js >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js
+# opciones por defecto de enigmail
+cat /tmp/enigmail.js >/etc/xul-ext/enigmail.js
+# y la base de datos con cacert
+install -Dm644 /tmp/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
 
-# Inicio de programas
-mkdir -p /etc/skel/.config/autostart
-cd /etc/skel/.config/autostart
-## Inicio del historial del portapapeles
-cp /usr/share/applications/parcellite.desktop .
-## Inicio de cifrado de carpetas
-cp /usr/share/applications/cryptkeeper.desktop .
-
-echo "instalando syncthing"
-add-apt-repository --yes ppa:ytvwld/syncthing
-add-apt-repository --yes ppa:nilarimogard/webupd8
-apt-get update --yes
-apt-get install --yes syncthing syncthing-gtk
 
 echo "instalando dl.git"
 pushd /etc/skel/
 git clone http://repo.hackcoop.com.ar/dl.git
 echo 'PATH=~/dl:$PATH' >>.bashrc
 
-echo "instalando tor browser bundle"
-# TODO esta en inglés
-add-apt-repository --yes ppa:webupd8team/tor-browser
-apt-get update --yes
-apt-get install --yes tor-browser
 
 pushd /tmp
 # logos
@@ -280,19 +280,19 @@ cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
 
 LOGO="logo.png"
 
-for logo in /usr/share/linuxmint/common/artwork/logos/16.png
-            /usr/share/linuxmint/common/artwork/logos/22.png
-            /usr/share/linuxmint/common/artwork/logos/24.png
-            /usr/share/linuxmint/common/artwork/logos/32.png
-            /usr/share/linuxmint/common/artwork/logos/48.png
-            /usr/share/linuxmint/logo.png
-            /usr/share/linuxmint/mintinstall/icons/mintbackup.png
-            /usr/share/linuxmint/mintinstall/icons/mintdesktop.png
-            /usr/share/linuxmint/mintinstall/icons/mintinstall.png
-            /usr/share/linuxmint/mintinstall/icons/mintmenu.png
-            /usr/share/linuxmint/mintinstall/icons/mintnanny.png
-            /usr/share/linuxmint/mintinstall/icons/mintupdate.png
-            /usr/share/linuxmint/mintinstall/icons/mintupload.png
+for logo in /usr/share/linuxmint/common/artwork/logos/16.png \
+            /usr/share/linuxmint/common/artwork/logos/22.png \
+            /usr/share/linuxmint/common/artwork/logos/24.png \
+            /usr/share/linuxmint/common/artwork/logos/32.png \
+            /usr/share/linuxmint/common/artwork/logos/48.png \
+            /usr/share/linuxmint/logo.png \
+            /usr/share/linuxmint/mintinstall/icons/mintbackup.png \
+            /usr/share/linuxmint/mintinstall/icons/mintdesktop.png \
+            /usr/share/linuxmint/mintinstall/icons/mintinstall.png \
+            /usr/share/linuxmint/mintinstall/icons/mintmenu.png \
+            /usr/share/linuxmint/mintinstall/icons/mintnanny.png \
+            /usr/share/linuxmint/mintinstall/icons/mintupdate.png \
+            /usr/share/linuxmint/mintinstall/icons/mintupload.png \
             /lib/plymouth/themes/mint-logo/logo.png ; do
 
   # obtener la resolución
@@ -304,21 +304,22 @@ for logo in /usr/share/linuxmint/common/artwork/logos/16.png
 done
 
 # logos con marca de instalados
-for logo in /usr/share/linuxmint/mintinstall/installed/mintbackup.png
-            /usr/share/linuxmint/mintinstall/installed/mintdesktop.png
-            /usr/share/linuxmint/mintinstall/installed/mintinstall.png
-            /usr/share/linuxmint/mintinstall/installed/mintmenu.png
-            /usr/share/linuxmint/mintinstall/installed/mintnanny.png
-            /usr/share/linuxmint/mintinstall/installed/mintupdate.png
+for logo in /usr/share/linuxmint/mintinstall/installed/mintbackup.png \
+            /usr/share/linuxmint/mintinstall/installed/mintdesktop.png \
+            /usr/share/linuxmint/mintinstall/installed/mintinstall.png \
+            /usr/share/linuxmint/mintinstall/installed/mintmenu.png \
+            /usr/share/linuxmint/mintinstall/installed/mintnanny.png \
+            /usr/share/linuxmint/mintinstall/installed/mintupdate.png \
             /usr/share/linuxmint/mintinstall/installed/mintupload.png ; do
 	convert "${logo/installed/icons}" -gravity SouthEast \
           /usr/share/linuxmint/mintinstall/emblem-installed.png \
           -composite "${logo}"
 done
 
-update-initramfs -u
-
 # fondo de pantalla
-cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_17.png
-cp fondo.png /usr/share/backgrounds/linuxmint-qiana/linux_mint_qiana.png
+install -Dm644 fondo.png /usr/share/xfce4/backdrops/hackmenta.png
+install -Dm644 xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
+# actualiza el initramfs
+update-initramfs -u
 
