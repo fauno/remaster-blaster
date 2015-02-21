@@ -45,7 +45,7 @@ echo "Ahora puede hacer los cambios necesarios en el chroot, cuando salga se cre
 cp -fv /etc/resolv.conf jail/etc/
 
 shift
-cp -fv $@ files/* jail/tmp/
+cp -rfv $@ files/* jail/tmp/
 # http://major.io/2014/06/26/install-debian-packages-without-starting-daemons/
 echo '#!/bin/sh' >jail/usr/sbin/policy-rc.d
 echo 'exit 101'  >jail/usr/sbin/policy-rc.d
