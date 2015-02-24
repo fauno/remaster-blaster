@@ -58,6 +58,8 @@ else
   mount -t sysfs none jail/sys
   mount --bind /dev jail/dev
   chroot jail/ /tmp/${1##*/}
+
+  umount jail/proc jail/sys jail/dev
 fi
 
 umount jail/var/cache/apt/archives/
