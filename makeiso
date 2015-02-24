@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # ubicaciones del mbr de isolinux
-mbrs=(/usr/lib/syslinux/bios/isohdpfx.bin /usr/lib/ISOLINUX/isohdpfx.bin)
+mbrs=(/usr/lib/syslinux/bios/isohdpfx.bin /usr/lib/ISOLINUX/isohdpfx.bin /usr/lib/syslinux/isohdpfx.bin)
 
 for mbr_ in ${mbrs[@]}; do
   test -f "${mbr_}" && mbr="${mbr_}"
 done
 
 if test -z "${mbr}"; then
-  echo "No se puede encontrar el MBR para la ISO, instalá isolinux"
+  echo "No se puede encontrar el MBR para la ISO, instalá isolinux o syslinux"
   exit 1
 fi
 

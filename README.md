@@ -13,6 +13,7 @@ Juan Carlos Radio y mejorados para HackMenta.
 * libisoburn (o el que tenga `xorriso`)
 * genisoimage
 * rsync
+* isolinux o syslinux
 
 ## Uso
 
