@@ -4,6 +4,19 @@ user_pref("extensions.https_everywhere.firstrun_context_menu", false);
 
 // Deshabilitar pedirle permiso a Google para ver un sitio
 user_pref("browser.safebrowsing.enabled", false);
+user_pref("browser.safebrowsing.downloads.enabled", false);
+user_pref("browser.safebrowsing.malware.enabled", false);
+
+// Privacidad
+user_pref("datareporting.healthreport.service.enabled", false);
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("media.eme.enabled", false);
+user_pref("media.gmp-eme-adobe.enabled", false);
+user_pref("loop.enabled", false);
+user_pref("media.peerconnection.enabled", false);
+user_pref("geo.enabled", false);
+
 //
 user_pref("extensions.update.enabled", true);
 
