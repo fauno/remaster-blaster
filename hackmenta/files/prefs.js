@@ -59,6 +59,9 @@ user_pref("distribution.searchplugins.defaultLocale", "es-AR");
 user_pref("extensions.autoDisableScopes", 0);
 user_pref("extensions.shownSelectionUI", true);
 
+// Habilita el reader
+user_pref("reader.parse-on-load.enabled", true);
+
 // Map to hyphenation patterns from openoffice.org-hyphenation and openoffice.org-dictionaries
 user_pref("intl.hyphenation-alias.af", "af-za");
 user_pref("intl.hyphenation-alias.af-*", "af-za");
