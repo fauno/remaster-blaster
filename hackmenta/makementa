@@ -63,6 +63,7 @@ packages=(
   tor-browser
   macchanger
   youtube-dlg
+  apt-transport-https qtox
 )
 
 # repositorios extra
@@ -176,6 +177,10 @@ done
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
 echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
+
+echo "configurando repositorios tox"
+echo "deb https://repo.tox.im/ nightly main" > /etc/apt/sources.list.d/tox.list
+wget -qO - https://repo.tox.im/pubkey.gpg | apt-key add -
 
 # a veces hay errores temporales en la obtencion de llaves
 i=0
