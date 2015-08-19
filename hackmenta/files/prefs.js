@@ -22,12 +22,10 @@ user_pref("general.useragent.vendorSub", "17");
 user_pref("general.useragent.vendorComment", "Qiana");
 
 // Default search engine
-user_pref("browser.search.order.1", "DuckDuckGo");
-user_pref("browser.search.order.2", "Ixquick");
-user_pref("browser.search.order.3", "Startpage");
-user_pref("browser.search.selectedEngine", "DuckDuckGo");
+user_pref("browser.search.order.1", "searx");
+user_pref("browser.search.selectedEngine", "searx");
 user_pref("browser.search.searchEnginesURL", "http://www.linuxmint.com/searchengines/");
-user_pref("keyword.URL", "https://duckduckgo.com/?t=lm&q=");
+user_pref("keyword.URL", "http://searx.laquadrature.net/?q=");
 
 // Activate the backspace key for browsing back
 user_pref("browser.backspace_action", 0);

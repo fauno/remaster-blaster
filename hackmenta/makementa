@@ -265,6 +265,8 @@ cat /tmp/prefs.js >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js
 cat /tmp/enigmail.js >/etc/xul-ext/enigmail.js
 # y la base de datos con cacert
 install -Dm644 /tmp/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
+# y el buscador
+install -Dm644 /tmp/searx.xml /etc/skel/.mozilla/firefox/mwad0hks.default/searchplugins/searx.xml
 
 
 echo "instalando dl.git"
