@@ -148,7 +148,6 @@ popd
 # pisar la configuración de pidgin con nuestra propia configuración
 cp -fv /tmp/{blist,accounts}.xml /etc/skel/.purple/
 install -Dm644 /tmp/logo.png /etc/skel/.purple/icons/hackmenta.png
-install -Dm644 /tmp/hacklab.png /etc/skel/.purple/icons/hacklab.png
 install -Dm644 /tmp/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
 
 # modifica las variables al crear un usuario
