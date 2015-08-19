@@ -227,9 +227,13 @@ cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
 test "${cert_ok}" == "${cert_test}" &&
 install -Dm644 class3.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_class3.crt
 
+# instalar el certificado de autistici
+install -Dm644 /tmp/autistici-ca.crt /usr/local/share/ca-certificates/autistici.org/ca.crt
+
 install -dm755 /etc/ca-certificates/update.d
 echo "cacert.org/cacert.org_root.crt" >>/etc/ca-certificates/update.d/cacert.conf
 echo "cacert.org/cacert.org_class3.crt" >>/etc/ca-certificates/update.d/cacert.conf
+echo "autistici.org/ca.crt" >>/etc/ca-certificates/update.d/autistici.conf
 
 update-ca-certificates --fresh
 
