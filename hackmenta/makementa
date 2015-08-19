@@ -95,6 +95,8 @@ morcilla=(
   https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
   https://raw.githubusercontent.com/b4zz4/loic/master/release/loic.firefox.xpi
   https://s.eff.org/files/privacy-badger-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/519896/platform:3/addon-519896-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/577606/addon-577606-latest.xpi
 )
 
 # plugins para thunderbird
