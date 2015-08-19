@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Obtener todas las interfaces menos localhost y cambiarles la mac
+ip link | grep "^[0-9]\+:" | cut -d : -f2 | grep -vw lo \
+| while read iface; do
+  ip link set ${iface} down
+  macchanger -r ${iface}
+  ip link set ${iface} up
+done

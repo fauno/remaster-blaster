@@ -61,6 +61,7 @@ packages=(
   gnome-encfs-manager
   syncthing syncthing-gtk
   tor-browser
+  macchanger
 )
 
 # repositorios extra
@@ -324,3 +325,6 @@ install -Dm644 xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-
 # actualiza el initramfs
 update-initramfs -u
 
+# instala el servicio de cambio de mac
+install -Dm755 /tmp/macchanger /etc/init.d/macchanger
+update-rc.d macchanger defaults 10
