@@ -4,31 +4,32 @@
 needed="rsync genisoimage mksquashfs xorriso"
 
 for need in ${needed}; do
-    if ! which ${need} ; then
-        echo "Se necesita el programa ${need}"
-        exit 1
-    fi
+  if ! which ${need} ; then
+      echo "Se necesita el programa ${need}"
+      exit 1
+  fi
 done
 
 if [ ! -w / ]; then
-    echo "Correr como root"
-    exit 1
+  echo "Correr como root"
+  exit 1
 fi
 
 iso="${1}"
 
 if [ -z "${iso}" ]; then 
-    echo "Pasar una ISO como argumento"
-    exit 1
+  echo "Pasar una ISO como argumento"
+  exit 1
 fi
 
+umount filesystem
 umount tmp
 mkdir -p tmp filesystem jail iso archives
 mount -o loop "${iso}" tmp/
 
 mount -o loop tmp/casper/filesystem.squashfs filesystem/ || {
-    echo "No se pudo montar el sistema de archivos squashfs"
-    exit 1
+  echo "No se pudo montar el sistema de archivos squashfs"
+  exit 1
 }
 
 echo "Sincronizando filesystem/ => jail/"
@@ -45,22 +46,24 @@ echo "Ahora puede hacer los cambios necesarios en el chroot, cuando salga se cre
 cp -fv /etc/resolv.conf jail/etc/
 
 shift
-cp -rfv $@ files/* jail/tmp/
+mkdir jail/root/remaster
+cp -rfv $@ files/* jail/root/remaster/
 # http://major.io/2014/06/26/install-debian-packages-without-starting-daemons/
 echo '#!/bin/sh' >jail/usr/sbin/policy-rc.d
 echo 'exit 101'  >jail/usr/sbin/policy-rc.d
 chmod +x jail/usr/sbin/policy-rc.d
 
 if which systemd-nspawn ; then
-  systemd-nspawn -D jail /tmp/${1##*/}
+systemd-nspawn -D jail /root/remaster/${1##*/}
 else
-  mount -t proc none jail/proc
-  mount -t sysfs none jail/sys
-  mount --bind /dev jail/dev
-  chroot jail/ /tmp/${1##*/}
+mount -t proc none jail/proc
+mount -t sysfs none jail/sys
+mount --bind /dev jail/dev
+chroot jail/ /root/remaster/${1##*/}
 
-  umount jail/proc jail/sys jail/dev
+umount jail/proc jail/sys jail/dev
 fi
 
 umount jail/var/cache/apt/archives/
 rm -fv jail/usr/sbin/policy-rc.d
+rm -rf jail/root/remaster

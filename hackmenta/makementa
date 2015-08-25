@@ -23,6 +23,7 @@ purge=(
   fonts-tlwg-umpush fonts-tlwg-waree ttf-punjabi-fonts
   ttf-indic-fonts-core
 
+  baobab cabextract hexchat-common hunspell-en-us 
 )
 
 # cosas que necesitamos
@@ -63,7 +64,8 @@ packages=(
   tor-browser
   macchanger
   youtube-dlg
-  apt-transport-https qtox
+  apt-transport-https
+  qtox
 )
 
 # repositorios extra
@@ -138,12 +140,12 @@ done
 echo "pasando el sistema a castellano"
 echo "LANG=es_AR.UTF-8" >/etc/default/locale
 echo "LANGUAGE=es_AR:es" >>/etc/default/locale
-install -Dm644 /tmp/keyboard-layout.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
+install -Dm644 /root/remaster/keyboard-layout.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
 
 echo "instalando duraskel"
-pushd /tmp
-test -d /tmp/duraskel/.git || git clone https://github.com/fauno/duraskel -b hackmenta
-pushd /tmp/duraskel
+pushd /root/remaster
+test -d /root/remaster/duraskel/.git || git clone https://github.com/fauno/duraskel -b hackmenta
+pushd /root/remaster/duraskel
 make install
 rsync -av src/ /root/
 # mantener el bashrc original de mint
@@ -151,15 +153,15 @@ rm -f /etc/skel/.bashrc /root/.bashrc
 popd
 
 # pisar la configuración de pidgin con nuestra propia configuración
-cp -fv /tmp/{blist,accounts}.xml /etc/skel/.purple/
-install -Dm644 /tmp/logo.png /etc/skel/.purple/icons/hackmenta.png
-install -Dm644 /tmp/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
+cp -fv /root/remaster/{blist,accounts}.xml /etc/skel/.purple/
+install -Dm644 /root/remaster/logo.png /etc/skel/.purple/icons/hackmenta.png
+install -Dm644 /root/remaster/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
 
 # modifica las variables al crear un usuario
-install -Dm755 /tmp/adduser.local /usr/local/sbin/adduser.local
+install -Dm755 /root/remaster/adduser.local /usr/local/sbin/adduser.local
 
 mkdir -p /etc/skel/Escritorio/
-cp -rv /tmp/HackWiki /etc/skel/
+cp -rv /root/remaster/HackWiki /etc/skel/
 
 # programas al inicio
 mkdir -p /etc/skel/.config/autostart
@@ -179,8 +181,8 @@ echo "configurando repositorios tor"
 echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
 
 echo "configurando repositorios tox"
-echo "deb https://repo.tox.im/ nightly main" > /etc/apt/sources.list.d/tox.list
-wget -qO - https://repo.tox.im/pubkey.gpg | apt-key add -
+echo "deb https://repo.tox.chat/ nightly main" > /etc/apt/sources.list.d/tox.list
+wget -qO - https://repo.tox.chat/pubkey.gpg | apt-key add -
 
 # a veces hay errores temporales en la obtencion de llaves
 i=0
@@ -202,12 +204,12 @@ apt-get purge --yes ${purge[@]}
 # http://askubuntu.com/a/520941
 touch /var/run/utmp
 # propio :P
-patch /etc/init.d/udev /tmp/udev_disable_hotplug.patch
+patch /etc/init.d/udev /root/remaster/udev_disable_hotplug.patch
 # https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1325142/comments/9
 echo "libpam-systemd hold"|dpkg --set-selections
 apt-get upgrade --yes
 apt-get autoremove --yes
-patch /etc/init.d/udev /tmp/udev_enable_hotplug.patch
+patch /etc/init.d/udev /root/remaster/udev_enable_hotplug.patch
 echo "libpam-systemd install"|dpkg --set-selections
 apt-get install --yes ${packages[@]}
 
@@ -228,7 +230,7 @@ test "${cert_ok}" == "${cert_test}" &&
 install -Dm644 class3.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_class3.crt
 
 # instalar el certificado de autistici
-install -Dm644 /tmp/autistici-ca.crt /usr/local/share/ca-certificates/autistici.org/ca.crt
+install -Dm644 /root/remaster/autistici-ca.crt /usr/local/share/ca-certificates/autistici.org/ca.crt
 
 install -dm755 /etc/ca-certificates/update.d
 echo "cacert.org/cacert.org_root.crt" >>/etc/ca-certificates/update.d/cacert.conf
@@ -238,9 +240,9 @@ echo "autistici.org/ca.crt" >>/etc/ca-certificates/update.d/autistici.conf
 update-ca-certificates --fresh
 
 echo "instalando librevpn"
-pushd /tmp
-test -d /tmp/librevpn/.git || git clone https://github.com/fauno/librevpn
-pushd /tmp/librevpn
+pushd /root/remaster
+test -d /root/remaster/librevpn/.git || git clone https://github.com/fauno/librevpn
+pushd /root/remaster/librevpn
 make install PREFIX=/usr
 
 echo "descargando plugins de thunderbird"
@@ -273,13 +275,13 @@ find /usr/lib/thunderbird-addons/extensions/ \
      -type f -exec chmod 644 {} \;
 
 # opciones por defecto de firefox
-cat /tmp/prefs.js >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js
+cat /root/remaster/prefs.js >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js
 # opciones por defecto de enigmail
-cat /tmp/enigmail.js >/etc/xul-ext/enigmail.js
+cat /root/remaster/enigmail.js >/etc/xul-ext/enigmail.js
 # y la base de datos con cacert
-install -Dm644 /tmp/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
+install -Dm644 /root/remaster/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
 # y el buscador
-install -Dm644 /tmp/searx.xml /etc/skel/.mozilla/firefox/mwad0hks.default/searchplugins/searx.xml
+install -Dm644 /root/remaster/searx.xml /etc/skel/.mozilla/firefox/mwad0hks.default/searchplugins/searx.xml
 
 
 echo "instalando dl.git"
@@ -288,7 +290,7 @@ git clone http://repo.hackcoop.com.ar/dl.git
 echo 'PATH=~/dl:$PATH' >>.bashrc
 
 
-pushd /tmp
+pushd /root/remaster
 # logos
 cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
 
@@ -338,5 +340,5 @@ install -Dm644 xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-
 update-initramfs -u
 
 # instala el servicio de cambio de mac
-install -Dm755 /tmp/macchanger /etc/init.d/macchanger
+install -Dm755 /root/remaster/macchanger /etc/init.d/macchanger
 update-rc.d macchanger defaults 10
