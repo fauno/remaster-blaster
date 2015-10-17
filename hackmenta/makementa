@@ -66,6 +66,7 @@ packages=(
   youtube-dlg
   apt-transport-https
   qtox
+  bitmask leap-keyring
 )
 
 # repositorios extra
@@ -175,6 +176,10 @@ echo "configurando repositorios"
 for ppa in ${ppas[@]}; do
   add-apt-repository --yes ppa:${ppa}
 done
+
+echo "bitmask"
+add-apt-repository "deb https://deb.bitmask.net/debian ${distro} main"
+wget -O- https://dl.bitmask.net/apt.key | apt-key add -<F37>
 
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
