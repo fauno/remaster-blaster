@@ -179,7 +179,7 @@ done
 
 echo "bitmask"
 add-apt-repository "deb https://deb.bitmask.net/debian ${distro} main"
-wget -O- https://dl.bitmask.net/apt.key | apt-key add -<F37>
+wget -O- https://dl.bitmask.net/apt.key | apt-key add -
 
 echo "configurando repositorios tor"
 # https://www.torproject.org/docs/debian.html.en
