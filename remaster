@@ -46,7 +46,7 @@ echo "Ahora puede hacer los cambios necesarios en el chroot, cuando salga se cre
 cp -fv /etc/resolv.conf jail/etc/
 
 shift
-mkdir jail/root/remaster
+mkdir -p jail/root/remaster
 cp -rfv $@ files/* jail/root/remaster/
 # http://major.io/2014/06/26/install-debian-packages-without-starting-daemons/
 echo '#!/bin/sh' >jail/usr/sbin/policy-rc.d

@@ -24,6 +24,7 @@ purge=(
   ttf-indic-fonts-core
 
   baobab cabextract hexchat-common hunspell-en-us 
+  mint-search-addon
 )
 
 # cosas que necesitamos
@@ -80,8 +81,6 @@ ppas=(
 # programas en el inicio
 autostart=(
   pidgin
-  parcellite
-  gnome-encfs-manager
 )
 
 # plugins para firefox
@@ -178,7 +177,7 @@ for ppa in ${ppas[@]}; do
 done
 
 echo "bitmask"
-add-apt-repository "deb https://deb.bitmask.net/debian ${distro} main"
+add-apt-repository "deb http://deb.bitmask.net/debian ${distro} main"
 wget -O- https://dl.bitmask.net/apt.key | apt-key add -
 
 echo "configurando repositorios tor"
@@ -186,8 +185,8 @@ echo "configurando repositorios tor"
 echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
 
 echo "configurando repositorios tox"
-echo "deb https://repo.tox.chat/ nightly main" > /etc/apt/sources.list.d/tox.list
-wget -qO - https://repo.tox.chat/pubkey.gpg | apt-key add -
+echo "deb https://pkg.tox.chat/debian nightly release" > /etc/apt/sources.list.d/tox.list
+wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | apt-key add -
 
 # a veces hay errores temporales en la obtencion de llaves
 i=0
@@ -279,15 +278,18 @@ find /usr/lib/thunderbird-addons/extensions/ \
      /usr/lib/firefox-addons/distribution/extensions/ \
      -type f -exec chmod 644 {} \;
 
-# opciones por defecto de firefox
-cat /root/remaster/prefs.js >/etc/skel/.mozilla/firefox/mwad0hks.default/prefs.js
 # opciones por defecto de enigmail
 cat /root/remaster/enigmail.js >/etc/xul-ext/enigmail.js
 # y la base de datos con cacert
 install -Dm644 /root/remaster/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
-# y el buscador
-install -Dm644 /root/remaster/searx.xml /etc/skel/.mozilla/firefox/mwad0hks.default/searchplugins/searx.xml
-
+pushd /usr/share/linuxmint/common/artwork/firefox
+# opciones por defecto de firefox
+cat /root/remaster/prefs.js >firefox.js
+# buscadores de mierda
+find searchplugins -name '*.xml' -delete
+for i in searchplugins/* ; do
+  install -Dm644 /root/remaster/searx.xml "${i}/searx.xml"
+done
 
 echo "instalando dl.git"
 pushd /etc/skel/
