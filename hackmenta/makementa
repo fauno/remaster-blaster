@@ -59,7 +59,6 @@ packages=(
   xmlstarlet firefox
   scantailor djvulibre-bin imagemagick ocrodjvu minidjvu
   idjc
-  parcellite
   gnome-encfs-manager
   syncthing syncthing-gtk
   tor-browser
