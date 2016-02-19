@@ -69,6 +69,7 @@ packages=(
   qtox
   bitmask leap-keyring
   tails-installer
+  redshift-gtk
 )
 
 # repositorios extra
@@ -83,6 +84,7 @@ ppas=(
 # programas en el inicio
 autostart=(
   pidgin
+  redshift-gtk
 )
 
 # plugins para firefox
