@@ -293,6 +293,10 @@ for i in searchplugins/* ; do
   install -Dm644 /root/remaster/searx.xml "${i}/searx.xml"
 done
 
+# con alguno la vamos a pegar :P
+cat /root/remaster/thunderbird.js >>/usr/lib/thunderbird/defaults/pref/vendor.js
+cat /root/remaster/thunderbird.js >>/etc/thunderbird/syspref.js
+
 echo "instalando dl.git"
 pushd /etc/skel/
 git clone http://repo.hackcoop.com.ar/dl.git
