@@ -72,6 +72,10 @@ packages=(
   aircrack-ng
   bleachbit
   network-manager-openvpn-gnome
+  calibre
+  keepassx
+  ring-gnome
+  owncloud-client
 )
 
 # repositorios extra
@@ -192,6 +196,11 @@ echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/a
 echo "configurando repositorios tox"
 echo "deb https://pkg.tox.chat/debian nightly release" > /etc/apt/sources.list.d/tox.list
 wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | apt-key add -
+
+echo "configurando repositorios ring"
+apt-key adv --keyserver pgp.mit.edu --recv-keys A295D773307D25A33AE72F2F64CD5FA175348F84
+add-apt-repository universe
+add-apt-repository "deb http://nightly.apt.ring.cx/ubuntu_14.04/ ring main"
 
 # a veces hay errores temporales en la obtencion de llaves
 i=0
