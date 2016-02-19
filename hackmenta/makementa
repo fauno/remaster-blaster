@@ -69,6 +69,10 @@ packages=(
   qtox
   bitmask leap-keyring
   redshift-gtk
+  duplicity deja-dup
+  aircrack-ng
+  bleachbit
+  network-manager-openvpn-gnome
 )
 
 # repositorios extra
