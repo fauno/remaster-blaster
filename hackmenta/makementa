@@ -68,7 +68,6 @@ packages=(
   apt-transport-https
   qtox
   bitmask leap-keyring
-  tails-installer
   redshift-gtk
 )
 
@@ -78,7 +77,6 @@ ppas=(
   ytvwld/syncthing
   nilarimogard/webupd8
   webupd8team/tor-browser
-  tails-team/tails-installer 
 )
 
 # programas en el inicio
