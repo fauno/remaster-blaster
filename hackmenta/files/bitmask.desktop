@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Bitmask
+GenericName=Comunicaciones cifradas (VPN)
+Comment=Comunicaciones cifradas (VPN)
+Exec=/opt/bitmask/bitmask
+Icon=/etc/skel/bitmask.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Network

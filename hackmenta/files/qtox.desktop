@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=qTox
+GenericName=Llamadas y conversaciones cifradas
+Comment=Llamadas y conversaciones cifradas
+Exec=qtox
+Icon=/etc/skel/qtox.svg
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;

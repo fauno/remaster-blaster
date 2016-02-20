@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -E
 
 # Si no tenes polipo aclara esta linea
 #export http_proxy=http://localhost:8123
@@ -66,7 +67,6 @@ packages=(
   youtube-dlg
   apt-transport-https
   qtox
-  bitmask leap-keyring
   redshift-gtk
   duplicity deja-dup
   aircrack-ng
@@ -103,23 +103,20 @@ autostart=(
 morcilla=(
   https://www.eff.org/files/https-everywhere-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/7974/addon-7974-latest.xpi
-  https://github.com/gorhill/uBlock/releases/download/1.6.1/uBlock0.firefox.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/607454/addon-607454-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/6584/platform:2/addon-6584-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/4578/addon-4578-latest.xpi
-  https://raw.githubusercontent.com/b4zz4/loic/master/release/loic.firefox.xpi
-  https://s.eff.org/files/privacy-badger-latest.xpi
+  https://addons.mozilla.org/firefox/downloads/latest/506646/addon-506646-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/519896/platform:3/addon-519896-latest.xpi
   https://addons.mozilla.org/firefox/downloads/latest/577606/addon-577606-latest.xpi
 )
 
 # plugins para thunderbird
 # paranoia - https://addons.mozilla.org/en-US/thunderbird/addon/paranoia/
-# conversations - https://addons.mozilla.org/en-US/thunderbird/addon/gmail-conversation-view/
 # display quota - https://addons.mozilla.org/en-US/thunderbird/addon/display-quota/
 # lovebird - https://addons.mozilla.org/en-US/thunderbird/addon/lovebird/
 morcilla_tb=(
-  https://addons.mozilla.org/thunderbird/downloads/latest/451482/addon-451482-latest.xpi
-  https://addons.mozilla.org/thunderbird/downloads/latest/54035/addon-54035-latest.xpi
+  http://gdr.geekhood.net/gdrwpl/heavy/paranoia.xpi
   https://addons.mozilla.org/thunderbird/downloads/latest/881/addon-881-latest.xpi
   https://addons.mozilla.org/thunderbird/downloads/file/194876/lovebird-1.0b1-tb.xpi
 )
@@ -138,232 +135,308 @@ get_extension_id() {
 # no parar a preguntarnos cosas
 export DEBIAN_FRONTEND=noninteractive
 
-locale-gen es_AR.UTF-8
-apt-get install --yes gnupg2 git localepurge
-sed "/NEEDSCONFIGFIRST/d" -i /etc/locale.nopurge
-for l in es es_AR es_AR.UTF-8 en ; do
-  grep -qw "^${l}$" /etc/locale.nopurge||
-    echo "${l}" >>/etc/locale.nopurge
-done
+function bootstrap() {
+  locale-gen es_AR.UTF-8
+  apt-get install --yes gnupg2 git localepurge
+  sed "/NEEDSCONFIGFIRST/d" -i /etc/locale.nopurge
+  for l in es es_AR es_AR.UTF-8 en ; do
+    grep -qw "^${l}$" /etc/locale.nopurge||
+      echo "${l}" >>/etc/locale.nopurge
+  done
 
-echo "pasando el sistema a castellano"
-echo "LANG=es_AR.UTF-8" >/etc/default/locale
-echo "LANGUAGE=es_AR:es" >>/etc/default/locale
-install -Dm644 /root/remaster/keyboard-layout.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
+}
 
-echo "instalando duraskel"
-pushd /root/remaster
-test -d /root/remaster/duraskel/.git || git clone https://github.com/fauno/duraskel -b hackmenta
-pushd /root/remaster/duraskel
-make install
-rsync -av src/ /root/
+function fixes() {
+# http://askubuntu.com/a/520941
+  touch /var/run/utmp
+# propio :P
+  patch /etc/init.d/udev /root/remaster/udev_disable_hotplug.patch
+  patch /etc/init.d/udev /root/remaster/udev_enable_hotplug.patch
+# https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1325142/comments/9
+  echo "libpam-systemd hold"    |dpkg --set-selections
+  echo "libpam-systemd install" |dpkg --set-selections
+}
+
+function castellano() {
+  echo "LANG=es_AR.UTF-8" >/etc/default/locale
+  echo "LANGUAGE=es_AR:es" >>/etc/default/locale
+  install -Dm644 /root/remaster/keyboard-layout.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
+}
+
+function skel() {
+  pushd /root/remaster
+  test -d /root/remaster/duraskel/.git || git clone https://github.com/fauno/duraskel -b hackmenta
+  pushd /root/remaster/duraskel
+  make install
+  rsync -av src/ /root/
 # mantener el bashrc original de mint
-rm -f /etc/skel/.bashrc /root/.bashrc
-popd
+  rm -f /etc/skel/.bashrc /root/.bashrc
 
 # pisar la configuración de pidgin con nuestra propia configuración
-cp -fv /root/remaster/{blist,accounts}.xml /etc/skel/.purple/
-install -Dm644 /root/remaster/logo.png /etc/skel/.purple/icons/hackmenta.png
-install -Dm644 /root/remaster/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
+  cp -fv /root/remaster/{blist,accounts}.xml /etc/skel/.purple/
+  install -Dm644 /root/remaster/logo.png /etc/skel/.purple/icons/hackmenta.png
+  # TODO esto ya no importa
+  install -Dm644 /root/remaster/irc.hackcoop.com.ar.crt /etc/skel/.purple/certificates/x509/tls_peers/irc.hackcoop.com.ar
 
 # modifica las variables al crear un usuario
-install -Dm755 /root/remaster/adduser.local /usr/local/sbin/adduser.local
+  install -Dm755 /root/remaster/adduser.local /usr/local/sbin/adduser.local
 
-mkdir -p /etc/skel/Escritorio/
-cp -rv /root/remaster/HackWiki /etc/skel/
+  mkdir -p /etc/skel/Escritorio/
+  cp -rv /root/remaster/HackWiki /etc/skel/
+}
 
+function autostart() {
 # programas al inicio
-mkdir -p /etc/skel/.config/autostart
-pushd /etc/skel/.config/autostart
+  mkdir -p /etc/skel/.config/autostart
+  pushd /etc/skel/.config/autostart
 # lo symlinkeamos por si hay cambios luego
-for auto in ${autostart[@]}; do
-  ln -sv /usr/share/applications/${auto}.desktop .
-done
+  for auto in ${autostart[@]}; do
+    ln -sv /usr/share/applications/${auto}.desktop .
+  done
+}
 
-echo "configurando repositorios"
-for ppa in ${ppas[@]}; do
-  add-apt-repository --yes ppa:${ppa}
-done
+function ppa() {
+  for ppa in ${ppas[@]}; do
+    add-apt-repository --yes ppa:${ppa}
+  done
+}
 
-echo "bitmask"
-add-apt-repository "deb http://deb.bitmask.net/debian ${distro} main"
-wget -O- https://dl.bitmask.net/apt.key | apt-key add -
-
-echo "configurando repositorios tor"
+function tor_repo() {
 # https://www.torproject.org/docs/debian.html.en
-echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
-
-echo "configurando repositorios tox"
-echo "deb https://pkg.tox.chat/debian nightly release" > /etc/apt/sources.list.d/tox.list
-wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | apt-key add -
-
-echo "configurando repositorios ring"
-apt-key adv --keyserver pgp.mit.edu --recv-keys A295D773307D25A33AE72F2F64CD5FA175348F84
-add-apt-repository universe
-add-apt-repository "deb http://nightly.apt.ring.cx/ubuntu_14.04/ ring main"
+  echo "deb     https://deb.torproject.org/torproject.org ${distro} main" > /etc/apt/sources.list.d/tor.list
 
 # a veces hay errores temporales en la obtencion de llaves
-i=0
-while test $i -ne 10 ;do
-  http_proxy= \
-  gpg2 --keyserver pool.sks-keyservers.net \
-       --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 \
-  && break
+  i=0
+  while test $i -ne 10 ;do
+    http_proxy= \
+    gpg2 --keyserver pool.sks-keyservers.net \
+         --recv A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 \
+    && break
 
-  echo "falló obtener clave de tor, reintentando"
-  let i++ || true
-done
-gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+    echo "falló obtener clave de tor, reintentando"
+    let i++ || true
+  done
+  gpg2 --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+}
 
 
-echo "sacando porquerías e instalando paquetes"
-apt-get update
-apt-get purge --yes ${purge[@]}
-# http://askubuntu.com/a/520941
-touch /var/run/utmp
-# propio :P
-patch /etc/init.d/udev /root/remaster/udev_disable_hotplug.patch
-# https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1325142/comments/9
-echo "libpam-systemd hold"|dpkg --set-selections
-apt-get upgrade --yes
-apt-get autoremove --yes
-patch /etc/init.d/udev /root/remaster/udev_enable_hotplug.patch
-echo "libpam-systemd install"|dpkg --set-selections
-apt-get install --yes ${packages[@]}
+function tox_repo() {
+  echo "deb https://pkg.tox.chat/debian nightly release" > /etc/apt/sources.list.d/tox.list
+  wget -qO - https://pkg.tox.chat/debian/pkg.gpg.key | apt-key add -
+}
 
+function ring_repo() {
+  apt-key adv --keyserver pgp.mit.edu --recv-keys A295D773307D25A33AE72F2F64CD5FA175348F84
+  add-apt-repository universe
+  add-apt-repository "deb http://nightly.apt.ring.cx/ubuntu_14.04/ ring main"
+}
+
+function purge_and_install() {
+  apt-get update
+  apt-get purge --yes ${purge[@]}
+  apt-get upgrade --yes
+  apt-get install --yes ${packages[@]}
+  apt-get autoremove --yes
+}
+
+
+function cacert() {
 # esto es un bardo sólo porque debian sacó cacert.org de ca-certificates
-echo "instalando cacert.org"
 # ver cacert-dot-org en parabola
-wget http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
-sha1_ok="SHA1 Fingerprint=13:5C:EC:36:F4:9C:B8:E9:3B:1A:B2:70:CD:80:88:46:76:CE:8F:33"
-sha1_test="$(openssl x509 -noout -fingerprint -in root.crt)"
+  wget http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
+  sha1_ok="SHA1 Fingerprint=13:5C:EC:36:F4:9C:B8:E9:3B:1A:B2:70:CD:80:88:46:76:CE:8F:33"
+  sha1_test="$(openssl x509 -noout -fingerprint -in root.crt)"
 
-test "${sha1_ok}" == "${sha1_test}" &&
-install -Dm644 root.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_root.crt
+  test "${sha1_ok}" == "${sha1_test}" &&
+  install -Dm644 root.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_root.crt
 
-cert_ok="class3.crt: OK"
-cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
+  cert_ok="class3.crt: OK"
+  cert_test="$(openssl verify -CAfile root.crt -verbose class3.crt)"
 
-test "${cert_ok}" == "${cert_test}" &&
-install -Dm644 class3.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_class3.crt
+  test "${cert_ok}" == "${cert_test}" &&
+  install -Dm644 class3.crt /usr/local/share/ca-certificates/cacert.org/cacert.org_class3.crt
 
 # instalar el certificado de autistici
-install -Dm644 /root/remaster/autistici-ca.crt /usr/local/share/ca-certificates/autistici.org/ca.crt
+  install -Dm644 /root/remaster/autistici-ca.crt /usr/local/share/ca-certificates/autistici.org/ca.crt
 
-install -dm755 /etc/ca-certificates/update.d
-echo "cacert.org/cacert.org_root.crt" >>/etc/ca-certificates/update.d/cacert.conf
-echo "cacert.org/cacert.org_class3.crt" >>/etc/ca-certificates/update.d/cacert.conf
-echo "autistici.org/ca.crt" >>/etc/ca-certificates/update.d/autistici.conf
+  install -dm755 /etc/ca-certificates/update.d
+  echo "cacert.org/cacert.org_root.crt" >>/etc/ca-certificates/update.d/cacert.conf
+  echo "cacert.org/cacert.org_class3.crt" >>/etc/ca-certificates/update.d/cacert.conf
+  echo "autistici.org/ca.crt" >>/etc/ca-certificates/update.d/autistici.conf
 
-update-ca-certificates --fresh
+  update-ca-certificates --fresh
+}
 
-echo "instalando librevpn"
-pushd /root/remaster
-test -d /root/remaster/librevpn/.git || git clone https://github.com/fauno/librevpn
-pushd /root/remaster/librevpn
-make install PREFIX=/usr
+function librevpn() {
+  pushd /root/remaster
+  test -d /root/remaster/librevpn/.git || git clone https://github.com/fauno/librevpn
+  pushd /root/remaster/librevpn
+  make install PREFIX=/usr
+}
 
-echo "descargando plugins de thunderbird"
-pushd /usr/lib/thunderbird-addons/extensions/
-wget -c ${morcilla_tb[@]}
-popd
-
-echo "descargando plugins de firefox"
-pushd /usr/lib/firefox-addons/distribution/extensions/
-wget -c ${morcilla[@]}
-popd
-
-echo "instalando plugins de mozilla"
-for i in /usr/lib/{thunderbird-addons,firefox-addons/distribution}/extensions/*.xpi; do
-  id="$(get_extension_id "$i")"
-
-  test -z "$id" && continue
-  mkdir "${i%/*}/$id" || continue
-  pushd "${i%/*}/$id"
-  unzip "$i"
+function download_morcilla_addons() {
+  pushd /usr/lib/thunderbird-addons/extensions/
+  wget -c ${morcilla_tb[@]}
   popd
-done
 
-find /usr/lib/thunderbird-addons/extensions/ \
-     /usr/lib/firefox-addons/distribution/extensions/ \
-     -type d -exec chmod 755 {} \;
+  pushd /usr/lib/firefox-addons/distribution/extensions/
+  wget -c ${morcilla[@]}
+  popd
+}
 
-find /usr/lib/thunderbird-addons/extensions/ \
-     /usr/lib/firefox-addons/distribution/extensions/ \
-     -type f -exec chmod 644 {} \;
+function install_morcilla_addons() {
+  for i in /usr/lib/{thunderbird-addons,firefox-addons/distribution}/extensions/*.xpi; do
+    id="$(get_extension_id "$i")"
 
+    test -z "$id" && continue
+    mkdir "${i%/*}/$id" || continue
+    pushd "${i%/*}/$id"
+    unzip "$i"
+    popd
+  done
+
+  find /usr/lib/thunderbird-addons/extensions/ \
+      /usr/lib/firefox-addons/distribution/extensions/ \
+      -type d -exec chmod 755 {} \;
+
+  find /usr/lib/thunderbird-addons/extensions/ \
+      /usr/lib/firefox-addons/distribution/extensions/ \
+      -type f -exec chmod 644 {} \;
+}
+
+function morcilla_config() {
 # opciones por defecto de enigmail
-cat /root/remaster/enigmail.js >/etc/xul-ext/enigmail.js
+  cat /root/remaster/enigmail.js >/etc/xul-ext/enigmail.js
 # y la base de datos con cacert
-install -Dm644 /root/remaster/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
-pushd /usr/share/linuxmint/common/artwork/firefox
+  install -Dm644 /root/remaster/cert8.db /etc/skel/.mozilla/firefox/mwad0hks.default/cert8.db
+  pushd /usr/share/linuxmint/common/artwork/firefox
 # opciones por defecto de firefox
-cat /root/remaster/prefs.js >firefox.js
+  cat /root/remaster/prefs.js >firefox.js
 # buscadores de mierda
-find searchplugins -name '*.xml' -delete
-for i in searchplugins/* ; do
-  install -Dm644 /root/remaster/searx.xml "${i}/searx.xml"
-done
+  find searchplugins -name '*.xml' -delete
+  for i in searchplugins/* ; do
+    install -Dm644 /root/remaster/searx.xml "${i}/searx.xml"
+  done
 
 # con alguno la vamos a pegar :P
-cat /root/remaster/thunderbird.js >>/usr/lib/thunderbird/defaults/pref/vendor.js
-cat /root/remaster/thunderbird.js >>/etc/thunderbird/syspref.js
+  cat /root/remaster/thunderbird.js >>/usr/lib/thunderbird/defaults/pref/vendor.js
+  cat /root/remaster/thunderbird.js >>/etc/thunderbird/syspref.js
+}
 
-echo "instalando dl.git"
-pushd /etc/skel/
-git clone http://repo.hackcoop.com.ar/dl.git
-echo 'PATH=~/dl:$PATH' >>.bashrc
+function dl() {
+  pushd /etc/skel/
+  git clone http://repo.hackcoop.com.ar/dl.git
+  echo 'PATH=~/dl:$PATH' >>.bashrc
+}
+
+function bitmask() {
+  pushd /var/cache/apt/archives
+  wget -O- https://dl.bitmask.net/apt.key | gpg --import
+  wget -nc https://dl.bitmask.net/client/linux/stable/Bitmask-linux32-latest.tar.bz2{,.asc}
+  gpg --verify Bitmask-linux32-latest.tar.bz2.asc || exit 1
+
+  mkdir /opt/bitmask
+  tar --directory=/opt/bitmask --strip-components=1 -xvf Bitmask-linux32-latest.tar.bz2
+# por alguna razon tira un error si lo dejamos como root, usamos los uid
+# para que se mantengan luego
+  chown -R 1000:1000 /opt/bitmask
+}
 
 
-pushd /root/remaster
+function branding() {
+  pushd /root/remaster
 # logos
-cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
+  cp logo.svg /usr/share/linuxmint/common/artwork/logos/scalable.svg
 
-LOGO="logo.png"
+  LOGO="logo.png"
 
-for logo in /usr/share/linuxmint/common/artwork/logos/16.png \
-            /usr/share/linuxmint/common/artwork/logos/22.png \
-            /usr/share/linuxmint/common/artwork/logos/24.png \
-            /usr/share/linuxmint/common/artwork/logos/32.png \
-            /usr/share/linuxmint/common/artwork/logos/48.png \
-            /usr/share/linuxmint/logo.png \
-            /usr/share/linuxmint/mintinstall/icons/mintbackup.png \
-            /usr/share/linuxmint/mintinstall/icons/mintdesktop.png \
-            /usr/share/linuxmint/mintinstall/icons/mintinstall.png \
-            /usr/share/linuxmint/mintinstall/icons/mintmenu.png \
-            /usr/share/linuxmint/mintinstall/icons/mintnanny.png \
-            /usr/share/linuxmint/mintinstall/icons/mintupdate.png \
-            /usr/share/linuxmint/mintinstall/icons/mintupload.png \
-            /lib/plymouth/themes/mint-logo/logo.png ; do
+  for logo in /usr/share/linuxmint/common/artwork/logos/16.png \
+              /usr/share/linuxmint/common/artwork/logos/22.png \
+              /usr/share/linuxmint/common/artwork/logos/24.png \
+              /usr/share/linuxmint/common/artwork/logos/32.png \
+              /usr/share/linuxmint/common/artwork/logos/48.png \
+              /usr/share/linuxmint/logo.png \
+              /usr/share/linuxmint/mintinstall/icons/mintbackup.png \
+              /usr/share/linuxmint/mintinstall/icons/mintdesktop.png \
+              /usr/share/linuxmint/mintinstall/icons/mintinstall.png \
+              /usr/share/linuxmint/mintinstall/icons/mintmenu.png \
+              /usr/share/linuxmint/mintinstall/icons/mintnanny.png \
+              /usr/share/linuxmint/mintinstall/icons/mintupdate.png \
+              /usr/share/linuxmint/mintinstall/icons/mintupload.png \
+              /lib/plymouth/themes/mint-logo/logo.png ; do
 
-  # obtener la resolución
-	size=$(identify -verbose "${logo}" |
-           grep "geometry" |
-           cut -d'+' -f1 | cut -d':' -f2)
-  # convertir nuestro logo a la resolución correspondiente
-	convert "${LOGO}" -resize ${size} "${logo}"
-done
+    # obtener la resolución
+    size=$(identify -verbose "${logo}" |
+            grep "geometry" |
+            cut -d'+' -f1 | cut -d':' -f2)
+    # convertir nuestro logo a la resolución correspondiente
+    convert "${LOGO}" -resize ${size} "${logo}"
+  done
 
 # logos con marca de instalados
-for logo in /usr/share/linuxmint/mintinstall/installed/mintbackup.png \
-            /usr/share/linuxmint/mintinstall/installed/mintdesktop.png \
-            /usr/share/linuxmint/mintinstall/installed/mintinstall.png \
-            /usr/share/linuxmint/mintinstall/installed/mintmenu.png \
-            /usr/share/linuxmint/mintinstall/installed/mintnanny.png \
-            /usr/share/linuxmint/mintinstall/installed/mintupdate.png \
-            /usr/share/linuxmint/mintinstall/installed/mintupload.png ; do
-	convert "${logo/installed/icons}" -gravity SouthEast \
-          /usr/share/linuxmint/mintinstall/emblem-installed.png \
-          -composite "${logo}"
-done
+  for logo in /usr/share/linuxmint/mintinstall/installed/mintbackup.png \
+              /usr/share/linuxmint/mintinstall/installed/mintdesktop.png \
+              /usr/share/linuxmint/mintinstall/installed/mintinstall.png \
+              /usr/share/linuxmint/mintinstall/installed/mintmenu.png \
+              /usr/share/linuxmint/mintinstall/installed/mintnanny.png \
+              /usr/share/linuxmint/mintinstall/installed/mintupdate.png \
+              /usr/share/linuxmint/mintinstall/installed/mintupload.png ; do
+    convert "${logo/installed/icons}" -gravity SouthEast \
+            /usr/share/linuxmint/mintinstall/emblem-installed.png \
+            -composite "${logo}"
+  done
 
 # fondo de pantalla
-install -Dm644 fondo.png /usr/share/xfce4/backdrops/hackmenta.png
-install -Dm644 xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+  install -Dm644 fondo.png /usr/share/xfce4/backdrops/hackmenta.png
+  install -Dm644 xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 
 # actualiza el initramfs
-update-initramfs -u
+  update-initramfs -u
+}
 
+function macchanger() {
 # instala el servicio de cambio de mac
-install -Dm755 /root/remaster/macchanger /etc/init.d/macchanger
-update-rc.d macchanger defaults 10
+  install -Dm755 /root/remaster/macchanger /etc/init.d/macchanger
+  update-rc.d macchanger defaults 10
+}
+
+function missing_desktop() {
+  for missing in qtox bitmask; do
+    install -m644 /root/remaster/${missing}.desktop /usr/share/applications/${missing}.desktop
+    install -m644 /root/remaster/${missing}.png /etc/skel/${missing}.png ||\
+    install -m644 /root/remaster/${missing}.svg /etc/skel/${missing}.svg
+  done
+}
+
+# Saltearse los pasos completados
+function run() {
+  local _done=/root/remaster/.${1}_done
+  test -f ${_done} && return 0
+
+  $1 && touch ${_done}
+}
+
+function init() {
+  run bootstrap
+  run fixes
+  run castellano
+  run skel
+  run autostart
+  run ppa
+  run tor_repo
+  run tox_repo
+  run ring_repo
+  run purge_and_install
+  run cacert
+  run librevpn
+  run download_morcilla_addons
+  run install_morcilla_addons
+  run morcilla_config
+  run dl
+  run bitmask
+  run missing_desktop
+  run branding
+  run macchanger
+}
+
+test "$(basename $0)" == "makementa" && init
